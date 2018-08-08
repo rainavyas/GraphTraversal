@@ -25,7 +25,7 @@ def write_a_test(conditions):
  
 	
 
-with open('lights--2018-08-03T08_59_04.846Z.json') as f:
+with open('Timers--2018-08-08T10_11_37.473Z.json') as f:
     data = json.load(f)
 parsed=[]
 

@@ -1,0 +1,1768 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "type": "INITIAL",
+      "label": "Timers",
+      "position": {
+        "x": 50,
+        "y": 300
+      },
+      "timeout": 0
+    },
+    {
+      "id": 1,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 310,
+        "y": 120
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:set"
+            },
+            {
+              "key": "timer:duration",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:set"
+            },
+            {
+              "key": "timer:time",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:set"
+            },
+            {
+              "key": "timer:timer_name",
+              "value": "+"
+            },
+            {
+              "key": "timer:duration",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer:timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:set"
+            },
+            {
+              "key": "timer:timer_name",
+              "value": "+"
+            },
+            {
+              "key": "timer:time",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:query_get_list"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:query_get_list"
+            },
+            {
+              "key": "timer:timer_name",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:query_get_list"
+            },
+            {
+              "key": "timer:duration",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:query_get_list"
+            },
+            {
+              "key": "timer:time",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:query_get_list"
+            },
+            {
+              "key": "timer:timer_name",
+              "value": "+"
+            },
+            {
+              "key": "timer:duration",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:query_get_list"
+            },
+            {
+              "key": "timer:method",
+              "value": "list"
+            },
+            {
+              "key": "timer:timer_name",
+              "value": "+"
+            },
+            {
+              "key": "timer:time",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:delete"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:delete"
+            },
+            {
+              "key": "timer:timer_name",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:delete"
+            },
+            {
+              "key": "timer:duration",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:delete"
+            },
+            {
+              "key": "timer:time",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:delete"
+            },
+            {
+              "key": "timer:timer_name",
+              "value": "+"
+            },
+            {
+              "key": "timer:duration",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:delete"
+            },
+            {
+              "key": "timer:timer_name",
+              "value": "+"
+            },
+            {
+              "key": "timer:time",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "timer"
+            },
+            {
+              "key": "intents",
+              "value": "timer:set"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 5,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 640,
+        "y": 410
+      },
+      "actions": [
+        {
+          "type": "TIMERS",
+          "command": "QUERY",
+          "parameters": [
+            {
+              "key": "name",
+              "value": "$timer:timer_name"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 6,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 930,
+        "y": 340
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 7,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2360,
+        "y": 80
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Your [timer:timer_name] timer has been set, starting now."
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 9,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1250,
+        "y": 440
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "You have a timer called [timer:timer_name]. Are you sure you want to make another?"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 10,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 2050,
+        "y": 300
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "affirm"
+            },
+            {
+              "key": "intents",
+              "value": "affirm:affirm"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "type": 5,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 11,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1550,
+        "y": 390
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 12,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1800,
+        "y": 320
+      },
+      "actions": [
+        {
+          "type": "MIC",
+          "command": "LISTEN",
+          "parameters": []
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 14,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2360,
+        "y": 390
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Okay, I won't create it."
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 15,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2660,
+        "y": 400
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 16,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2630,
+        "y": 110
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 17,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 630,
+        "y": 700
+      },
+      "actions": [
+        {
+          "type": "TIMERS",
+          "command": "QUERY",
+          "parameters": [
+            {
+              "key": "name",
+              "value": "$timer:timer_name"
+            },
+            {
+              "key": "duration",
+              "value": "$timer:duration"
+            },
+            {
+              "key": "time",
+              "value": "$timer:time"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 18,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 940,
+        "y": 560
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 19,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2670,
+        "y": 620
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 20,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2350,
+        "y": 600
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "You have no [timer:timer_name] timers set."
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 21,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1260,
+        "y": 660
+      },
+      "actions": [
+        {
+          "type": "TIMERS",
+          "command": "LIST",
+          "parameters": []
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 22,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1520,
+        "y": 660
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 23,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 630,
+        "y": 1280
+      },
+      "actions": [
+        {
+          "type": "TIMERS",
+          "command": "QUERY",
+          "parameters": [
+            {
+              "key": "name",
+              "value": "$timer:timer_name"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 24,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 920,
+        "y": 1270
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 28,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2680,
+        "y": 1290
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 30,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1250,
+        "y": 1530
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Are you sure you want to delete your [timer:timer_name] timers?"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 31,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 2140,
+        "y": 1620
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "affirm"
+            },
+            {
+              "key": "intents",
+              "value": "affirm:affirm"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 5,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 32,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2440,
+        "y": 1650
+      },
+      "actions": [
+        {
+          "type": "TIMERS",
+          "command": "DELETE",
+          "parameters": []
+        },
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Deleting your [timer:timer_name] timers."
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 33,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2720,
+        "y": 1660
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 34,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2450,
+        "y": 1870
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Okay, I won't delete them."
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 35,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2720,
+        "y": 1860
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 40,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1520,
+        "y": 1570
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 41,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1850,
+        "y": 1620
+      },
+      "actions": [
+        {
+          "type": "MIC",
+          "command": "LISTEN",
+          "parameters": []
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 42,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1300,
+        "y": 1340
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Are you sure you want to delete your [timer:timer_name] timer?"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 43,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1650,
+        "y": 1350
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 44,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1890,
+        "y": 1340
+      },
+      "actions": [
+        {
+          "type": "MIC",
+          "command": "LISTEN",
+          "parameters": []
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 45,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 2130,
+        "y": 1330
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "affirm"
+            },
+            {
+              "key": "intents",
+              "value": "affirm:affirm"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 5,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 46,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2430,
+        "y": 1260
+      },
+      "actions": [
+        {
+          "type": "TIMERS",
+          "command": "DELETE",
+          "parameters": []
+        },
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Deleting your [timer:timer_name] timer."
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 47,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2430,
+        "y": 1430
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Okay, I won't delete it."
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 48,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2690,
+        "y": 1450
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 49,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2940,
+        "y": 90
+      },
+      "actions": [
+        {
+          "type": "TIMERS",
+          "command": "SET",
+          "parameters": [
+            {
+              "key": "name",
+              "value": "$timer:timer_name"
+            },
+            {
+              "key": "duration",
+              "value": "$timer:duration"
+            },
+            {
+              "key": "time",
+              "value": "$timer:time"
+            }
+          ]
+        },
+        {
+          "type": "TIMEOUT",
+          "command": "SET",
+          "parameters": [
+            {
+              "key": "duration",
+              "value": 0
+            },
+            {
+              "key": "token",
+              "value": "nop"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 50,
+      "position": {
+        "x": 3200,
+        "y": 130
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 7,
+          "pattern": [
+            {
+              "key": "token",
+              "value": "nop"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "position": {
+        "x": 680,
+        "y": 1750
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Okay, for how long?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "position": {
+        "x": 960,
+        "y": 1760
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "position": {
+        "x": 1260,
+        "y": 1780
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "MIC",
+          "command": "ASK_FOR_ENTITIES",
+          "parameters": [
+            {
+              "key": "entity",
+              "value": "timer:duration"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "position": {
+        "x": 1600,
+        "y": 1810
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "timer:duration",
+              "value": "+"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "from": {
+        "node": 0
+      },
+      "to": {
+        "node": 1
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 2
+      },
+      "to": {
+        "node": 5
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 3
+      },
+      "to": {
+        "node": 5
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 0
+      },
+      "to": {
+        "node": 7
+      }
+    },
+    {
+      "from": {
+        "node": 5
+      },
+      "to": {
+        "node": 6
+      }
+    },
+    {
+      "from": {
+        "node": 6,
+        "condition": 0
+      },
+      "to": {
+        "node": 7
+      }
+    },
+    {
+      "from": {
+        "node": 6,
+        "condition": 1
+      },
+      "to": {
+        "node": 9
+      }
+    },
+    {
+      "from": {
+        "node": 9
+      },
+      "to": {
+        "node": 11
+      }
+    },
+    {
+      "from": {
+        "node": 11,
+        "condition": 0
+      },
+      "to": {
+        "node": 12
+      }
+    },
+    {
+      "from": {
+        "node": 12
+      },
+      "to": {
+        "node": 10
+      }
+    },
+    {
+      "from": {
+        "node": 10,
+        "condition": 0
+      },
+      "to": {
+        "node": 7
+      }
+    },
+    {
+      "from": {
+        "node": 14
+      },
+      "to": {
+        "node": 15
+      }
+    },
+    {
+      "from": {
+        "node": 7
+      },
+      "to": {
+        "node": 16
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 1
+      },
+      "to": {
+        "node": 7
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 4
+      },
+      "to": {
+        "node": 17
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 5
+      },
+      "to": {
+        "node": 17
+      }
+    },
+    {
+      "from": {
+        "node": 18,
+        "condition": 0
+      },
+      "to": {
+        "node": 20
+      }
+    },
+    {
+      "from": {
+        "node": 20
+      },
+      "to": {
+        "node": 19
+      }
+    },
+    {
+      "from": {
+        "node": 18,
+        "condition": 1
+      },
+      "to": {
+        "node": 21
+      }
+    },
+    {
+      "from": {
+        "node": 21
+      },
+      "to": {
+        "node": 22
+      }
+    },
+    {
+      "from": {
+        "node": 23
+      },
+      "to": {
+        "node": 24
+      }
+    },
+    {
+      "from": {
+        "node": 24,
+        "condition": 2
+      },
+      "to": {
+        "node": 30
+      }
+    },
+    {
+      "from": {
+        "node": 31,
+        "condition": 0
+      },
+      "to": {
+        "node": 32
+      }
+    },
+    {
+      "from": {
+        "node": 32
+      },
+      "to": {
+        "node": 33
+      }
+    },
+    {
+      "from": {
+        "node": 31,
+        "condition": 1
+      },
+      "to": {
+        "node": 34
+      }
+    },
+    {
+      "from": {
+        "node": 34
+      },
+      "to": {
+        "node": 35
+      }
+    },
+    {
+      "from": {
+        "node": 24,
+        "condition": 0
+      },
+      "to": {
+        "node": 20
+      }
+    },
+    {
+      "from": {
+        "node": 30
+      },
+      "to": {
+        "node": 40
+      }
+    },
+    {
+      "from": {
+        "node": 40,
+        "condition": 0
+      },
+      "to": {
+        "node": 41
+      }
+    },
+    {
+      "from": {
+        "node": 41
+      },
+      "to": {
+        "node": 31
+      }
+    },
+    {
+      "from": {
+        "node": 17
+      },
+      "to": {
+        "node": 18
+      }
+    },
+    {
+      "from": {
+        "node": 10,
+        "condition": 2
+      },
+      "to": {
+        "node": 14
+      }
+    },
+    {
+      "from": {
+        "node": 24,
+        "condition": 1
+      },
+      "to": {
+        "node": 42
+      }
+    },
+    {
+      "from": {
+        "node": 42
+      },
+      "to": {
+        "node": 43
+      }
+    },
+    {
+      "from": {
+        "node": 43,
+        "condition": 0
+      },
+      "to": {
+        "node": 44
+      }
+    },
+    {
+      "from": {
+        "node": 44
+      },
+      "to": {
+        "node": 45
+      }
+    },
+    {
+      "from": {
+        "node": 45,
+        "condition": 0
+      },
+      "to": {
+        "node": 46
+      }
+    },
+    {
+      "from": {
+        "node": 46
+      },
+      "to": {
+        "node": 28
+      }
+    },
+    {
+      "from": {
+        "node": 45,
+        "condition": 1
+      },
+      "to": {
+        "node": 47
+      }
+    },
+    {
+      "from": {
+        "node": 47
+      },
+      "to": {
+        "node": 48
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 7
+      },
+      "to": {
+        "node": 17
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 8
+      },
+      "to": {
+        "node": 17
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 9
+      },
+      "to": {
+        "node": 17
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 10
+      },
+      "to": {
+        "node": 17
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 11
+      },
+      "to": {
+        "node": 23
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 12
+      },
+      "to": {
+        "node": 23
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 13
+      },
+      "to": {
+        "node": 23
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 14
+      },
+      "to": {
+        "node": 23
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 15
+      },
+      "to": {
+        "node": 23
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 16
+      },
+      "to": {
+        "node": 23
+      }
+    },
+    {
+      "from": {
+        "node": 16,
+        "condition": 0
+      },
+      "to": {
+        "node": 49
+      }
+    },
+    {
+      "from": {
+        "node": 49
+      },
+      "to": {
+        "node": 50
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 17
+      },
+      "to": {
+        "node": 51
+      }
+    },
+    {
+      "from": {
+        "node": 51
+      },
+      "to": {
+        "node": 52
+      }
+    },
+    {
+      "from": {
+        "node": 52,
+        "condition": 0
+      },
+      "to": {
+        "node": 53
+      }
+    },
+    {
+      "from": {
+        "node": 53
+      },
+      "to": {
+        "node": 54
+      }
+    },
+    {
+      "from": {
+        "node": 54,
+        "condition": 0
+      },
+      "to": {
+        "node": 7
+      }
+    }
+  ]
+}

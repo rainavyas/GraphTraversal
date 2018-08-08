@@ -1,0 +1,2048 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "type": "INITIAL",
+      "label": "lights",
+      "position": {
+        "x": 30,
+        "y": 50
+      }
+    },
+    {
+      "id": 1,
+      "type": "EVENT",
+      "label": "Speech Recognised",
+      "position": {
+        "x": 10,
+        "y": 150
+      },
+      "conditions": [
+        {
+          "id": 1,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "iot_lighting"
+            },
+            {
+              "key": "intents",
+              "value": "iot_lighting:turn_on"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "iot_lighting:house_place",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "iot_lighting"
+            },
+            {
+              "key": "intents",
+              "value": "iot_lighting:turn_on"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "iot_lighting:color",
+              "value": "+"
+            },
+            {
+              "key": "iot_lighting:house_place",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "iot_lighting"
+            },
+            {
+              "key": "intents",
+              "value": "iot_lighting:turn_on"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "iot_lighting"
+            },
+            {
+              "key": "intents",
+              "value": "iot_lighting:turn_up"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "iot_lighting:house_place",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "iot_lighting"
+            },
+            {
+              "key": "intents",
+              "value": "iot_lighting:turn_up"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "iot_lighting"
+            },
+            {
+              "key": "intents",
+              "value": "iot_lighting:turn_down"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "iot_lighting:house_place",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "iot_lighting"
+            },
+            {
+              "key": "intents",
+              "value": "iot_lighting:turn_down"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "iot_lighting:color",
+              "value": "+"
+            },
+            {
+              "key": "iot_lighting:house_place",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "iot_lighting"
+            },
+            {
+              "key": "intents",
+              "value": "iot_lighting:set_specific"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "iot_lighting:color",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "iot_lighting"
+            },
+            {
+              "key": "intents",
+              "value": "iot_lighting:set_specific"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "iot_lighting"
+            },
+            {
+              "key": "intents",
+              "value": "iot_lighting:turn_off"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "iot_lighting:house_place",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "iot_lighting"
+            },
+            {
+              "key": "intents",
+              "value": "iot_lighting:turn_off"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "iot_lighting"
+            },
+            {
+              "key": "intents",
+              "value": "iot_lighting:set_specific"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "iot_lighting"
+            },
+            {
+              "key": "intents",
+              "value": "iot_lighting:set_specific"
+            },
+            {
+              "key": "iot_lighting:house_place",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 9,
+      "type": "ACTION",
+      "label": "Turn lights on to color in room",
+      "position": {
+        "x": 1230,
+        "y": 40
+      },
+      "actions": [
+        {
+          "type": "iot.LIGHTS",
+          "command": "TURN_ON",
+          "parameters": [
+            {
+              "key": "color",
+              "value": "$iot_lighting:color"
+            },
+            {
+              "key": "entity_id",
+              "value": "$entity_id"
+            }
+          ]
+        },
+        {
+          "type": "TIMEOUT",
+          "command": "SET",
+          "parameters": [
+            {
+              "key": "duration",
+              "value": 0
+            },
+            {
+              "key": "token",
+              "value": "nop"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "type": "ACTION",
+      "label": "Turn lights up in the room",
+      "position": {
+        "x": 1220,
+        "y": 480
+      },
+      "actions": [
+        {
+          "type": "iot.LIGHTS",
+          "command": "TURN_ON",
+          "parameters": [
+            {
+              "key": "brightness",
+              "value": "$brightness"
+            },
+            {
+              "key": "entity_id",
+              "value": "$entity_id"
+            }
+          ]
+        },
+        {
+          "type": "TIMEOUT",
+          "command": "SET",
+          "parameters": [
+            {
+              "key": "duration",
+              "value": 0
+            },
+            {
+              "key": "token",
+              "value": "nop"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "type": "ACTION",
+      "label": "Turn lights down in the room",
+      "position": {
+        "x": 1230,
+        "y": 900
+      },
+      "actions": [
+        {
+          "type": "iot.LIGHTS",
+          "command": "TURN_ON",
+          "parameters": [
+            {
+              "key": "brightness",
+              "value": "$brightness"
+            },
+            {
+              "key": "entity_id",
+              "value": "$entity_id"
+            }
+          ]
+        },
+        {
+          "type": "TIMEOUT",
+          "command": "SET",
+          "parameters": [
+            {
+              "key": "duration",
+              "value": 0
+            },
+            {
+              "key": "token",
+              "value": "nop"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "type": "ACTION",
+      "label": "Turn lights off in room",
+      "position": {
+        "x": 1230,
+        "y": 1670
+      },
+      "actions": [
+        {
+          "type": "iot.LIGHTS",
+          "command": "TURN_OFF",
+          "parameters": [
+            {
+              "key": "entity_id",
+              "value": "$entity_id"
+            }
+          ]
+        },
+        {
+          "type": "TIMEOUT",
+          "command": "SET",
+          "parameters": [
+            {
+              "key": "token",
+              "value": "nop"
+            },
+            {
+              "key": "duration",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "type": "EVENT",
+      "label": "ARE",
+      "position": {
+        "x": 1650,
+        "y": 570
+      },
+      "conditions": [
+        {
+          "id": 1,
+          "type": 7,
+          "pattern": [
+            {
+              "key": "token",
+              "value": "nop"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 25,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2400,
+        "y": 800
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 27,
+      "type": "EVENT",
+      "label": "",
+      "position": {
+        "x": 1590,
+        "y": 1670
+      },
+      "conditions": [
+        {
+          "id": 2,
+          "type": 7,
+          "pattern": [
+            {
+              "key": "token",
+              "value": "nop"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 30,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1230,
+        "y": 1320
+      },
+      "actions": [
+        {
+          "type": "iot.LIGHTS",
+          "command": "TURN_ON",
+          "parameters": [
+            {
+              "key": "color",
+              "value": "$iot_lighting:color"
+            },
+            {
+              "key": "entity_id",
+              "value": "$entity_id"
+            }
+          ]
+        },
+        {
+          "type": "TIMEOUT",
+          "command": "SET",
+          "parameters": [
+            {
+              "key": "duration",
+              "value": 0
+            },
+            {
+              "key": "token",
+              "value": "nop"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2480,
+        "y": 1120
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 67,
+      "position": {
+        "x": 470,
+        "y": 1800
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Could not find the color you ask for."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 70,
+      "position": {
+        "x": 880,
+        "y": 1800
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ]
+    },
+    {
+      "id": 71,
+      "position": {
+        "x": 470,
+        "y": 250
+      },
+      "label": "Turn specific lights on",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "IOT",
+          "command": "RESOLVE_BY_DOMAIN_AND_NAME",
+          "parameters": [
+            {
+              "key": "domain",
+              "value": "light"
+            },
+            {
+              "key": "name",
+              "value": "$iot_lighting:house_place"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 72,
+      "position": {
+        "x": 880,
+        "y": 40
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "iteration_end",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 73,
+      "position": {
+        "x": 2250,
+        "y": 130
+      },
+      "label": "Undefined",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "There is no light called like that"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 80,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1630,
+        "y": 180
+      },
+      "conditions": [
+        {
+          "id": 2,
+          "type": 7,
+          "pattern": [
+            {
+              "key": "token",
+              "value": "nop"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 81,
+      "position": {
+        "x": 1920,
+        "y": 120
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "ITERATOR",
+          "command": "GET_NEXT",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 83,
+      "position": {
+        "x": 460,
+        "y": 620
+      },
+      "label": "Turn specific lights on",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "IOT",
+          "command": "RESOLVE_BY_DOMAIN_AND_NAME",
+          "parameters": [
+            {
+              "key": "domain",
+              "value": "light"
+            },
+            {
+              "key": "name",
+              "value": "$iot_lighting:house_place"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 84,
+      "position": {
+        "x": 860,
+        "y": 410
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "iteration_end",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 85,
+      "position": {
+        "x": 2050,
+        "y": 590
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "ITERATOR",
+          "command": "GET_NEXT",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 86,
+      "position": {
+        "x": 430,
+        "y": 980
+      },
+      "label": "Turn specific lights down in a specific room",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "IOT",
+          "command": "RESOLVE_BY_DOMAIN_AND_NAME",
+          "parameters": [
+            {
+              "key": "domain",
+              "value": "light"
+            },
+            {
+              "key": "name",
+              "value": "$iot_lighting:house_place"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 87,
+      "position": {
+        "x": 860,
+        "y": 980
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "iteration_end",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 88,
+      "position": {
+        "x": 1980,
+        "y": 980
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "ITERATOR",
+          "command": "GET_NEXT",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 89,
+      "position": {
+        "x": 500,
+        "y": 1400
+      },
+      "label": "Change color in a specific room",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "IOT",
+          "command": "RESOLVE_BY_DOMAIN_AND_NAME",
+          "parameters": [
+            {
+              "key": "domain",
+              "value": "light"
+            },
+            {
+              "key": "name",
+              "value": "$iot_lighting:house_place"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 90,
+      "position": {
+        "x": 860,
+        "y": 1260
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "iteration_end",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 91,
+      "position": {
+        "x": 1990,
+        "y": 1390
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "ITERATOR",
+          "command": "GET_NEXT",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 92,
+      "position": {
+        "x": 480,
+        "y": 1630
+      },
+      "label": "Change color in a specific room",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "IOT",
+          "command": "RESOLVE_BY_DOMAIN_AND_NAME",
+          "parameters": [
+            {
+              "key": "domain",
+              "value": "light"
+            },
+            {
+              "key": "name",
+              "value": "$iot_lighting:house_place"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 93,
+      "position": {
+        "x": 870,
+        "y": 1530
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "iteration_end",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 94,
+      "position": {
+        "x": 1900,
+        "y": 1670
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "ITERATOR",
+          "command": "GET_NEXT",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 96,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2640,
+        "y": 120
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 98,
+      "position": {
+        "x": 1640,
+        "y": 330
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "error",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": []
+        }
+      ]
+    },
+    {
+      "id": 99,
+      "position": {
+        "x": 2040,
+        "y": 260
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "$error"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 101,
+      "position": {
+        "x": 1630,
+        "y": 820
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "error",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": []
+        }
+      ]
+    },
+    {
+      "id": 102,
+      "position": {
+        "x": 1940,
+        "y": 700
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "$error"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 104,
+      "position": {
+        "x": 1650,
+        "y": 1140
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "error",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": []
+        }
+      ]
+    },
+    {
+      "id": 105,
+      "position": {
+        "x": 2020,
+        "y": 1080
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "$error"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 106,
+      "position": {
+        "x": 2030,
+        "y": 390
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "brightening the lights"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 107,
+      "position": {
+        "x": 2430,
+        "y": 310
+      },
+      "label": "TTS_FINISHED",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ]
+    },
+    {
+      "id": 108,
+      "position": {
+        "x": 1650,
+        "y": 50
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "turning the lights on"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 109,
+      "position": {
+        "x": 1950,
+        "y": 840
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "dimming the lights"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 113,
+      "position": {
+        "x": 2030,
+        "y": 1210
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "changing the colour of the lights"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 115,
+      "type": "EVENT",
+      "label": "ARE",
+      "position": {
+        "x": 1640,
+        "y": 1000
+      },
+      "conditions": [
+        {
+          "id": 1,
+          "type": 7,
+          "pattern": [
+            {
+              "key": "token",
+              "value": "nop"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 116,
+      "type": "EVENT",
+      "label": "ARE",
+      "position": {
+        "x": 1600,
+        "y": 1400
+      },
+      "conditions": [
+        {
+          "id": 2,
+          "type": 7,
+          "pattern": [
+            {
+              "key": "token",
+              "value": "nop"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 117,
+      "position": {
+        "x": 1230,
+        "y": 1560
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "turning the lights off"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 118,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1590,
+        "y": 1560
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 120,
+      "position": {
+        "x": 1220,
+        "y": 300
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "IOT",
+          "command": "RESOLVE_BY_DOMAIN_NAME_AND_CAPABILITY",
+          "parameters": [
+            {
+              "key": "capability",
+              "value": "brightness"
+            },
+            {
+              "key": "domain",
+              "value": "light"
+            },
+            {
+              "key": "name",
+              "value": "$iot_lighting:house_place"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 121,
+      "position": {
+        "x": 1230,
+        "y": 1130
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "IOT",
+          "command": "RESOLVE_BY_DOMAIN_NAME_AND_CAPABILITY",
+          "parameters": [
+            {
+              "key": "capability",
+              "value": "color"
+            },
+            {
+              "key": "domain",
+              "value": "light"
+            },
+            {
+              "key": "name",
+              "value": "$iot_lighting:house_place"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 125,
+      "position": {
+        "x": 1220,
+        "y": 710
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "IOT",
+          "command": "RESOLVE_BY_DOMAIN_NAME_AND_CAPABILITY",
+          "parameters": [
+            {
+              "key": "capability",
+              "value": "brightness"
+            },
+            {
+              "key": "domain",
+              "value": "light"
+            },
+            {
+              "key": "name",
+              "value": "$iot_lighting:house_place"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "from": {
+        "node": 0
+      },
+      "to": {
+        "node": 1
+      }
+    },
+    {
+      "from": {
+        "node": 14
+      },
+      "to": {
+        "node": 21
+      }
+    },
+    {
+      "from": {
+        "node": 13
+      },
+      "to": {
+        "node": 27
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 15
+      },
+      "to": {
+        "node": 67
+      }
+    },
+    {
+      "from": {
+        "node": 67
+      },
+      "to": {
+        "node": 70
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 2
+      },
+      "to": {
+        "node": 71
+      }
+    },
+    {
+      "from": {
+        "node": 71
+      },
+      "to": {
+        "node": 72
+      }
+    },
+    {
+      "from": {
+        "node": 81
+      },
+      "to": {
+        "node": 72
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 3
+      },
+      "to": {
+        "node": 71
+      }
+    },
+    {
+      "from": {
+        "node": 9
+      },
+      "to": {
+        "node": 80
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 16
+      },
+      "to": {
+        "node": 67
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 5
+      },
+      "to": {
+        "node": 83
+      }
+    },
+    {
+      "from": {
+        "node": 83
+      },
+      "to": {
+        "node": 84
+      }
+    },
+    {
+      "from": {
+        "node": 84,
+        "condition": 0
+      },
+      "to": {
+        "node": 73
+      }
+    },
+    {
+      "from": {
+        "node": 85
+      },
+      "to": {
+        "node": 84
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 7
+      },
+      "to": {
+        "node": 86
+      }
+    },
+    {
+      "from": {
+        "node": 86
+      },
+      "to": {
+        "node": 87
+      }
+    },
+    {
+      "from": {
+        "node": 87,
+        "condition": 0
+      },
+      "to": {
+        "node": 73
+      }
+    },
+    {
+      "from": {
+        "node": 88
+      },
+      "to": {
+        "node": 87
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 8
+      },
+      "to": {
+        "node": 89
+      }
+    },
+    {
+      "from": {
+        "node": 89
+      },
+      "to": {
+        "node": 90
+      }
+    },
+    {
+      "from": {
+        "node": 90,
+        "condition": 0
+      },
+      "to": {
+        "node": 73
+      }
+    },
+    {
+      "from": {
+        "node": 91
+      },
+      "to": {
+        "node": 90
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 11
+      },
+      "to": {
+        "node": 92
+      }
+    },
+    {
+      "from": {
+        "node": 92
+      },
+      "to": {
+        "node": 93
+      }
+    },
+    {
+      "from": {
+        "node": 93,
+        "condition": 0
+      },
+      "to": {
+        "node": 73
+      }
+    },
+    {
+      "from": {
+        "node": 94
+      },
+      "to": {
+        "node": 93
+      }
+    },
+    {
+      "from": {
+        "node": 72,
+        "condition": 0
+      },
+      "to": {
+        "node": 73
+      }
+    },
+    {
+      "from": {
+        "node": 73
+      },
+      "to": {
+        "node": 96
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 1
+      },
+      "to": {
+        "node": 9
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 4
+      },
+      "to": {
+        "node": 14
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 6
+      },
+      "to": {
+        "node": 15
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 9
+      },
+      "to": {
+        "node": 30
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 10
+      },
+      "to": {
+        "node": 13
+      }
+    },
+    {
+      "from": {
+        "node": 93,
+        "condition": 2
+      },
+      "to": {
+        "node": 13
+      }
+    },
+    {
+      "from": {
+        "node": 98,
+        "condition": 0
+      },
+      "to": {
+        "node": 99
+      }
+    },
+    {
+      "from": {
+        "node": 72,
+        "condition": 3
+      },
+      "to": {
+        "node": 9
+      }
+    },
+    {
+      "from": {
+        "node": 101,
+        "condition": 0
+      },
+      "to": {
+        "node": 102
+      }
+    },
+    {
+      "from": {
+        "node": 102
+      },
+      "to": {
+        "node": 25
+      }
+    },
+    {
+      "from": {
+        "node": 104,
+        "condition": 0
+      },
+      "to": {
+        "node": 105
+      }
+    },
+    {
+      "from": {
+        "node": 105
+      },
+      "to": {
+        "node": 33
+      }
+    },
+    {
+      "from": {
+        "node": 106
+      },
+      "to": {
+        "node": 107
+      }
+    },
+    {
+      "from": {
+        "node": 72,
+        "condition": 2
+      },
+      "to": {
+        "node": 108
+      }
+    },
+    {
+      "from": {
+        "node": 108
+      },
+      "to": {
+        "node": 96
+      }
+    },
+    {
+      "from": {
+        "node": 84,
+        "condition": 2
+      },
+      "to": {
+        "node": 14
+      }
+    },
+    {
+      "from": {
+        "node": 99
+      },
+      "to": {
+        "node": 107
+      }
+    },
+    {
+      "from": {
+        "node": 98,
+        "condition": 1
+      },
+      "to": {
+        "node": 106
+      }
+    },
+    {
+      "from": {
+        "node": 87,
+        "condition": 2
+      },
+      "to": {
+        "node": 15
+      }
+    },
+    {
+      "from": {
+        "node": 101,
+        "condition": 1
+      },
+      "to": {
+        "node": 109
+      }
+    },
+    {
+      "from": {
+        "node": 109
+      },
+      "to": {
+        "node": 25
+      }
+    },
+    {
+      "from": {
+        "node": 15
+      },
+      "to": {
+        "node": 115
+      }
+    },
+    {
+      "from": {
+        "node": 104,
+        "condition": 1
+      },
+      "to": {
+        "node": 113
+      }
+    },
+    {
+      "from": {
+        "node": 113
+      },
+      "to": {
+        "node": 33
+      }
+    },
+    {
+      "from": {
+        "node": 93,
+        "condition": 1
+      },
+      "to": {
+        "node": 117
+      }
+    },
+    {
+      "from": {
+        "node": 117
+      },
+      "to": {
+        "node": 118
+      }
+    },
+    {
+      "from": {
+        "node": 84,
+        "condition": 1
+      },
+      "to": {
+        "node": 120
+      }
+    },
+    {
+      "from": {
+        "node": 120
+      },
+      "to": {
+        "node": 98
+      }
+    },
+    {
+      "from": {
+        "node": 90,
+        "condition": 1
+      },
+      "to": {
+        "node": 121
+      }
+    },
+    {
+      "from": {
+        "node": 121
+      },
+      "to": {
+        "node": 104
+      }
+    },
+    {
+      "from": {
+        "node": 30
+      },
+      "to": {
+        "node": 116
+      }
+    },
+    {
+      "from": {
+        "node": 116,
+        "condition": 2
+      },
+      "to": {
+        "node": 91
+      }
+    },
+    {
+      "from": {
+        "node": 90,
+        "condition": 2
+      },
+      "to": {
+        "node": 30
+      }
+    },
+    {
+      "from": {
+        "node": 27,
+        "condition": 2
+      },
+      "to": {
+        "node": 94
+      }
+    },
+    {
+      "from": {
+        "node": 115,
+        "condition": 1
+      },
+      "to": {
+        "node": 88
+      }
+    },
+    {
+      "from": {
+        "node": 87,
+        "condition": 1
+      },
+      "to": {
+        "node": 125
+      }
+    },
+    {
+      "from": {
+        "node": 125
+      },
+      "to": {
+        "node": 101
+      }
+    },
+    {
+      "from": {
+        "node": 21,
+        "condition": 1
+      },
+      "to": {
+        "node": 85
+      }
+    },
+    {
+      "from": {
+        "node": 80,
+        "condition": 2
+      },
+      "to": {
+        "node": 81
+      }
+    }
+  ]
+}

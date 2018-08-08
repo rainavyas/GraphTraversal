@@ -1,6 +1,25 @@
 import json
 from pprint import pprint
 
+def find_next(start_node):
+	n=start_node["id"]
+	print("Start:",n)
+	if "conditions" in start_node.keys(): #node with conditions
+		if start_node["conditions"][0]["id"]==0:
+			next=n
+		else:
+			next=0
+	else:
+		i=0
+		try:
+			while data["transitions"][i]['from']['node']!=n:
+				#print(data["transitions"][i]['from']['node'])
+				i+=1
+			next=data["transitions"][i]['to']['node']
+		except IndexError:
+			next=n
+	return next
+
 def write_a_test(conditions):
 	domain=conditions['domains'] 
 	intent=conditions['intents']
@@ -16,8 +35,7 @@ def write_a_test(conditions):
 		file.write('\t\t\t\tmicSensor.Entities("'+ent+'","'+val+'"),\n)\n')
 	file.write('\t\t\tr.Match( \n'
 					'\t\t\t\triemann.Group( \n'
-						'\t\t\t\t\ttts.Matcher("turning the lights on"), \n'
-						'\t\t\t\t\tlights.Matcher("turn_on"), \n'
+						'\t\t\t\t\ttts.Matcher(""), \n'
 					'\t\t\t\t), \n'
 				'\t\t\t) \n'
 			'\t\t}) \n'
@@ -25,13 +43,17 @@ def write_a_test(conditions):
  
 	
 
-with open('Timers--2018-08-08T10_11_37.473Z.json') as f:
+with open('time--2018-08-08T10_47_25.792Z.json') as f:
     data = json.load(f)
+
 parsed=[]
 
-print(len(data["nodes"][1]['conditions']))
-print(len(data["nodes"][1]['conditions'][1]['pattern']))
+#print(len(data["nodes"][1]['conditions']))
+#print(len(data["nodes"][1]['conditions'][1]['pattern']))
+
 for j in range(len(data["nodes"][1]['conditions'])):
+	cond=data["nodes"][1]['conditions'][j]['id']
+	print(cond)
 	d={}
 	for i in range(len(data["nodes"][1]['conditions'][j]['pattern'])):
 		try:
@@ -50,6 +72,8 @@ file = open('testfile.go','w')
  
 for i in parsed:
 	write_a_test(i)
+
+print("End:",find_next(data["nodes"][6]))
  
  
 # file.close()

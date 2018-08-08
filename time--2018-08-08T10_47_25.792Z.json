@@ -1,0 +1,269 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "type": "INITIAL",
+      "label": "time",
+      "position": {
+        "x": 70,
+        "y": 300
+      }
+    },
+    {
+      "id": 1,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 350,
+        "y": 240
+      },
+      "conditions": [
+        {
+          "id": 2,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "time"
+            },
+            {
+              "key": "intents",
+              "value": "time:query"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "time:location",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "time"
+            },
+            {
+              "key": "intents",
+              "value": "time:query"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 4,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 690,
+        "y": 370
+      },
+      "actions": [
+        {
+          "type": "TIME",
+          "command": "GET",
+          "parameters": [
+            {
+              "key": "location",
+              "value": "$time:location"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 680,
+        "y": 280
+      },
+      "actions": [
+        {
+          "type": "TIME",
+          "command": "GET",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 970,
+        "y": 260
+      },
+      "conditions": [
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 8,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 970,
+        "y": 390
+      },
+      "conditions": [
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 9,
+      "position": {
+        "x": 1520,
+        "y": 380
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "position": {
+        "x": 1260,
+        "y": 270
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "it is [time]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "position": {
+        "x": 1240,
+        "y": 430
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "it is [time] in [location]"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "from": {
+        "node": 0
+      },
+      "to": {
+        "node": 1
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 3
+      },
+      "to": {
+        "node": 4
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 2
+      },
+      "to": {
+        "node": 5
+      }
+    },
+    {
+      "from": {
+        "node": 5
+      },
+      "to": {
+        "node": 7
+      }
+    },
+    {
+      "from": {
+        "node": 4
+      },
+      "to": {
+        "node": 8
+      }
+    },
+    {
+      "from": {
+        "node": 7,
+        "condition": 1
+      },
+      "to": {
+        "node": 11
+      }
+    },
+    {
+      "from": {
+        "node": 11
+      },
+      "to": {
+        "node": 9
+      }
+    },
+    {
+      "from": {
+        "node": 8,
+        "condition": 1
+      },
+      "to": {
+        "node": 12
+      }
+    },
+    {
+      "from": {
+        "node": 12
+      },
+      "to": {
+        "node": 9
+      }
+    }
+  ]
+}

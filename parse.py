@@ -10,10 +10,11 @@ def find_next(start_node):
 		else:
 			next=0
 	else:
+		#if "pattern" in start_node.keys():
 		i=0
 		try:
 			while data["transitions"][i]['from']['node']!=n:
-				#print(data["transitions"][i]['from']['node'])
+				#print(data["transitions"][i]['from']['node'])j
 				i+=1
 			next=data["transitions"][i]['to']['node']
 		except IndexError:

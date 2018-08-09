@@ -1,6 +1,7 @@
 import json
 from pprint import pprint
 
+#function to convert node id to idx in the nodes list
 def id_to_idx(noid):
 	for i in range(len(data["nodes"])):
 		node_id=data["nodes"][i]["id"]
@@ -8,41 +9,34 @@ def id_to_idx(noid):
 			return(i)
 
 #function to find next node given a start node
-#Output: {condition number: next_node_id}
+#Output: {condition number: next_node_id}, [first_node_id, middle_node_id ... last_node_id]
 def find_next(start_node,path):
 	n=start_node["id"]
 	print("Start:",n)
 	path.append(n)
-	ends={}
-	if "conditions" not in start_node.keys() or len(start_node["conditions"])<=1: #node with conditions
+	ends={} #prepare storage for all possible next nodes
+	if "conditions" not in start_node.keys() or len(start_node["conditions"])<=1: #node with 0 or 1 condition
 		i=0
 		try:
 			while data["transitions"][i]['from']['node']!=n:
-				#print(data["transitions"][i]['from']['node'])j
 				i+=1
-			ends['0']=data["transitions"][i]['to']['node']
+			ends['0']=data["transitions"][i]['to']['node'] #next node found, find next next node
 			x=id_to_idx(ends['0'])
 			ends,path=find_next(data["nodes"][x],path)
-		except IndexError:
+		except IndexError: #the node has no outgoing connection i.e. is the last node
 			ends['0']=n
 			return ends, path
-	else:
-		# if start_node["conditions"][0]["type"]==4: 
-		# 	ends['0']=n
-		# 	print(ends)
-		# 	#return ends['0']
-		# else:
-		for i in range(len(data["transitions"])):
+	else: 
+		for i in range(len(data["transitions"])): #find all possible next nodes
 			if data["transitions"][i]['from']['node']==n:
 				cond=data["transitions"][i]['from']['condition']
 				next=data["transitions"][i]['to']['node']
 				ends[cond]=next
 		print(ends)
-		choice=int(raw_input("Which condition?: "))
+		choice=int(raw_input("Which condition?: ")) #choose condition to take for next step
 		x=ends[choice]
 		x=id_to_idx(x)
 		ends,path=find_next(data["nodes"][x],path)
-		#next=0
 	return ends,path
 	
 def write_a_test(conditions,extra):
@@ -67,15 +61,16 @@ def write_a_test(conditions,extra):
 		'\t}) \n')
  
 	
-
-with open('time--2018-08-08T10_47_25.792Z.json') as f:
+#specify json to parse
+with open('lights--2018-08-03T08_59_04.846Z.json') as f:
     data = json.load(f)
 
+#store the domains, intents and entities
 parsed=[]
 
+#Go through each condition in node 1 and capture domain, intent and entity in dictionaries in a list
 for j in range(len(data["nodes"][1]['conditions'])):
 	cond=data["nodes"][1]['conditions'][j]['id']
-	print(cond)
 	d={}
 	for i in range(len(data["nodes"][1]['conditions'][j]['pattern'])):
 		try:
@@ -84,32 +79,20 @@ for j in range(len(data["nodes"][1]['conditions'])):
 			pass
 	parsed.append(d)
 
-for i in parsed:
-	print(i)
-	print('\n')
-print(len(parsed))
-
-
+#open file to write tests in
 file = open('testfile.go','w')
 
-path=[]
+#find one path for each starting conditions
 tts=[]
-fin, path=find_next(data["nodes"][1],path)
-print("End:", fin)
-x=(id_to_idx(path[-2]))
-tts.append(data["nodes"][x]["actions"][0]["parameters"][0]["value"])
-
-path=[]
-fin, path=find_next(data["nodes"][1],path)
-print("End:", fin)
-x=(id_to_idx(path[-2]))
-tts.append(data["nodes"][x]["actions"][0]["parameters"][0]["value"])
+for i in range(len(data["nodes"][1]['conditions'])):
+	path=[]
+	fin, path=find_next(data["nodes"][1],path)
+	print("End:", fin)
+	x=(id_to_idx(path[-2]))
+	tts.append(data["nodes"][x]["actions"][0]["parameters"][0]["value"])
 
 
+#write tests
 for i,j in zip(parsed, tts):
 	write_a_test(i,j)
-
-#blah=find_next(data["nodes"][1])[3]
-#print("End:",blah)
-#x=id_to_idx(blah)
 

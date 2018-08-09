@@ -1,27 +1,51 @@
 import json
 from pprint import pprint
 
-def find_next(start_node):
+def id_to_idx(noid):
+	for i in range(len(data["nodes"])):
+		node_id=data["nodes"][i]["id"]
+		if node_id==noid:
+			return(i)
+
+#function to find next node given a start node
+#Output: {condition number: next_node_id}
+def find_next(start_node,path):
 	n=start_node["id"]
 	print("Start:",n)
-	if "conditions" in start_node.keys(): #node with conditions
-		if start_node["conditions"][0]["id"]==0:
-			next=n
-		else:
-			next=0
-	else:
-		#if "pattern" in start_node.keys():
+	path.append(n)
+	ends={}
+	if "conditions" not in start_node.keys() or len(start_node["conditions"])<=1: #node with conditions
 		i=0
 		try:
 			while data["transitions"][i]['from']['node']!=n:
 				#print(data["transitions"][i]['from']['node'])j
 				i+=1
-			next=data["transitions"][i]['to']['node']
+			ends['0']=data["transitions"][i]['to']['node']
+			x=id_to_idx(ends['0'])
+			ends,path=find_next(data["nodes"][x],path)
 		except IndexError:
-			next=n
-	return next
-
-def write_a_test(conditions):
+			ends['0']=n
+			return ends, path
+	else:
+		# if start_node["conditions"][0]["type"]==4: 
+		# 	ends['0']=n
+		# 	print(ends)
+		# 	#return ends['0']
+		# else:
+		for i in range(len(data["transitions"])):
+			if data["transitions"][i]['from']['node']==n:
+				cond=data["transitions"][i]['from']['condition']
+				next=data["transitions"][i]['to']['node']
+				ends[cond]=next
+		print(ends)
+		choice=int(raw_input("Which condition?: "))
+		x=ends[choice]
+		x=id_to_idx(x)
+		ends,path=find_next(data["nodes"][x],path)
+		#next=0
+	return ends,path
+	
+def write_a_test(conditions,extra):
 	domain=conditions['domains'] 
 	intent=conditions['intents']
 	k=conditions.keys()
@@ -36,7 +60,7 @@ def write_a_test(conditions):
 		file.write('\t\t\t\tmicSensor.Entities("'+ent+'","'+val+'"),\n)\n')
 	file.write('\t\t\tr.Match( \n'
 					'\t\t\t\triemann.Group( \n'
-						'\t\t\t\t\ttts.Matcher(""), \n'
+						'\t\t\t\t\ttts.Matcher("'+extra+'"), \n'
 					'\t\t\t\t), \n'
 				'\t\t\t) \n'
 			'\t\t}) \n'
@@ -48,9 +72,6 @@ with open('time--2018-08-08T10_47_25.792Z.json') as f:
     data = json.load(f)
 
 parsed=[]
-
-#print(len(data["nodes"][1]['conditions']))
-#print(len(data["nodes"][1]['conditions'][1]['pattern']))
 
 for j in range(len(data["nodes"][1]['conditions'])):
 	cond=data["nodes"][1]['conditions'][j]['id']
@@ -69,29 +90,26 @@ for i in parsed:
 print(len(parsed))
 
 
-file = open('testfile.go','w') 
- 
-for i in parsed:
-	write_a_test(i)
+file = open('testfile.go','w')
 
-print("End:",find_next(data["nodes"][6]))
- 
- 
-# file.close()
-# Describe("User says ''", func() {
-# 		It("Should say '", func() {
-# 			r.Sensors.Mic.SendVT(micSensor.WAKEUP)
-# 			r.WaitFor(olly).ToBe(riemann.Listening())
-# 			r.Sensors.Mic.SendNlpResult(
-# 				micSensor.Domains(domain),
-# 				micSensor.Intents(intent),
-# 				micSensor.Entities(),
-# 			)
-# 			r.Match(
-# 				riemann.Group(
-# 					tts.Matcher("turning the lights on"),
-# 					lights.Matcher("turn_on"),
-# 				),
-# 			)
-# 		})
-# 	})
+path=[]
+tts=[]
+fin, path=find_next(data["nodes"][1],path)
+print("End:", fin)
+x=(id_to_idx(path[-2]))
+tts.append(data["nodes"][x]["actions"][0]["parameters"][0]["value"])
+
+path=[]
+fin, path=find_next(data["nodes"][1],path)
+print("End:", fin)
+x=(id_to_idx(path[-2]))
+tts.append(data["nodes"][x]["actions"][0]["parameters"][0]["value"])
+
+
+for i,j in zip(parsed, tts):
+	write_a_test(i,j)
+
+#blah=find_next(data["nodes"][1])[3]
+#print("End:",blah)
+#x=id_to_idx(blah)
+

@@ -7,7 +7,7 @@
 				micSensor.Intents("time:query"),
 			r.Match( 
 				riemann.Group( 
-					tts.Matcher(""), 
+					tts.Matcher("it is [time]"), 
 				), 
 			) 
 		}) 
@@ -23,7 +23,7 @@
 )
 			r.Match( 
 				riemann.Group( 
-					tts.Matcher(""), 
+					tts.Matcher("it is [time] in [location]"), 
 				), 
 			) 
 		}) 

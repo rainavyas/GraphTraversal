@@ -1,5 +1,7 @@
 import json
 from pprint import pprint
+import Tkinter, tkFileDialog
+import os
 
 #function to convert node id to idx in the nodes list
 def id_to_idx(noid):
@@ -49,8 +51,8 @@ def write_a_test(conditions,extra):
 	file.write('\t\t\t\tmicSensor.Domains("'+domain+'"),\n')
 	file.write('\t\t\t\tmicSensor.Intents("'+intent+'"),\n')
 	for entity in k:
-		val=conditions[entity]
 		ent=entity.split(':')[-1]
+		val=raw_input("Enter value for entity "+entity+" ")
 		file.write('\t\t\t\tmicSensor.Entities("'+ent+'","'+val+'"),\n)\n')
 	file.write('\t\t\tr.Match( \n'
 					'\t\t\t\triemann.Group( \n'
@@ -62,8 +64,12 @@ def write_a_test(conditions,extra):
  
 	
 #specify json to parse
-with open('lights--2018-08-03T08_59_04.846Z.json') as f:
-    data = json.load(f)
+root = Tkinter.Tk()
+file = tkFileDialog.askopenfile(parent=root,initialdir="/home/andy/asr-demos/record-and-align/time_profile",mode='rb',title='Choose a file')
+#with open('lights--2018-08-03T08_59_04.846Z.json') as f:
+data = json.load(file)
+file.close()
+
 
 #store the domains, intents and entities
 parsed=[]

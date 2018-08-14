@@ -1,0 +1,184 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "type": "INITIAL",
+      "label": "Q&A",
+      "position": {
+        "x": 0,
+        "y": 60
+      }
+    },
+    {
+      "id": 1,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 130,
+        "y": 130
+      },
+      "conditions": [
+        {
+          "id": 3,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "knowledge:qa_result",
+              "value": "fail"
+            },
+            {
+              "key": "domains",
+              "value": "knowledge"
+            },
+            {
+              "key": "intents",
+              "value": "knowledge:query"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "knowledge:qa_result",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "knowledge"
+            },
+            {
+              "key": "intents",
+              "value": "knowledge:query"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 5,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 640,
+        "y": 110
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "I'm sorry, i couldn't find an answer to your question."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1040,
+        "y": 310
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 7,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 690,
+        "y": 350
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "[knowledge:qa_result]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1050,
+        "y": 140
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    }
+  ],
+  "transitions": [
+    {
+      "from": {
+        "node": 5
+      },
+      "to": {
+        "node": 6
+      }
+    },
+    {
+      "from": {
+        "node": 7
+      },
+      "to": {
+        "node": 8
+      }
+    },
+    {
+      "from": {
+        "node": 0
+      },
+      "to": {
+        "node": 1
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 3
+      },
+      "to": {
+        "node": 5
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 12
+      },
+      "to": {
+        "node": 7
+      }
+    }
+  ]
+}

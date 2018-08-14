@@ -1,0 +1,1132 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "type": "INITIAL",
+      "label": "Learn User",
+      "position": {
+        "x": 50,
+        "y": 300
+      }
+    },
+    {
+      "id": 3,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 570,
+        "y": 580
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Hello [user]! Hit 'start', in the Emotech App, to start the recognition process."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 850,
+        "y": 630
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 6,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 510,
+        "y": 750
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Please stand in front of me. Make sure that you are the closest to me.\n\nSay \"I'm ready\" when you are ready to begin."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "ACTION",
+      "label": "Collecting Vision ->",
+      "position": {
+        "x": 640,
+        "y": 880
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Okay! Look into my camera for a few seconds. 1 2 3 4 5 6 7 8 9 10"
+            }
+          ]
+        },
+        {
+          "type": "learn.VISION",
+          "command": "START_COLLECTING",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1130,
+        "y": 890
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Now look to the left, slowly, as seen in the app. 1 2 3 4 5 6 7 8 9 10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1560,
+        "y": 910
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Now, look to the right. 1 2 3 4 5 6 7 8 9 10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2030,
+        "y": 930
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Now look up. 1 2 3 4 5 6 7 8 9 10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2530,
+        "y": 940
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "And finally, look down. 1 2 3 4 5 6 7 8 9 10"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "type": "ACTION",
+      "label": "Learning Vision",
+      "position": {
+        "x": 660,
+        "y": 1050
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Great! Now let's start learning your voice!\n\nRemember to keep looking into my camera as you speak!"
+            }
+          ]
+        },
+        {
+          "type": "learn.VISION",
+          "command": "START_LEARNING",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 920,
+        "y": 1020
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 23,
+      "type": "ACTION",
+      "label": "Learning Speech ->",
+      "position": {
+        "x": 490,
+        "y": 1230
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Repeat after me: \"Wake up, Olly!\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1430,
+        "y": 1220
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Fantastic! We are nearly finished!"
+            }
+          ]
+        },
+        {
+          "type": "learn.SPEECH",
+          "command": "LEARN",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 1130,
+        "y": 1220
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 5,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 27,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1670,
+        "y": 1220
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 28,
+      "type": "ACTION",
+      "label": "Still Learning Speech ->",
+      "position": {
+        "x": 500,
+        "y": 1350
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Repeat after me: \"The quick brown fox jumps over the lazy dog.\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 1150,
+        "y": 1330
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 5,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 30,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1440,
+        "y": 1330
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Repeat after me: \"Oak is strong and also gives shade.\""
+            }
+          ]
+        },
+        {
+          "type": "learn.SPEECH",
+          "command": "LEARN",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 2080,
+        "y": 1320
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 5,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 32,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2380,
+        "y": 1320
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Repeat after me: \"The ripe taste of cheese improves with age\""
+            }
+          ]
+        },
+        {
+          "type": "learn.SPEECH",
+          "command": "LEARN",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 250,
+        "y": 280
+      },
+      "conditions": [
+        {
+          "id": 1,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "learn_user"
+            },
+            {
+              "key": "intents",
+              "value": "learn_user:learn_user"
+            },
+            {
+              "key": "user_id",
+              "value": "bf71463f-a77c-492f-8cc6-a52f90209918"
+            },
+            {
+              "key": "user_name",
+              "value": "gagarinyuriy"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 38,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1830,
+        "y": 930
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 39,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1370,
+        "y": 900
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 40,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 930,
+        "y": 890
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 41,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2320,
+        "y": 940
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 42,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2800,
+        "y": 950
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 43,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 3040,
+        "y": 1330
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 5,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 44,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 500,
+        "y": 1520
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Great! Now we're all done!"
+            }
+          ]
+        },
+        {
+          "type": "learn.VISION",
+          "command": "STOP_LEARNING",
+          "parameters": []
+        },
+        {
+          "type": "learn.SPEECH",
+          "command": "LEARN",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 1220,
+        "y": 770
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 5,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 46,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 720,
+        "y": 1240
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 47,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 890,
+        "y": 1240
+      },
+      "actions": [
+        {
+          "type": "MIC",
+          "command": "LISTEN",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 750,
+        "y": 1350
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 49,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 910,
+        "y": 1340
+      },
+      "actions": [
+        {
+          "type": "MIC",
+          "command": "LISTEN",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1670,
+        "y": 1340
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 51,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1830,
+        "y": 1330
+      },
+      "actions": [
+        {
+          "type": "MIC",
+          "command": "LISTEN",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2630,
+        "y": 1340
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 53,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2810,
+        "y": 1320
+      },
+      "actions": [
+        {
+          "type": "MIC",
+          "command": "LISTEN",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 780,
+        "y": 770
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 55,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 960,
+        "y": 780
+      },
+      "actions": [
+        {
+          "type": "MIC",
+          "command": "LISTEN",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "position": {
+        "x": 780,
+        "y": 1540
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "from": {
+        "node": 3
+      },
+      "to": {
+        "node": 4
+      }
+    },
+    {
+      "from": {
+        "node": 21
+      },
+      "to": {
+        "node": 22
+      }
+    },
+    {
+      "from": {
+        "node": 22,
+        "condition": 0
+      },
+      "to": {
+        "node": 23
+      }
+    },
+    {
+      "from": {
+        "node": 26,
+        "condition": 0
+      },
+      "to": {
+        "node": 25
+      }
+    },
+    {
+      "from": {
+        "node": 25
+      },
+      "to": {
+        "node": 27
+      }
+    },
+    {
+      "from": {
+        "node": 27,
+        "condition": 0
+      },
+      "to": {
+        "node": 28
+      }
+    },
+    {
+      "from": {
+        "node": 29,
+        "condition": 0
+      },
+      "to": {
+        "node": 30
+      }
+    },
+    {
+      "from": {
+        "node": 31,
+        "condition": 0
+      },
+      "to": {
+        "node": 32
+      }
+    },
+    {
+      "from": {
+        "node": 0
+      },
+      "to": {
+        "node": 1
+      }
+    },
+    {
+      "from": {
+        "node": 8
+      },
+      "to": {
+        "node": 40
+      }
+    },
+    {
+      "from": {
+        "node": 40,
+        "condition": 0
+      },
+      "to": {
+        "node": 12
+      }
+    },
+    {
+      "from": {
+        "node": 12
+      },
+      "to": {
+        "node": 39
+      }
+    },
+    {
+      "from": {
+        "node": 39,
+        "condition": 0
+      },
+      "to": {
+        "node": 15
+      }
+    },
+    {
+      "from": {
+        "node": 15
+      },
+      "to": {
+        "node": 38
+      }
+    },
+    {
+      "from": {
+        "node": 38,
+        "condition": 0
+      },
+      "to": {
+        "node": 17
+      }
+    },
+    {
+      "from": {
+        "node": 17
+      },
+      "to": {
+        "node": 41
+      }
+    },
+    {
+      "from": {
+        "node": 41,
+        "condition": 0
+      },
+      "to": {
+        "node": 19
+      }
+    },
+    {
+      "from": {
+        "node": 19
+      },
+      "to": {
+        "node": 42
+      }
+    },
+    {
+      "from": {
+        "node": 42,
+        "condition": 0
+      },
+      "to": {
+        "node": 21
+      }
+    },
+    {
+      "from": {
+        "node": 43,
+        "condition": 0
+      },
+      "to": {
+        "node": 44
+      }
+    },
+    {
+      "from": {
+        "node": 45,
+        "condition": 0
+      },
+      "to": {
+        "node": 8
+      }
+    },
+    {
+      "from": {
+        "node": 23
+      },
+      "to": {
+        "node": 46
+      }
+    },
+    {
+      "from": {
+        "node": 46,
+        "condition": 0
+      },
+      "to": {
+        "node": 47
+      }
+    },
+    {
+      "from": {
+        "node": 47
+      },
+      "to": {
+        "node": 26
+      }
+    },
+    {
+      "from": {
+        "node": 52,
+        "condition": 0
+      },
+      "to": {
+        "node": 53
+      }
+    },
+    {
+      "from": {
+        "node": 32
+      },
+      "to": {
+        "node": 52
+      }
+    },
+    {
+      "from": {
+        "node": 53
+      },
+      "to": {
+        "node": 43
+      }
+    },
+    {
+      "from": {
+        "node": 30
+      },
+      "to": {
+        "node": 50
+      }
+    },
+    {
+      "from": {
+        "node": 50,
+        "condition": 0
+      },
+      "to": {
+        "node": 51
+      }
+    },
+    {
+      "from": {
+        "node": 51
+      },
+      "to": {
+        "node": 31
+      }
+    },
+    {
+      "from": {
+        "node": 28
+      },
+      "to": {
+        "node": 48
+      }
+    },
+    {
+      "from": {
+        "node": 48,
+        "condition": 0
+      },
+      "to": {
+        "node": 49
+      }
+    },
+    {
+      "from": {
+        "node": 49
+      },
+      "to": {
+        "node": 29
+      }
+    },
+    {
+      "from": {
+        "node": 6
+      },
+      "to": {
+        "node": 54
+      }
+    },
+    {
+      "from": {
+        "node": 54,
+        "condition": 0
+      },
+      "to": {
+        "node": 55
+      }
+    },
+    {
+      "from": {
+        "node": 55
+      },
+      "to": {
+        "node": 45
+      }
+    },
+    {
+      "from": {
+        "node": 4,
+        "condition": 0
+      },
+      "to": {
+        "node": 6
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 1
+      },
+      "to": {
+        "node": 3
+      }
+    },
+    {
+      "from": {
+        "node": 44
+      },
+      "to": {
+        "node": 56
+      }
+    }
+  ]
+}

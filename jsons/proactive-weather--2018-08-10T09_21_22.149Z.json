@@ -1,0 +1,225 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "type": "INITIAL",
+      "label": "proactive weather",
+      "position": {
+        "x": 70,
+        "y": 300
+      }
+    },
+    {
+      "id": 1,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 350,
+        "y": 240
+      },
+      "conditions": [
+        {
+          "id": 8,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "proactive",
+              "value": "true"
+            },
+            {
+              "key": "domains",
+              "value": "weather"
+            },
+            {
+              "key": "intents",
+              "value": "weather:weather_query"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 30,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 480,
+        "y": 450
+      },
+      "actions": [
+        {
+          "type": "WEATHER",
+          "command": "GET_CURRENT_WEATHER",
+          "parameters": [
+            {
+              "key": "city",
+              "value": "$weather:location"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 31,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 790,
+        "y": 460
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 32,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1040,
+        "y": 450
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "The weather today is [weather:description] with highs of [weather:max_temperature_value] and lows of [weather:min_temperature_value]"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 33,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1390,
+        "y": 450
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 34,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 650,
+        "y": 260
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Here is some weather for you"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 35,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1040,
+        "y": 270
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    }
+  ],
+  "transitions": [
+    {
+      "from": {
+        "node": 0
+      },
+      "to": {
+        "node": 1
+      }
+    },
+    {
+      "from": {
+        "node": 30
+      },
+      "to": {
+        "node": 31
+      }
+    },
+    {
+      "from": {
+        "node": 31,
+        "condition": 0
+      },
+      "to": {
+        "node": 32
+      }
+    },
+    {
+      "from": {
+        "node": 32
+      },
+      "to": {
+        "node": 33
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 8
+      },
+      "to": {
+        "node": 34
+      }
+    },
+    {
+      "from": {
+        "node": 34
+      },
+      "to": {
+        "node": 35
+      }
+    },
+    {
+      "from": {
+        "node": 35,
+        "condition": 0
+      },
+      "to": {
+        "node": 30
+      }
+    }
+  ]
+}

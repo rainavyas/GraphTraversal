@@ -4,46 +4,9 @@ import Tkinter, tkFileDialog
 import os
 from help import Stack
 
-#function to convert node id to idx in the nodes list
-def id_to_idx(noid):
-	for i in range(len(data["nodes"])):
-		node_id=data["nodes"][i]["id"]
-		if node_id==noid:
-			return(i)
-
-#function to find next node given a start node
-#Output: {condition number: next_node_id}, [first_node_id, middle_node_id ... last_node_id]
-def find_next(start_node,path):
-	n=start_node["id"]
-	print("Start:",n)
-	path.append(n)
-	ends={} #prepare storage for all possible next nodes
-	if "conditions" not in start_node.keys() or len(start_node["conditions"])<=1: #node with 0 or 1 condition
-		i=0
-		try:
-			while data["transitions"][i]['from']['node']!=n:
-				i+=1
-			ends['0']=data["transitions"][i]['to']['node'] #next node found, find next next node
-			x=id_to_idx(ends['0'])
-			ends,path=find_next(data["nodes"][x],path)
-		except IndexError: #the node has no outgoing connection i.e. is the last node
-			ends['0']=n
-			return ends, path
-	else: 
-		for i in range(len(data["transitions"])): #find all possible next nodes
-			if data["transitions"][i]['from']['node']==n:
-				cond=data["transitions"][i]['from']['condition']
-				next=data["transitions"][i]['to']['node']
-				ends[cond]=next
-		print(ends)
-		choice=int(raw_input("Which condition?: ")) #choose condition to take for next step
-		x=ends[choice]
-		x=id_to_idx(x)
-		ends,path=find_next(data["nodes"][x],path)
-	return ends,path
-
 #Write a Riemann test to a file	
-def write_a_test(conditions):
+def write_a_test(s,m,f):
+
 	domain=conditions['domains'] 
 	intent=conditions['intents']
 	k=conditions.keys()
@@ -80,7 +43,7 @@ def dfs_iterative(graph, start, path):
 	for n in start.children.keys(): #otherwise go through each of next nodes one by one
 		neighbor=graph.nodes[start.children[n]]
 		try:
-			if check_iteration_end(start.conditions[n]):
+			if check_iteration(start.conditions[n]):
 				if exit:
 					exit=False
 					neighbor=graph.nodes[start.children.values()[1]]
@@ -95,15 +58,9 @@ def dfs_iterative(graph, start, path):
 			pass
 		p=dfs_iterative(graph, neighbor, new_path)
 
-def check_iterator(node):
-	try:
-		print node.actions[0].type
-		iterator=node.actions[0].type=="ITERATOR"
-		return iterator
-	except IndexError:
-		return False
-
-def check_iteration_end(condition):
+#Check if the condition will continue iteration
+#NEED TO FIX THIS, only works for lights
+def check_iteration(condition):
 	try:
 		if condition.pattern["length"]=="+":
 			return True
@@ -118,11 +75,6 @@ file = tkFileDialog.askopenfile(parent=root,initialdir="/home/andy/asr-demos/rec
 #with open('lights--2018-08-03T08_59_04.846Z.json') as f:
 data = json.load(file)
 file.close()
-
-
-#store the domains, intents and entities
-parsed=[]
-
 
 
 class Node:
@@ -166,6 +118,7 @@ class Graph:
 				print("Action type: "+a.type+" Command: ")
 graph=Graph()
 
+#Store all the nodes to the Graph
 for i in range(len(data["nodes"])):
 	node=Node()
 	d=data["nodes"][i]
@@ -188,11 +141,10 @@ for i in range(len(data["nodes"])):
 			for k in act["parameters"]:
 				a.parameters[k["key"]]=k["value"]
 			node.actions.append(a)
-		#node.tts=(data["nodes"][x]["actions"][0]["parameters"][0]["value"])
 	graph.nodes[node.id]=node
 
 
-
+#Add connections to graph
 for i in data["transitions"]:
 	start=i["from"]["node"]
 	try:
@@ -208,30 +160,13 @@ iteration=99
 paths=[]
 dfs_iterative(graph, graph.nodes[1],[])
 print(paths)
-#Go through each condition in node 1 and capture domain, intent and entity in dictionaries in a list
-# for j in range(len(data["nodes"][1]['conditions'])):
-# 	cond=data["nodes"][1]['conditions'][j]['id']
-# 	d={}
-# 	for i in range(len(data["nodes"][1]['conditions'][j]['pattern'])):
-# 		try:
-# 			d[str(data["nodes"][1]['conditions'][j]['pattern'][i]['key'])]=str(data["nodes"][1]['conditions'][j]['pattern'][i]['value'])
-# 		except IndexError:
-# 			pass
-# 	parsed.append(d)
 
+# for p in paths:
+# 	start=graph.nodes[p[0]]
+# 	mid=graph.nodes[p[1]]
+# 	finish=graph.nodes[p[-1]]
+# 	write_a_test(start, mid, finish)
 #open file to write tests in
 file = open('testfile.go','w')
 
-# #find one path for each starting conditions
-# for i in range(len(graph.nodes[1].conditions.items)):
-# 	next=graph.nodes[1].children[i]
-# 	path=[]
-# 	fin.id, path=find_path(graph.nodes[1].conditions,path)
-# 	print("End:", fin.id)
-# 	x=(id_to_idx(path[-2]))
-
-
-# #write tests
-# for i,j in zip(parsed, tts):
-# 	write_a_test(i,j)
 

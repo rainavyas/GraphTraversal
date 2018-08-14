@@ -1,0 +1,180 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "type": "INITIAL",
+      "label": "Who Am I",
+      "position": {
+        "x": 50,
+        "y": 300
+      }
+    },
+    {
+      "id": 1,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 290,
+        "y": 250
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "current_user_name",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "recognize_user"
+            },
+            {
+              "key": "intents",
+              "value": "recognize_user:recognize_user"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "recognize_user"
+            },
+            {
+              "key": "intents",
+              "value": "recognize_user:recognize_user"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 4,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 730,
+        "y": 470
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "I don't think we've been introduced"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 650,
+        "y": 110
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "hello, [current_user_name]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 900,
+        "y": 120
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 8,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 920,
+        "y": 320
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    }
+  ],
+  "transitions": [
+    {
+      "from": {
+        "node": 0
+      },
+      "to": {
+        "node": 1
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 1
+      },
+      "to": {
+        "node": 4
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 0
+      },
+      "to": {
+        "node": 6
+      }
+    },
+    {
+      "from": {
+        "node": 6
+      },
+      "to": {
+        "node": 7
+      }
+    },
+    {
+      "from": {
+        "node": 4
+      },
+      "to": {
+        "node": 8
+      }
+    }
+  ]
+}

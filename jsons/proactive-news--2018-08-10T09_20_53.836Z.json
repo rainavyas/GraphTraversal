@@ -1,0 +1,752 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "type": "INITIAL",
+      "label": "proactive news",
+      "position": {
+        "x": 70,
+        "y": 300
+      }
+    },
+    {
+      "id": 1,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 350,
+        "y": 240
+      },
+      "conditions": [
+        {
+          "id": 2,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "news"
+            },
+            {
+              "key": "intents",
+              "value": "news:news"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "news:category",
+              "value": "politics"
+            },
+            {
+              "key": "domains",
+              "value": "news"
+            },
+            {
+              "key": "intents",
+              "value": "news:news"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 4,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 820,
+        "y": 160
+      },
+      "actions": [
+        {
+          "type": "NEWS",
+          "command": "GET_NEWS",
+          "parameters": [
+            {
+              "key": "categories",
+              "value": "health"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 1080,
+        "y": 240
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 7,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1530,
+        "y": 260
+      },
+      "actions": [
+        {
+          "type": "NEWS",
+          "command": "READ_NEWS",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1830,
+        "y": 260
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 10,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2510,
+        "y": 740
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "no more news"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2280,
+        "y": 280
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 13,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 1990,
+        "y": 470
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 14,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 720,
+        "y": 810
+      },
+      "actions": [
+        {
+          "type": "NEWS",
+          "command": "GET_CATEGORY_NEWS",
+          "parameters": [
+            {
+              "key": "category",
+              "value": "$news:category"
+            },
+            {
+              "key": "country",
+              "value": "$news:country"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 1080,
+        "y": 770
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 16,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1430,
+        "y": 920
+      },
+      "actions": [
+        {
+          "type": "NEWS",
+          "command": "READ_API_NEWS",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1700,
+        "y": 990
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 19,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1470,
+        "y": 1150
+      },
+      "actions": [
+        {
+          "type": "NEWS",
+          "command": "GET_NEXT_API_NEWS",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 1900,
+        "y": 1140
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 21,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 580,
+        "y": 900
+      },
+      "actions": [
+        {
+          "type": "NEWS",
+          "command": "GET_SOURCE_NEWS",
+          "parameters": [
+            {
+              "key": "sources",
+              "value": "$news:sources"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 930,
+        "y": 990
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 24,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 760,
+        "y": 390
+      },
+      "actions": [
+        {
+          "type": "NEWS",
+          "command": "GET_NEWS",
+          "parameters": [
+            {
+              "key": "categories",
+              "value": "$news:category"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 26,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 1120,
+        "y": 460
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 27,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 3000,
+        "y": 700
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 54,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 250,
+        "y": 520
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "hey, here's some news"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 55,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 530,
+        "y": 530
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    }
+  ],
+  "transitions": [
+    {
+      "from": {
+        "node": 0
+      },
+      "to": {
+        "node": 1
+      }
+    },
+    {
+      "from": {
+        "node": 7
+      },
+      "to": {
+        "node": 8
+      }
+    },
+    {
+      "from": {
+        "node": 13,
+        "condition": 1
+      },
+      "to": {
+        "node": 10
+      }
+    },
+    {
+      "from": {
+        "node": 13,
+        "condition": 0
+      },
+      "to": {
+        "node": 7
+      }
+    },
+    {
+      "from": {
+        "node": 14
+      },
+      "to": {
+        "node": 15
+      }
+    },
+    {
+      "from": {
+        "node": 15,
+        "condition": 1
+      },
+      "to": {
+        "node": 10
+      }
+    },
+    {
+      "from": {
+        "node": 15,
+        "condition": 0
+      },
+      "to": {
+        "node": 16
+      }
+    },
+    {
+      "from": {
+        "node": 16
+      },
+      "to": {
+        "node": 18
+      }
+    },
+    {
+      "from": {
+        "node": 19
+      },
+      "to": {
+        "node": 20
+      }
+    },
+    {
+      "from": {
+        "node": 20,
+        "condition": 1
+      },
+      "to": {
+        "node": 10
+      }
+    },
+    {
+      "from": {
+        "node": 18,
+        "condition": 0
+      },
+      "to": {
+        "node": 19
+      }
+    },
+    {
+      "from": {
+        "node": 20,
+        "condition": 0
+      },
+      "to": {
+        "node": 16
+      }
+    },
+    {
+      "from": {
+        "node": 21
+      },
+      "to": {
+        "node": 22
+      }
+    },
+    {
+      "from": {
+        "node": 22,
+        "condition": 0
+      },
+      "to": {
+        "node": 16
+      }
+    },
+    {
+      "from": {
+        "node": 22,
+        "condition": 1
+      },
+      "to": {
+        "node": 10
+      }
+    },
+    {
+      "from": {
+        "node": 6,
+        "condition": 1
+      },
+      "to": {
+        "node": 7
+      }
+    },
+    {
+      "from": {
+        "node": 6,
+        "condition": 0
+      },
+      "to": {
+        "node": 10
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 3
+      },
+      "to": {
+        "node": 24
+      }
+    },
+    {
+      "from": {
+        "node": 4
+      },
+      "to": {
+        "node": 6
+      }
+    },
+    {
+      "from": {
+        "node": 26,
+        "condition": 0
+      },
+      "to": {
+        "node": 10
+      }
+    },
+    {
+      "from": {
+        "node": 24
+      },
+      "to": {
+        "node": 26
+      }
+    },
+    {
+      "from": {
+        "node": 26,
+        "condition": 1
+      },
+      "to": {
+        "node": 7
+      }
+    },
+    {
+      "from": {
+        "node": 10
+      },
+      "to": {
+        "node": 27
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 2
+      },
+      "to": {
+        "node": 54
+      }
+    },
+    {
+      "from": {
+        "node": 54
+      },
+      "to": {
+        "node": 55
+      }
+    },
+    {
+      "from": {
+        "node": 55,
+        "condition": 0
+      },
+      "to": {
+        "node": 4
+      }
+    }
+  ]
+}

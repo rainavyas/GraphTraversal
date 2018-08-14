@@ -1,0 +1,1042 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "type": "INITIAL",
+      "label": "weather",
+      "position": {
+        "x": 70,
+        "y": 300
+      }
+    },
+    {
+      "id": 1,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 340,
+        "y": 140
+      },
+      "conditions": [
+        {
+          "id": 8,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "weather"
+            },
+            {
+              "key": "intents",
+              "value": "weather:query_condition"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "weather:location",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "weather"
+            },
+            {
+              "key": "intents",
+              "value": "weather:query_condition"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "weather:time_range",
+              "value": "today"
+            },
+            {
+              "key": "domains",
+              "value": "weather"
+            },
+            {
+              "key": "intents",
+              "value": "weather:query_condition"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "weather:location",
+              "value": "+"
+            },
+            {
+              "key": "weather:time_range",
+              "value": "today"
+            },
+            {
+              "key": "domains",
+              "value": "weather"
+            },
+            {
+              "key": "intents",
+              "value": "weather:query_condition"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "weather:time_range",
+              "value": "tomorrow"
+            },
+            {
+              "key": "domains",
+              "value": "weather"
+            },
+            {
+              "key": "intents",
+              "value": "weather:query_condition"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "weather:location",
+              "value": "+"
+            },
+            {
+              "key": "weather:time_range",
+              "value": "tomorrow"
+            },
+            {
+              "key": "domains",
+              "value": "weather"
+            },
+            {
+              "key": "intents",
+              "value": "weather:query_condition"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "weather:time_range",
+              "value": "this week"
+            },
+            {
+              "key": "domains",
+              "value": "weather"
+            },
+            {
+              "key": "intents",
+              "value": "weather:query_condition"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "weather:location",
+              "value": "+"
+            },
+            {
+              "key": "weather:time_range",
+              "value": "this week"
+            },
+            {
+              "key": "domains",
+              "value": "weather"
+            },
+            {
+              "key": "intents",
+              "value": "weather:query_condition"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 4,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 680,
+        "y": 400
+      },
+      "actions": [
+        {
+          "type": "WEATHER",
+          "command": "GET_FORECASTS",
+          "parameters": [
+            {
+              "key": "city",
+              "value": "$weather:location"
+            },
+            {
+              "key": "time_range",
+              "value": "$weather:time_range"
+            },
+            {
+              "key": "units_country",
+              "value": "$olly_location_country"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 660,
+        "y": 250
+      },
+      "actions": [
+        {
+          "type": "WEATHER",
+          "command": "GET_CURRENT_WEATHER",
+          "parameters": [
+            {
+              "key": "city",
+              "value": "$weather:location"
+            },
+            {
+              "key": "units_country",
+              "value": "$olly_location_country"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 11,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 980,
+        "y": 250
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": []
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "error",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 12,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 980,
+        "y": 440
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": []
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "error",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 13,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1280,
+        "y": 260
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "In [weather:location] the weather is [weather:description] and the temperature is [weather:temperature_value] degrees"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 16,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1610,
+        "y": 270
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 19,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 680,
+        "y": 590
+      },
+      "actions": [
+        {
+          "type": "WEATHER",
+          "command": "GET_FORECASTS",
+          "parameters": [
+            {
+              "key": "city",
+              "value": "$weather:location"
+            },
+            {
+              "key": "time_range",
+              "value": "$weather:time_range"
+            },
+            {
+              "key": "units_country",
+              "value": "$olly_location_country"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 680,
+        "y": 800
+      },
+      "actions": [
+        {
+          "type": "WEATHER",
+          "command": "GET_FORECASTS",
+          "parameters": [
+            {
+              "key": "city",
+              "value": "$weather:location"
+            },
+            {
+              "key": "time_range",
+              "value": "$weather:time_range"
+            },
+            {
+              "key": "units_country",
+              "value": "$olly_location_country"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 970,
+        "y": 630
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": []
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "error",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 22,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 960,
+        "y": 850
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": []
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "error",
+              "value": "+"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "iteration_end",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 27,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2180,
+        "y": 910
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 28,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1850,
+        "y": 830
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "[weather:weekday] it will be [weather:description] with highs of [weather:max_temperature_value] and lows of [weather:min_temperature_value]."
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 30,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 660,
+        "y": 140
+      },
+      "actions": [
+        {
+          "type": "WEATHER",
+          "command": "GET_CURRENT_WEATHER",
+          "parameters": [
+            {
+              "key": "units_country",
+              "value": "$olly_location_country"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 31,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 970,
+        "y": 70
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": []
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "error",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 32,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1280,
+        "y": 80
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "The weather is [weather:description] and the temperature is [weather:temperature_value] degrees"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 33,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1640,
+        "y": 140
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 34,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1630,
+        "y": 1300
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 35,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1350,
+        "y": 1220
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Sorry, I can not fetch the weather right now"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 36,
+      "position": {
+        "x": 2090,
+        "y": 1110
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "ITERATOR",
+          "command": "GET_NEXT",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1390,
+        "y": 620
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "In [weather:location] the weather [weather:weekday] is [weather:description] with highs of [weather:max_temperature_value] and lows of [weather:min_temperature_value]."
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 38,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1810,
+        "y": 640
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 39,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1320,
+        "y": 880
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Here's the weather in [weather:location]!"
+            }
+          ]
+        }
+      ],
+      "timeout": 0
+    },
+    {
+      "id": 40,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1590,
+        "y": 880
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 41,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 1770,
+        "y": 1090
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": []
+        },
+        {
+          "id": 2,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "iteration_end",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    }
+  ],
+  "transitions": [
+    {
+      "from": {
+        "node": 0
+      },
+      "to": {
+        "node": 1
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 11
+      },
+      "to": {
+        "node": 9
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 13
+      },
+      "to": {
+        "node": 4
+      }
+    },
+    {
+      "from": {
+        "node": 9
+      },
+      "to": {
+        "node": 11
+      }
+    },
+    {
+      "from": {
+        "node": 4
+      },
+      "to": {
+        "node": 12
+      }
+    },
+    {
+      "from": {
+        "node": 11,
+        "condition": 0
+      },
+      "to": {
+        "node": 13
+      }
+    },
+    {
+      "from": {
+        "node": 13
+      },
+      "to": {
+        "node": 16
+      }
+    },
+    {
+      "from": {
+        "node": 19
+      },
+      "to": {
+        "node": 21
+      }
+    },
+    {
+      "from": {
+        "node": 20
+      },
+      "to": {
+        "node": 22
+      }
+    },
+    {
+      "from": {
+        "node": 28
+      },
+      "to": {
+        "node": 27
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 18
+      },
+      "to": {
+        "node": 20
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 14
+      },
+      "to": {
+        "node": 4
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 15
+      },
+      "to": {
+        "node": 19
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 16
+      },
+      "to": {
+        "node": 19
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 17
+      },
+      "to": {
+        "node": 20
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 8
+      },
+      "to": {
+        "node": 30
+      }
+    },
+    {
+      "from": {
+        "node": 30
+      },
+      "to": {
+        "node": 31
+      }
+    },
+    {
+      "from": {
+        "node": 31,
+        "condition": 0
+      },
+      "to": {
+        "node": 32
+      }
+    },
+    {
+      "from": {
+        "node": 32
+      },
+      "to": {
+        "node": 33
+      }
+    },
+    {
+      "from": {
+        "node": 31,
+        "condition": 1
+      },
+      "to": {
+        "node": 35
+      }
+    },
+    {
+      "from": {
+        "node": 11,
+        "condition": 1
+      },
+      "to": {
+        "node": 35
+      }
+    },
+    {
+      "from": {
+        "node": 12,
+        "condition": 1
+      },
+      "to": {
+        "node": 35
+      }
+    },
+    {
+      "from": {
+        "node": 21,
+        "condition": 1
+      },
+      "to": {
+        "node": 35
+      }
+    },
+    {
+      "from": {
+        "node": 22,
+        "condition": 1
+      },
+      "to": {
+        "node": 35
+      }
+    },
+    {
+      "from": {
+        "node": 35
+      },
+      "to": {
+        "node": 34
+      }
+    },
+    {
+      "from": {
+        "node": 27,
+        "condition": 0
+      },
+      "to": {
+        "node": 36
+      }
+    },
+    {
+      "from": {
+        "node": 21,
+        "condition": 0
+      },
+      "to": {
+        "node": 37
+      }
+    },
+    {
+      "from": {
+        "node": 12,
+        "condition": 0
+      },
+      "to": {
+        "node": 37
+      }
+    },
+    {
+      "from": {
+        "node": 37
+      },
+      "to": {
+        "node": 38
+      }
+    },
+    {
+      "from": {
+        "node": 22,
+        "condition": 0
+      },
+      "to": {
+        "node": 39
+      }
+    },
+    {
+      "from": {
+        "node": 39
+      },
+      "to": {
+        "node": 40
+      }
+    },
+    {
+      "from": {
+        "node": 40,
+        "condition": 0
+      },
+      "to": {
+        "node": 28
+      }
+    },
+    {
+      "from": {
+        "node": 36
+      },
+      "to": {
+        "node": 41
+      }
+    },
+    {
+      "from": {
+        "node": 41,
+        "condition": 0
+      },
+      "to": {
+        "node": 28
+      }
+    }
+  ]
+}

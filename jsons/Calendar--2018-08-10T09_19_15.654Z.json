@@ -1,0 +1,1889 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "type": "INITIAL",
+      "label": "Calendar",
+      "position": {
+        "x": 50,
+        "y": 300
+      }
+    },
+    {
+      "id": 1,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 100,
+        "y": 410
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "calendar:date",
+              "value": "today"
+            },
+            {
+              "key": "current_user_id",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "calendar"
+            },
+            {
+              "key": "intents",
+              "value": "calendar:calendar"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "calendar:date",
+              "value": "tomorrow"
+            },
+            {
+              "key": "current_user_id",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "calendar"
+            },
+            {
+              "key": "intents",
+              "value": "calendar:calendar"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "calendar:date",
+              "value": "week"
+            },
+            {
+              "key": "current_user_id",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "calendar"
+            },
+            {
+              "key": "intents",
+              "value": "calendar:calendar"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "calendar:query_type",
+              "value": "who"
+            },
+            {
+              "key": "current_user_id",
+              "value": "+"
+            },
+            {
+              "key": "calendar:date",
+              "value": "today"
+            },
+            {
+              "key": "domains",
+              "value": "calendar"
+            },
+            {
+              "key": "intents",
+              "value": "calendar:calendar"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "calendar:query_type",
+              "value": "where"
+            },
+            {
+              "key": "current_user_id",
+              "value": "+"
+            },
+            {
+              "key": "calendar:date",
+              "value": "today"
+            },
+            {
+              "key": "domains",
+              "value": "calendar"
+            },
+            {
+              "key": "intents",
+              "value": "calendar:calendar"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "calendar:query_type",
+              "value": "when"
+            },
+            {
+              "key": "current_user_id",
+              "value": "+"
+            },
+            {
+              "key": "calendar:date",
+              "value": "today"
+            },
+            {
+              "key": "domains",
+              "value": "calendar"
+            },
+            {
+              "key": "intents",
+              "value": "calendar:calendar"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "calendar:date",
+              "value": "today"
+            },
+            {
+              "key": "domains",
+              "value": "calendar"
+            },
+            {
+              "key": "intents",
+              "value": "calendar:calendar"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "current_user_id",
+              "value": "+"
+            },
+            {
+              "key": "calendar:query_type",
+              "value": "free"
+            },
+            {
+              "key": "calendar:date",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "calendar"
+            },
+            {
+              "key": "intents",
+              "value": "calendar:calendar"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "calendar:date",
+              "value": "tomorrow"
+            },
+            {
+              "key": "domains",
+              "value": "calendar"
+            },
+            {
+              "key": "intents",
+              "value": "calendar:calendar"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "calendar:date",
+              "value": "week"
+            },
+            {
+              "key": "domains",
+              "value": "calendar"
+            },
+            {
+              "key": "intents",
+              "value": "calendar:calendar"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "calendar:query_type",
+              "value": "when"
+            },
+            {
+              "key": "domains",
+              "value": "calendar"
+            },
+            {
+              "key": "intents",
+              "value": "calendar:calendar"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "calendar:query_type",
+              "value": "where"
+            },
+            {
+              "key": "domains",
+              "value": "calendar"
+            },
+            {
+              "key": "intents",
+              "value": "calendar:calendar"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "calendar:query_type",
+              "value": "who"
+            },
+            {
+              "key": "domains",
+              "value": "calendar"
+            },
+            {
+              "key": "intents",
+              "value": "calendar:calendar"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "calendar:query_type",
+              "value": "free"
+            },
+            {
+              "key": "domains",
+              "value": "calendar"
+            },
+            {
+              "key": "intents",
+              "value": "calendar:calendar"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 2,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 440,
+        "y": 240
+      },
+      "actions": [
+        {
+          "type": "CALENDAR",
+          "command": "GET_DAY_EVENTS",
+          "parameters": [
+            {
+              "key": "from_time",
+              "value": "$calendar:date"
+            }
+          ]
+        },
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "let's have a look, [current_user_name]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 790,
+        "y": 200
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 4,
+      "type": "ACTION",
+      "label": "No events case",
+      "position": {
+        "x": 1080,
+        "y": 30
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "I couldn't find any events"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "ACTION",
+      "label": "Read events",
+      "position": {
+        "x": 1670,
+        "y": 100
+      },
+      "actions": [
+        {
+          "type": "CALENDAR",
+          "command": "READ_DAY_EVENTS_SHORT",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "type": "ACTION",
+      "label": "Too many events",
+      "position": {
+        "x": 930,
+        "y": 510
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "You look busy, do you want me to read all your events?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1250,
+        "y": 470
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 10,
+      "type": "ACTION",
+      "label": "Listen",
+      "position": {
+        "x": 1330,
+        "y": 590
+      },
+      "actions": [
+        {
+          "type": "MIC",
+          "command": "LISTEN",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 1550,
+        "y": 360
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "affirm"
+            },
+            {
+              "key": "intents",
+              "value": "affirm:affirm"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "negate"
+            },
+            {
+              "key": "intents",
+              "value": "negate:negate"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "domains",
+              "value": "+"
+            },
+            {
+              "key": "intents",
+              "value": "+:+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 12,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1960,
+        "y": 480
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "no problem"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 580,
+        "y": 1280
+      },
+      "actions": [
+        {
+          "type": "CALENDAR",
+          "command": "FIND_EVENT",
+          "parameters": [
+            {
+              "key": "event_type",
+              "value": "$calendar:event_type"
+            },
+            {
+              "key": "from_time",
+              "value": "now"
+            }
+          ]
+        },
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "let's have a look, [current_user_name]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 870,
+        "y": 1500
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 16,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1530,
+        "y": 1330
+      },
+      "actions": [
+        {
+          "type": "CALENDAR",
+          "command": "READ_WHEN",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 500,
+        "y": 640
+      },
+      "actions": [
+        {
+          "type": "CALENDAR",
+          "command": "GET_DAY_EVENTS",
+          "parameters": [
+            {
+              "key": "from_time",
+              "value": "$calendar:date"
+            }
+          ]
+        },
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "let's have a look, [current_user_name]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 820,
+        "y": 650
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 19,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1480,
+        "y": 680
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "I couldn't find any events"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1140,
+        "y": 770
+      },
+      "actions": [
+        {
+          "type": "CALENDAR",
+          "command": "READ_WEEK_EVENTS",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 850,
+        "y": 1090
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 24,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1520,
+        "y": 940
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "I couldn't find any meetings"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1500,
+        "y": 1110
+      },
+      "actions": [
+        {
+          "type": "CALENDAR",
+          "command": "READ_WHO",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 850,
+        "y": 1250
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 28,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1510,
+        "y": 1220
+      },
+      "actions": [
+        {
+          "type": "CALENDAR",
+          "command": "READ_WHERE",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 520,
+        "y": 850
+      },
+      "actions": [
+        {
+          "type": "CALENDAR",
+          "command": "FIND_EVENT",
+          "parameters": [
+            {
+              "key": "event_type",
+              "value": "$calendar:event_type"
+            },
+            {
+              "key": "from_time",
+              "value": "now"
+            }
+          ]
+        },
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "let's have a look, [current_user_name]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 600,
+        "y": 1070
+      },
+      "actions": [
+        {
+          "type": "CALENDAR",
+          "command": "FIND_EVENT",
+          "parameters": [
+            {
+              "key": "event_type",
+              "value": "$calendar:event_type"
+            },
+            {
+              "key": "from_time",
+              "value": "now"
+            }
+          ]
+        },
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "let's have a look, [current_user_name]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 260,
+        "y": 1700
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Sorry, I can't do that, I don't know you well enough"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1860,
+        "y": 1110
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 33,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1850,
+        "y": 1230
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 34,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1840,
+        "y": 1320
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 35,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1850,
+        "y": 940
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 36,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1960,
+        "y": 780
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 37,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2200,
+        "y": 640
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 38,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1430,
+        "y": 860
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 39,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1970,
+        "y": 110
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 41,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 1480,
+        "y": 10
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 43,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 900,
+        "y": 1700
+      },
+      "actions": [
+        {
+          "type": "CALENDAR",
+          "command": "FIND_EVENT",
+          "parameters": [
+            {
+              "key": "from_time",
+              "value": "tonight"
+            },
+            {
+              "key": "event_type",
+              "value": "$calendar:event_type"
+            }
+          ]
+        },
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "Just a second"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 1210,
+        "y": 1790
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 45,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1610,
+        "y": 1780
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "No problems you don't have anything for tonight"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 2020,
+        "y": 1730
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 51,
+      "type": "EVENT",
+      "label": "ACTION_RESULT_EVENT",
+      "position": {
+        "x": 1990,
+        "y": 1950
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "length",
+              "value": "+"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 52,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2520,
+        "y": 1830
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "but you are free tomorrow evening."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 2540,
+        "y": 1980
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "and you are busy also tomorrow night"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 3000,
+        "y": 1780
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 55,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 3040,
+        "y": 2070
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 59,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 1600,
+        "y": 1940
+      },
+      "actions": [
+        {
+          "type": "CALENDAR",
+          "command": "READ_WHEN",
+          "parameters": []
+        },
+        {
+          "type": "CALENDAR",
+          "command": "FIND_EVENT",
+          "parameters": [
+            {
+              "key": "from_time",
+              "value": "tomorrow night"
+            },
+            {
+              "key": "event_type",
+              "value": "free"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 660,
+        "y": 1710
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    }
+  ],
+  "transitions": [
+    {
+      "from": {
+        "node": 0
+      },
+      "to": {
+        "node": 1
+      }
+    },
+    {
+      "from": {
+        "node": 2
+      },
+      "to": {
+        "node": 3
+      }
+    },
+    {
+      "from": {
+        "node": 3,
+        "condition": 0
+      },
+      "to": {
+        "node": 4
+      }
+    },
+    {
+      "from": {
+        "node": 3,
+        "condition": 1
+      },
+      "to": {
+        "node": 5
+      }
+    },
+    {
+      "from": {
+        "node": 3,
+        "condition": 2
+      },
+      "to": {
+        "node": 5
+      }
+    },
+    {
+      "from": {
+        "node": 3,
+        "condition": 3
+      },
+      "to": {
+        "node": 6
+      }
+    },
+    {
+      "from": {
+        "node": 6
+      },
+      "to": {
+        "node": 9
+      }
+    },
+    {
+      "from": {
+        "node": 9,
+        "condition": 0
+      },
+      "to": {
+        "node": 10
+      }
+    },
+    {
+      "from": {
+        "node": 10
+      },
+      "to": {
+        "node": 11
+      }
+    },
+    {
+      "from": {
+        "node": 11,
+        "condition": 0
+      },
+      "to": {
+        "node": 5
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 1
+      },
+      "to": {
+        "node": 2
+      }
+    },
+    {
+      "from": {
+        "node": 11,
+        "condition": 1
+      },
+      "to": {
+        "node": 12
+      }
+    },
+    {
+      "from": {
+        "node": 14,
+        "condition": 1
+      },
+      "to": {
+        "node": 16
+      }
+    },
+    {
+      "from": {
+        "node": 13
+      },
+      "to": {
+        "node": 14
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 4
+      },
+      "to": {
+        "node": 17
+      }
+    },
+    {
+      "from": {
+        "node": 17
+      },
+      "to": {
+        "node": 18
+      }
+    },
+    {
+      "from": {
+        "node": 18,
+        "condition": 0
+      },
+      "to": {
+        "node": 19
+      }
+    },
+    {
+      "from": {
+        "node": 18,
+        "condition": 1
+      },
+      "to": {
+        "node": 20
+      }
+    },
+    {
+      "from": {
+        "node": 22,
+        "condition": 0
+      },
+      "to": {
+        "node": 24
+      }
+    },
+    {
+      "from": {
+        "node": 22,
+        "condition": 1
+      },
+      "to": {
+        "node": 25
+      }
+    },
+    {
+      "from": {
+        "node": 27,
+        "condition": 0
+      },
+      "to": {
+        "node": 24
+      }
+    },
+    {
+      "from": {
+        "node": 27,
+        "condition": 1
+      },
+      "to": {
+        "node": 28
+      }
+    },
+    {
+      "from": {
+        "node": 14,
+        "condition": 0
+      },
+      "to": {
+        "node": 24
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 7
+      },
+      "to": {
+        "node": 13
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 5
+      },
+      "to": {
+        "node": 29
+      }
+    },
+    {
+      "from": {
+        "node": 29
+      },
+      "to": {
+        "node": 22
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 6
+      },
+      "to": {
+        "node": 30
+      }
+    },
+    {
+      "from": {
+        "node": 30
+      },
+      "to": {
+        "node": 27
+      }
+    },
+    {
+      "from": {
+        "node": 11,
+        "condition": 2
+      },
+      "to": {
+        "node": 12
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 8
+      },
+      "to": {
+        "node": 31
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 0
+      },
+      "to": {
+        "node": 2
+      }
+    },
+    {
+      "from": {
+        "node": 24
+      },
+      "to": {
+        "node": 35
+      }
+    },
+    {
+      "from": {
+        "node": 25
+      },
+      "to": {
+        "node": 32
+      }
+    },
+    {
+      "from": {
+        "node": 28
+      },
+      "to": {
+        "node": 33
+      }
+    },
+    {
+      "from": {
+        "node": 16
+      },
+      "to": {
+        "node": 34
+      }
+    },
+    {
+      "from": {
+        "node": 20
+      },
+      "to": {
+        "node": 38
+      }
+    },
+    {
+      "from": {
+        "node": 12
+      },
+      "to": {
+        "node": 37
+      }
+    },
+    {
+      "from": {
+        "node": 19
+      },
+      "to": {
+        "node": 36
+      }
+    },
+    {
+      "from": {
+        "node": 5
+      },
+      "to": {
+        "node": 39
+      }
+    },
+    {
+      "from": {
+        "node": 4
+      },
+      "to": {
+        "node": 41
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 9
+      },
+      "to": {
+        "node": 43
+      }
+    },
+    {
+      "from": {
+        "node": 43
+      },
+      "to": {
+        "node": 44
+      }
+    },
+    {
+      "from": {
+        "node": 44,
+        "condition": 0
+      },
+      "to": {
+        "node": 45
+      }
+    },
+    {
+      "from": {
+        "node": 45
+      },
+      "to": {
+        "node": 46
+      }
+    },
+    {
+      "from": {
+        "node": 51,
+        "condition": 0
+      },
+      "to": {
+        "node": 52
+      }
+    },
+    {
+      "from": {
+        "node": 51,
+        "condition": 1
+      },
+      "to": {
+        "node": 53
+      }
+    },
+    {
+      "from": {
+        "node": 52
+      },
+      "to": {
+        "node": 54
+      }
+    },
+    {
+      "from": {
+        "node": 53
+      },
+      "to": {
+        "node": 55
+      }
+    },
+    {
+      "from": {
+        "node": 44,
+        "condition": 1
+      },
+      "to": {
+        "node": 59
+      }
+    },
+    {
+      "from": {
+        "node": 59
+      },
+      "to": {
+        "node": 51
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 10
+      },
+      "to": {
+        "node": 31
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 11
+      },
+      "to": {
+        "node": 31
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 12
+      },
+      "to": {
+        "node": 31
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 13
+      },
+      "to": {
+        "node": 31
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 14
+      },
+      "to": {
+        "node": 31
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 15
+      },
+      "to": {
+        "node": 31
+      }
+    },
+    {
+      "from": {
+        "node": 31
+      },
+      "to": {
+        "node": 60
+      }
+    }
+  ]
+}

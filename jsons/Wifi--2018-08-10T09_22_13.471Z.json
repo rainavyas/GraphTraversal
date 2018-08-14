@@ -1,0 +1,140 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "position": {
+        "x": 50,
+        "y": 300
+      },
+      "label": "Wifi",
+      "type": "INITIAL"
+    },
+    {
+      "id": 1,
+      "position": {
+        "x": 260,
+        "y": 300
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 1,
+          "type": 1,
+          "pattern": [
+            {
+              "key": "wifi_status",
+              "value": "not_connected"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "position": {
+        "x": 570,
+        "y": 320
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "WIFI",
+          "command": "GET_CREDENTIALS",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "position": {
+        "x": 820,
+        "y": 260
+      },
+      "label": "Event Node",
+      "type": "EVENT",
+      "timeout": 15,
+      "locking": true,
+      "conditions": [
+        {
+          "id": 0,
+          "type": 13,
+          "pattern": [
+            {
+              "key": "ssid",
+              "value": "+"
+            },
+            {
+              "key": "password",
+              "value": "+"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "position": {
+        "x": 1100,
+        "y": 280
+      },
+      "label": "Action Node",
+      "type": "ACTION",
+      "actions": [
+        {
+          "type": "WIFI",
+          "command": "SET_UP",
+          "parameters": [
+            {
+              "key": "password",
+              "value": "$password"
+            },
+            {
+              "key": "ssid",
+              "value": "$ssid"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "from": {
+        "node": 5
+      },
+      "to": {
+        "node": 6
+      }
+    },
+    {
+      "from": {
+        "node": 6,
+        "condition": 0
+      },
+      "to": {
+        "node": 7
+      }
+    },
+    {
+      "from": {
+        "node": 0
+      },
+      "to": {
+        "node": 1
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 1
+      },
+      "to": {
+        "node": 5
+      }
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "type": "INITIAL",
+      "label": "proactive utterance",
+      "position": {
+        "x": 50,
+        "y": 300
+      }
+    },
+    {
+      "id": 1,
+      "type": "EVENT",
+      "label": "SPEECH_RECOGNISED",
+      "position": {
+        "x": 180,
+        "y": 80
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 5,
+          "pattern": [
+            {
+              "key": "proactive",
+              "value": "true"
+            },
+            {
+              "key": "utterance:utterance",
+              "value": "+"
+            },
+            {
+              "key": "domains",
+              "value": "utterance"
+            },
+            {
+              "key": "intents",
+              "value": "utterance:utterance"
+            }
+          ]
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    },
+    {
+      "id": 5,
+      "type": "ACTION",
+      "label": "Action Node",
+      "position": {
+        "x": 480,
+        "y": 110
+      },
+      "actions": [
+        {
+          "type": "TTS",
+          "command": "SAY",
+          "parameters": [
+            {
+              "key": "sentence",
+              "value": "[utterance:utterance]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "type": "EVENT",
+      "label": "TTS_FINISHED",
+      "position": {
+        "x": 900,
+        "y": 220
+      },
+      "conditions": [
+        {
+          "id": 0,
+          "type": 4,
+          "pattern": []
+        }
+      ],
+      "timeout": 15,
+      "locking": true
+    }
+  ],
+  "transitions": [
+    {
+      "from": {
+        "node": 0
+      },
+      "to": {
+        "node": 1
+      }
+    },
+    {
+      "from": {
+        "node": 1,
+        "condition": 0
+      },
+      "to": {
+        "node": 5
+      }
+    },
+    {
+      "from": {
+        "node": 5
+      },
+      "to": {
+        "node": 24
+      }
+    }
+  ]
+}

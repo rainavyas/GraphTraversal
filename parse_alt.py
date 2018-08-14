@@ -28,43 +28,38 @@ def write_a_test(s,m,f):
 		'\t}) \n')
 
 
- # Find paths
+ # Find paths 
 def dfs_iterative(graph, start, path):
+	print start.children
 	global paths, iteration, exit
+	print "Iteration"+str(iteration)
 	new_path=path[:]
 	new_path.append(start.id)
 
-	if check_iterator(start):
-		# if exit:
-		# 	exit=False
-		# 	return new_path
-		# else:
-		if iteration==99:
-			iteration=int(raw_input("How many cycles? (Input a positive number)")) #some iterators are in the first path out of the particular condition, if this is not alowed to loop multiple paths can be lost
-		elif iteration==0: #last cycle
-			iteration=99 #reset counter
-			return new_path
-			exit=True
-		else:
-			iteration=iteration-1
 	if len(start.children.values())==0: #reached final node
 		paths.append(new_path)
 		print("fin")
 		return new_path
 	for n in start.children.keys(): #otherwise go through each of next nodes one by one
 		neighbor=graph.nodes[start.children[n]]
+		try:
+			if check_iteration(start.conditions[n]):
+				if exit:
+					exit=False
+					neighbor=graph.nodes[start.children.values()[1]]
+				if iteration==99:
+					iteration=int(raw_input("How many cycles?"))
+				elif iteration==0: #last cycle
+						iteration=99 #reset counter
+						exit=True
+				else:
+					iteration=iteration-1
+		except KeyError:
+			pass
 		p=dfs_iterative(graph, neighbor, new_path)
 
-def check_iterator(node):
-	try:
-		if node.actions[0].command=="GET_NEXT":
-			return True
-		else:
-			return False
-	except IndexError:
-		return False
 #Check if the condition will continue iteration
-#NEED TO FIX THIS
+#NEED TO FIX THIS, only works for lights
 def check_iteration(condition):
 	try:
 		if condition.pattern["length"]=="+":
@@ -92,16 +87,15 @@ class Node:
 		self.children={}
 
 	def add_connection(self, node, condition):
+		#num_conditions = len(self.conditions.items())
 		self.children[condition] = node
 	def dump(self):
 		print("Id: "+self.id+" Type:"+self.type+" Label: "+self.label)
-
 class Condition:
 	def __init__(self):
 		self.id=None
 		self.type=None
 		self.pattern={}
-
 class Action:
 	def __init__(self):
 		self.type=None

@@ -4,29 +4,6 @@ import Tkinter, tkFileDialog
 import os
 from help import Stack
 
-#Write a Riemann test to a file	
-def write_a_test(s,m,f):
-
-	domain=conditions['domains'] 
-	intent=conditions['intents']
-	k=conditions.keys()
-	k.remove('domains')
-	k.remove('intents')
-	file.write('\tDescribe("User says ", func() { \n' '\t\tIt("Should say ", func() { \n' '\t\t\tr.Sensors.Mic.SendVT(micSensor.WAKEUP) \n'+'\t\t\tr.WaitFor(olly).ToBe(riemann.Listening()) \n'+'\t\t\tr.Sensors.Mic.SendNlpResult( \n')
-	file.write('\t\t\t\tmicSensor.Domains("'+domain+'"),\n')
-	file.write('\t\t\t\tmicSensor.Intents("'+intent+'"),\n')
-	for entity in k:
-		ent=entity.split(':')[-1]
-		val=raw_input("Enter value for entity "+entity+" ")
-		file.write('\t\t\t\tmicSensor.Entities("'+ent+'","'+val+'"),\n)\n')
-	file.write('\t\t\tr.Match( \n'
-					'\t\t\t\triemann.Group( \n'
-						'\t\t\t\t\ttts.Matcher(""), \n'
-					'\t\t\t\t), \n'
-				'\t\t\t) \n'
-			'\t\t}) \n'
-		'\t}) \n')
-
 
  # Find paths 
 def dfs_iterative(graph, start, path):
@@ -73,16 +50,18 @@ def check_iteration(condition):
 root = Tkinter.Tk()
 file = tkFileDialog.askopenfile(parent=root,initialdir="/home/andy/asr-demos/record-and-align/time_profile",mode='rb',title='Choose a file')
 #with open('lights--2018-08-03T08_59_04.846Z.json') as f:
+#store the json data in variable data
 data = json.load(file)
 file.close()
 
 
 class Node:
+	""" defining class for each node"""
 	def __init__(self):
 		self.id=None
 		self.type=None
 		self.label=None
-		self.conditions = {}
+		self.conditions = {} #conditions is a list of conditions?
 		self.actions =[]
 		self.children={}
 
@@ -91,11 +70,13 @@ class Node:
 		self.children[condition] = node
 	def dump(self):
 		print("Id: "+self.id+" Type:"+self.type+" Label: "+self.label)
+
 class Condition:
 	def __init__(self):
 		self.id=None
 		self.type=None
 		self.pattern={}
+
 class Action:
 	def __init__(self):
 		self.type=None

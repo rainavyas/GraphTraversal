@@ -2,7 +2,8 @@ import json
 from pprint import pprint
 import Tkinter, tkFileDialog
 import os
-from help import Stack
+from help import Stack, Queue
+import collections 
 
 #Write a Riemann test to a file	
 def write_a_test(s,m,f):
@@ -31,8 +32,9 @@ def write_a_test(s,m,f):
  # Find paths
 def dfs_iterative(graph, start, path):
 	global paths, iteration, exit
-	new_path=path[:]
-	new_path.append(start.id)
+	new_path=path.copy()
+	#new_path.append(start.id)
+	new_path[start.id]=0
 
 	if check_iterator(start):
 		# if exit:
@@ -52,6 +54,7 @@ def dfs_iterative(graph, start, path):
 		print("fin")
 		return new_path
 	for n in start.children.keys(): #otherwise go through each of next nodes one by one
+		new_path[start.id]=n
 		neighbor=graph.nodes[start.children[n]]
 		p=dfs_iterative(graph, neighbor, new_path)
 
@@ -77,9 +80,12 @@ def check_iteration(condition):
 #specify json to parse
 root = Tkinter.Tk()
 file = tkFileDialog.askopenfile(parent=root,initialdir="/home/andy/asr-demos/record-and-align/time_profile",mode='rb',title='Choose a file')
+root.update()
+root.destroy()
 #with open('lights--2018-08-03T08_59_04.846Z.json') as f:
 data = json.load(file)
 file.close()
+
 
 
 class Node:
@@ -164,8 +170,12 @@ for i in data["transitions"]:
 exit=False
 iteration=99
 paths=[]
-dfs_iterative(graph, graph.nodes[1],[])
+
+#Store each path in an ordered dictionary where the key is the node.id and the value is the conditon
+d = collections.OrderedDict()
+dfs_iterative(graph, graph.nodes[1],d)
 print(paths)
+
 
 # for p in paths:
 # 	start=graph.nodes[p[0]]

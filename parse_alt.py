@@ -41,7 +41,6 @@ def recursive_path_finder(graph, curr_node, path):
 		if first_time(curr_node.id, new_path):
 			its=1
 			exit = False
-			#find_nxt(graph, curr_node, new_path)
 			val = int(raw_input("How many cycles?"))
 
 			if curr_node.children[0] in new_path:

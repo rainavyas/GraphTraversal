@@ -5,7 +5,7 @@ import os
 from help import Stack, Queue
 import collections 
 
-#Write a Riemann test to a file	
+#Write a Riemann test to a file	in GO syntax
 def write_a_test(s,c,f):
 	#open file to write tests in
 	domain=s.conditions[c].pattern['domains'] 
@@ -34,25 +34,37 @@ def write_a_test(s,c,f):
 
  # Find paths
 def dfs_iterative(graph, start, path):
-	global paths, iteration, exit
-	if check_iterator(start):
+	global paths, iteration, case
+	if (check_iterator(start) and len(start.children.values()) != 0):
 		if iteration==99:
-			iteration=int(raw_input("How many cycles? (Input a positive number)")) #some iterators are in the first path out of the particular condition, if this is not alowed to loop multiple paths can be lost
+			"""first time reached iterator"""
+			iteration=int(raw_input("How many cycles? (Input a positive number)"))
+			
+			if start.children[0] in path:
+				"""node after iterator has come up before"""
+				case = "A"
+				if iteration == 0:
+					"""quit this loop"""
+					iteration = 99
+					return
+				else:
+					iteration = iteration-1 #necessary to get correct cycles for case A
+			else:
+				case = "B" 
+
 		elif iteration==0: #last cycle
 			iteration=99 #reset counter
-			print "deleting this path"
-			print path
 			return  #prematurely end this loop
 		else:
 			iteration=iteration-1
-	path.append((0,0))
+	new_path=path[:]
+	new_path.append((0,0))
 	if len(start.children.values())==0: #reached final node
-		path[-1]=(start.id,0)
-		paths.append(path)
-		print("fin")
+		new_path[-1]=(start.id,0)
+		paths.append(new_path)
+		
 	for n in start.children.keys(): #otherwise go through each of next nodes one by one
-		path[-1]=(start.id,n)
-		new_path=path[:]
+		new_path[-1]=(start.id,n)
 		neighbor=graph.nodes[start.children[n]]
 		dfs_iterative(graph, neighbor,new_path)
 
@@ -164,25 +176,28 @@ for i in data["transitions"]:
 	end=i["to"]["node"]
 	graph.nodes[start].add_connection(end, c)
 
-#graph.dump()
-exit=False
+#define useful global variables
+case = "C"
 iteration=99
 paths=[]
+total_its =0
 
-#Store each path in an ordered dictionary where the key is the node.id and the value is the conditon
+#Store each path as a list, where each element is [nodeID, conditionID to next node]
 
 dfs_iterative(graph, graph.nodes[1],[])
 print(paths)
 
-print paths[0][1]
+#print paths[0][1]
+
+
 file = open('testfile.go','w')
 for p in paths:
-	print p
+	#print p
 	start=graph.nodes[p[0][0]]
 	c=p[0][1]
-	print start.id
+	#print start.id
 	finish=graph.nodes[p[-2][0]]
-	print finish.id
+	#print finish.id
 	write_a_test(start,c, finish)
 file.close()
 

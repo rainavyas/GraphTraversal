@@ -5,75 +5,125 @@ import os
 from help import Stack
 
 
- # Find paths using recursion
-def dfs_iterative(graph, start, path):
-	print start.children
-	global paths, iteration, exit
-	print "Iteration"+str(iteration)
+ 
 
-	#let the new_path hold the path list
-	new_path=path[:]
-	#path will always start with first node
-	new_path.append(start.id)
-
-	if len(start.children.values())==0: 
-		#reached final node
-		paths.append(new_path)
-		print("fin")
-		#return new_path
-
-	#otherwise go through each of children nodes one by one by looping through the conditions of current node
-	for n in start.children.keys(): 
-		#create neighbour to hold node connected by the current condition
-		neighbor=graph.nodes[start.children[n]]
-		try:
-			if check_iteration(start.conditions[n]):
-				if exit:
-					exit=False
-					neighbor=graph.nodes[start.children.values()[1]]
-				if iteration==99:
-					iteration=int(raw_input("How many cycles?"))
-				elif iteration==0: #last cycle
-						iteration=99 #reset counter
-						exit=True
-				else:
-					iteration=iteration-1
-		except KeyError:
-			pass
-		p=dfs_iterative(graph, neighbor, new_path)
-
-#Check if the condition will continue iteration
-#NEED TO FIX THIS, only works for lights
-def check_iteration(condition):
+	
+def check_iterator(node):
+	"""is the current node an iterator"""
 	try:
-		if condition.pattern["length"]=="+":
+		if node.actions[0].command=="GET_NEXT":
 			return True
 		else:
 			return False
-	except KeyError:
+	except IndexError:
 		return False
+
+
+def first_time(nodeID, path):
+	"check if node has come up before"
+	if nodeID in path:
+		return False
+	else:
+		return True
+
+def find_nxt(graph, curr_node, path):
+	
+	temp = curr_node.children[0]
+	nod = graph.nodes[temp]
+
+	for cond in nod.children.keys():
+		if nod.children[cond] in path:
+			nxt = nod.children[cond]
 
 
 
 
 def recursive_path_finder(graph, curr_node, path):	
 
-	global paths
+	global paths, exit, its, nxt, case, val 
 	#let the new_path hold the path list
 	new_path=path[:]
-	#path will always start with first node
-	new_path.append(curr_node.id)
+
+
+	if (check_iterator(curr_node) and len(curr_node.children.values()) != 0):
+		""" iterator node reached and not the last node"""
+		if first_time(curr_node.id, new_path):
+			its=1
+			case = "C"
+			exit = False
+			find_nxt(graph, curr_node, new_path)
+			val = int(raw_input("How many cycles?"))
+
+			if curr_node.children[0] in new_path:
+				"""node after iterator has come up before"""
+				case = "A"
+			else:
+				case = "B"
+		else:
+			its=its+1
+
+		if case =="A":
+			if its > val:
+				"""need to back track"""
+
+				while (new_path[-1] != curr_node.children[0]):
+					"""remove last element in path"""
+					del new_path[-1]
+				del new_path[-1]
+				exit = True
+				recursive_path_finder(graph, graph.nodes[curr_node.children[0]], new_path)
+			else:
+				new_path.append(curr_node.id)
+				recursive_path_finder(graph, graph.nodes[curr_node.children[0]], new_path)
+
+		if case == "B":
+			if its > val:
+				exit = True
+			new_path.append(curr_node.id)
+			recursive_path_finder(graph, graph.nodes[curr_node.children[0]], new_path)
+	else:
+		"""not iterator node"""
+		#add current node
+		new_path.append(curr_node.id)
+
+		if exit == True:
+			exit = False
+			if len(curr_node.children.values())==0:
+				"""on final node"""
+				if new_path not in paths:
+					#no duplicate paths
+					paths.append(new_path)
+
+			else:
+				"""go through each condition in turn ignoring nxt"""
+				for cond in curr_node.children.keys():
+
+					if curr_node.children[cond] != nxt:
+						new_node = graph.nodes[curr_node.children[cond]]
+						recursive_path_finder(graph, new_node, new_path)
+
+		else:
+			if len(curr_node.children.values())==0:
+				"""on final node"""
+				if new_path not in paths:
+					#no duplicate paths
+					paths.append(new_path)
+
+			else:
+				"""go through each condition in turn"""
+				for cond in curr_node.children.keys():
+					new_node = graph.nodes[curr_node.children[cond]]
+					recursive_path_finder(graph, new_node, new_path)
+
+
+
+
+
+
+	
 	
 
-	if len(curr_node.children.values())==0:
-		"""on final node"""
-		paths.append(new_path)
-
-	else:
-		"""go through each condition in turn"""
-		for cond in curr_node.children.keys():
-			new_node = graph.nodes[curr_node.children[cond]]
-			recursive_path_finder(graph, new_node, new_path)
+	
 
 
 
@@ -99,7 +149,7 @@ class Node:
 	def add_connection(self, nodeID, condition):
 		"""add connecting nodes via a dictionary with condition as the key"""
 		self.children[condition] = nodeID 
-		
+
 	def dump(self):
 		"""output the attribute values of node"""
 		print("Id: "+self.id+" Type:"+self.type+" Label: "+self.label)
@@ -189,8 +239,11 @@ for trans in data["transitions"]:
 
 #global variables
 exit=False
-iteration=99
+its=0
 paths=[] #going to be list of all possible paths
+nxt=0
+case = "C"
+val = 0
 
 #call function to find all possible paths in graph- starting from node 1 as node 0 is irrelevant
 #dfs_iterative(graph, graph.nodes[1],[])

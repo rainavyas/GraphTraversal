@@ -48,7 +48,7 @@ def dfs_iterative(graph, start, path):
 			iteration=int(raw_input("How many cycles? (Input a positive number)")) #some iterators are in the first path out of the particular condition, if this is not alowed to loop multiple paths can be lost
 		elif iteration==0: #last cycle
 			iteration=99 #reset counter
-			#return new_path
+			return  #prematurely end this loop
 		else:
 			iteration=iteration-1
 	if len(start.children.values())==0: #reached final node

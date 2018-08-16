@@ -6,11 +6,12 @@ from help import Stack, Queue
 import collections 
 
 #Write a Riemann test to a file	
-def write_a_test(s,m,f):
-
-	domain=conditions['domains'] 
-	intent=conditions['intents']
-	k=conditions.keys()
+def write_a_test(s,c,f):
+	#open file to write tests in
+	domain=s.conditions[c].pattern['domains'] 
+	intent=s.conditions[c].pattern['intents']
+	k=s.conditions[c].pattern.keys()
+	tts=f.actions[0].parameters["sentence"]
 	k.remove('domains')
 	k.remove('intents')
 	file.write('\tDescribe("User says ", func() { \n' '\t\tIt("Should say ", func() { \n' '\t\t\tr.Sensors.Mic.SendVT(micSensor.WAKEUP) \n'+'\t\t\tr.WaitFor(olly).ToBe(riemann.Listening()) \n'+'\t\t\tr.Sensors.Mic.SendNlpResult( \n')
@@ -18,11 +19,13 @@ def write_a_test(s,m,f):
 	file.write('\t\t\t\tmicSensor.Intents("'+intent+'"),\n')
 	for entity in k:
 		ent=entity.split(':')[-1]
-		val=raw_input("Enter value for entity "+entity+" ")
+		val="val"
+		#raw_input("Enter value for entity "+entity+" ")
 		file.write('\t\t\t\tmicSensor.Entities("'+ent+'","'+val+'"),\n)\n')
+	file.write(')')
 	file.write('\t\t\tr.Match( \n'
 					'\t\t\t\triemann.Group( \n'
-						'\t\t\t\t\ttts.Matcher(""), \n'
+						'\t\t\t\t\ttts.Matcher("'+tts+'"), \n'
 					'\t\t\t\t), \n'
 				'\t\t\t) \n'
 			'\t\t}) \n'
@@ -45,18 +48,17 @@ def dfs_iterative(graph, start, path):
 			iteration=int(raw_input("How many cycles? (Input a positive number)")) #some iterators are in the first path out of the particular condition, if this is not alowed to loop multiple paths can be lost
 		elif iteration==0: #last cycle
 			iteration=99 #reset counter
-			return new_path
-			exit=True
+			#return new_path
 		else:
 			iteration=iteration-1
 	if len(start.children.values())==0: #reached final node
 		paths.append(new_path)
 		print("fin")
-		return new_path
+		#return new_path
 	for n in start.children.keys(): #otherwise go through each of next nodes one by one
 		new_path[start.id]=n
 		neighbor=graph.nodes[start.children[n]]
-		p=dfs_iterative(graph, neighbor, new_path)
+		dfs_iterative(graph, neighbor, new_path)
 
 def check_iterator(node):
 	try:
@@ -176,13 +178,18 @@ d = collections.OrderedDict()
 dfs_iterative(graph, graph.nodes[1],d)
 print(paths)
 
-
-# for p in paths:
-# 	start=graph.nodes[p[0]]
-# 	mid=graph.nodes[p[1]]
-# 	finish=graph.nodes[p[-1]]
-# 	write_a_test(start, mid, finish)
-#open file to write tests in
+print paths[0][1]
 file = open('testfile.go','w')
+for p in paths:
+	print p.keys()
+	start=graph.nodes[p.keys()[0]]
+	c=p.values()[0]
+	print start.id
+	#p.popitem() #remove last node aka TTs finished
+	finish=graph.nodes[p.keys()[-2]]
+	print finish.id
+	write_a_test(start,c, finish)
+file.close()
+
 
 

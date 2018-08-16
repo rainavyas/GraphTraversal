@@ -35,30 +35,26 @@ def write_a_test(s,c,f):
  # Find paths
 def dfs_iterative(graph, start, path):
 	global paths, iteration, exit
-	new_path=path.copy()
-	#new_path.append(start.id)
-	new_path[start.id]=0
-
 	if check_iterator(start):
-		# if exit:
-		# 	exit=False
-		# 	return new_path
-		# else:
 		if iteration==99:
 			iteration=int(raw_input("How many cycles? (Input a positive number)")) #some iterators are in the first path out of the particular condition, if this is not alowed to loop multiple paths can be lost
 		elif iteration==0: #last cycle
 			iteration=99 #reset counter
+			print "deleting this path"
+			print path
 			return  #prematurely end this loop
 		else:
 			iteration=iteration-1
+	path.append((0,0))
 	if len(start.children.values())==0: #reached final node
-		paths.append(new_path)
+		path[-1]=(start.id,0)
+		paths.append(path)
 		print("fin")
-		#return new_path
 	for n in start.children.keys(): #otherwise go through each of next nodes one by one
-		new_path[start.id]=n
+		path[-1]=(start.id,n)
+		new_path=path[:]
 		neighbor=graph.nodes[start.children[n]]
-		dfs_iterative(graph, neighbor, new_path)
+		dfs_iterative(graph, neighbor,new_path)
 
 def check_iterator(node):
 	try:
@@ -174,19 +170,18 @@ iteration=99
 paths=[]
 
 #Store each path in an ordered dictionary where the key is the node.id and the value is the conditon
-d = collections.OrderedDict()
-dfs_iterative(graph, graph.nodes[1],d)
+
+dfs_iterative(graph, graph.nodes[1],[])
 print(paths)
 
 print paths[0][1]
 file = open('testfile.go','w')
 for p in paths:
-	print p.keys()
-	start=graph.nodes[p.keys()[0]]
-	c=p.values()[0]
+	print p
+	start=graph.nodes[p[0][0]]
+	c=p[0][1]
 	print start.id
-	#p.popitem() #remove last node aka TTs finished
-	finish=graph.nodes[p.keys()[-2]]
+	finish=graph.nodes[p[-2][0]]
 	print finish.id
 	write_a_test(start,c, finish)
 file.close()

@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
-import "os"
+import (
+	"encoding/json"
+	"fmt"
+
+	"io/ioutil"
+)
 
 //define an Action structure
 type Action struct {
@@ -58,16 +62,23 @@ func NewGraph() Graph {
 }
 
 func main() {
-	//open json file
-	jsonFile, _ := os.Open("Music--2018-08-10T09_20_31.449Z.json")
-	//catch if no file exists
-	if jsonFile == nil {
-		fmt.Println("no file in current directory")
-	}
+	//choose file
+	FileName := "jsons/Music--2018-08-10T09_20_31.449Z.json"
 
-	//close the file so that it can be parsed later
-	defer jsonFile.Close()
+	//get json file in the form of json numbers
+	jsonFile, _ := ioutil.ReadFile(FileName)
 
-	fmt.Println(jsonFile)
+	//convert json numbers to a map, where key is string and value is a map with key string and value interface (not a fixed data structure)
+	var data map[string][]map[string]interface{}
+	json.Unmarshal(jsonFile, &data)
+
+	fmt.Println(data["nodes"][1]["position"])
+
+	//check to see if the interface type can be set to a particular correct data structure
+	//var coord map[string]float64
+	//coord = data["nodes"][1]["position"]
+
+	//store all the nodes in a Graph object
+	//graph := NewGraph()
 
 }

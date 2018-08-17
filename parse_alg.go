@@ -41,6 +41,63 @@ type Graph struct {
 	nodes map[int]Node
 }
 
+//define a set of structures required for json unmarsheling
+
+//define json overall tree
+type json_nodes_and_trans struct {
+	nodes       []json_node       `json:"nodes"`
+	transitions []json_transition `json:"transitions"`
+}
+
+//define the json node structure
+type json_node struct {
+	id    int    `json:"id"`
+	typ   string `json:"type"`
+	label string `json:"label`
+	position json_position `json:"position"`
+	conditions []json_condition `json:"conditions"`
+	actions []json_action `json:"actions"`
+
+}
+
+//define the json position structure
+type json_position{
+	x int `json:"x"`
+	y int `json:"y"`
+}
+
+//define the json condition structure
+type json_condition struct{
+	id int `json:"id"`
+	typ int `json:"type"`
+	pattern []json_pattern `json:"pattern"`
+}
+
+//define the json pattern structure
+type json_pattern struct{
+	key string `json:"key"`
+	value string `json:"value"`
+
+}
+
+//define the json action structure
+type json_action struct{
+	typ string `json:"type"`
+	command string `json:"command"`
+	parameters []json_parameter `json:"parameters"`
+}
+
+
+//define the json paramater structure
+type json_parameter struct{
+	key string `json:"key"`
+	value string `json"value"`
+}
+
+//define the json transition structure
+
+
+
 //function to create Action object
 func NewAction() Action {
 	return Action{parameters: map[string]string{}}

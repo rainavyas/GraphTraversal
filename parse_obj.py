@@ -111,8 +111,8 @@ def check_iterator(node):
 			return False
 	except IndexError:
 		return False
+		
 #Check if the condition will continue iteration
-#NEED TO FIX THIS
 def check_iteration(condition):
 	try:
 		if condition.pattern["length"]=="+":
@@ -164,10 +164,7 @@ class Graph:
 		self.nodes = {}
 		self.current_node = 0
 
-	def connect_nodes(self, i, j):
-		node1 = self.nodes[i]
-		node2 = self.nodes[j]
-		node1.add_connection(node2)
+
 	def dump(self):
 		for n in self.nodes.values():
 			print("Id: "+str(n.id)+" Type: "+n.type+" Label: "+n.label)

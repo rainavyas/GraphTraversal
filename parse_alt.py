@@ -113,7 +113,7 @@ class Node:
 		self.label=None
 		self.conditions = {} #key: condition ID , value: condition
 		self.actions =[] #every item is an Action object
-		self.children={} #key: condition , value: child node id
+		self.children={} #key: conditionID , value: child node id
 
 	def add_connection(self, nodeID, condition):
 		"""add connecting nodes via a dictionary with condition as the key"""

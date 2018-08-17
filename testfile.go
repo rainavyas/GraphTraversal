@@ -3,11 +3,11 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
+					tts.Matcher("The weather is [weather:description] and the temperature is [weather:temperature_value] degrees"), 
 				), 
 			) 
 		}) 
@@ -17,11 +17,11 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("turning the lights on"), 
+					tts.Matcher("Sorry, I can not fetch the weather right now"), 
 				), 
 			) 
 		}) 
@@ -31,13 +31,13 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("location","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
+					tts.Matcher("In [weather:location] the weather is [weather:description] and the temperature is [weather:temperature_value] degrees"), 
 				), 
 			) 
 		}) 
@@ -47,13 +47,13 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("location","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("turning the lights on"), 
+					tts.Matcher("Sorry, I can not fetch the weather right now"), 
 				), 
 			) 
 		}) 
@@ -63,13 +63,13 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
+					tts.Matcher("In [weather:location] the weather [weather:weekday] is [weather:description] with highs of [weather:max_temperature_value] and lows of [weather:min_temperature_value]."), 
 				), 
 			) 
 		}) 
@@ -79,13 +79,13 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("turning the lights on"), 
+					tts.Matcher("Sorry, I can not fetch the weather right now"), 
 				), 
 			) 
 		}) 
@@ -95,15 +95,15 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
 )
-				micSensor.Entities("color","val"),
+				micSensor.Entities("location","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
+					tts.Matcher("In [weather:location] the weather [weather:weekday] is [weather:description] with highs of [weather:max_temperature_value] and lows of [weather:min_temperature_value]."), 
 				), 
 			) 
 		}) 
@@ -113,15 +113,15 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
 )
-				micSensor.Entities("color","val"),
+				micSensor.Entities("location","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("turning the lights on"), 
+					tts.Matcher("Sorry, I can not fetch the weather right now"), 
 				), 
 			) 
 		}) 
@@ -131,15 +131,13 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
-				micSensor.Entities("house_place","val"),
-)
-				micSensor.Entities("color","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
+					tts.Matcher("In [weather:location] the weather [weather:weekday] is [weather:description] with highs of [weather:max_temperature_value] and lows of [weather:min_temperature_value]."), 
 				), 
 			) 
 		}) 
@@ -149,15 +147,13 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
-				micSensor.Entities("house_place","val"),
-)
-				micSensor.Entities("color","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("turning the lights on"), 
+					tts.Matcher("Sorry, I can not fetch the weather right now"), 
 				), 
 			) 
 		}) 
@@ -167,55 +163,15 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("$error"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("brightening the lights"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
+)
+				micSensor.Entities("location","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
+					tts.Matcher("In [weather:location] the weather [weather:weekday] is [weather:description] with highs of [weather:max_temperature_value] and lows of [weather:min_temperature_value]."), 
 				), 
 			) 
 		}) 
@@ -225,13 +181,15 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
+)
+				micSensor.Entities("location","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("$error"), 
+					tts.Matcher("Sorry, I can not fetch the weather right now"), 
 				), 
 			) 
 		}) 
@@ -241,13 +199,13 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("brightening the lights"), 
+					tts.Matcher("No TTS"), 
 				), 
 			) 
 		}) 
@@ -257,13 +215,13 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
+					tts.Matcher("No TTS"), 
 				), 
 			) 
 		}) 
@@ -273,13 +231,13 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("$error"), 
+					tts.Matcher("No TTS"), 
 				), 
 			) 
 		}) 
@@ -289,13 +247,13 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("brightening the lights"), 
+					tts.Matcher("No TTS"), 
 				), 
 			) 
 		}) 
@@ -305,11 +263,13 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_down"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
+)
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
+					tts.Matcher("Sorry, I can not fetch the weather right now"), 
 				), 
 			) 
 		}) 
@@ -319,11 +279,13 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_down"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
+)
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("$error"), 
+					tts.Matcher("No TTS"), 
 				), 
 			) 
 		}) 
@@ -333,11 +295,15 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_down"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
+)
+				micSensor.Entities("location","val"),
+)
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("dimming the lights"), 
+					tts.Matcher("No TTS"), 
 				), 
 			) 
 		}) 
@@ -347,13 +313,15 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_down"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
+)
+				micSensor.Entities("location","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
+					tts.Matcher("No TTS"), 
 				), 
 			) 
 		}) 
@@ -363,13 +331,15 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_down"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
+)
+				micSensor.Entities("location","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("$error"), 
+					tts.Matcher("No TTS"), 
 				), 
 			) 
 		}) 
@@ -379,13 +349,15 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_down"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
+)
+				micSensor.Entities("location","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("dimming the lights"), 
+					tts.Matcher("No TTS"), 
 				), 
 			) 
 		}) 
@@ -395,13 +367,15 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_down"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
+)
+				micSensor.Entities("location","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
+					tts.Matcher("Sorry, I can not fetch the weather right now"), 
 				), 
 			) 
 		}) 
@@ -411,307 +385,15 @@
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_down"),
-				micSensor.Entities("house_place","val"),
+				micSensor.Domains("weather"),
+				micSensor.Intents("weather:query_condition"),
+				micSensor.Entities("time_range","val"),
+)
+				micSensor.Entities("location","val"),
 )
 )			r.Match( 
 				riemann.Group( 
-					tts.Matcher("$error"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_down"),
-				micSensor.Entities("house_place","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("dimming the lights"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-				micSensor.Entities("house_place","val"),
-)
-				micSensor.Entities("color","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-				micSensor.Entities("house_place","val"),
-)
-				micSensor.Entities("color","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("$error"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-				micSensor.Entities("house_place","val"),
-)
-				micSensor.Entities("color","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("changing the colour of the lights"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-				micSensor.Entities("house_place","val"),
-)
-				micSensor.Entities("color","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-				micSensor.Entities("house_place","val"),
-)
-				micSensor.Entities("color","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("$error"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-				micSensor.Entities("house_place","val"),
-)
-				micSensor.Entities("color","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("changing the colour of the lights"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-				micSensor.Entities("color","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-				micSensor.Entities("color","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("$error"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-				micSensor.Entities("color","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("changing the colour of the lights"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_off"),
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_off"),
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("turning the lights off"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_off"),
-				micSensor.Entities("house_place","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_off"),
-				micSensor.Entities("house_place","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("turning the lights off"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_off"),
-				micSensor.Entities("house_place","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("There is no light called like that"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_off"),
-				micSensor.Entities("house_place","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("turning the lights off"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("Could not find the color you ask for."), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-				micSensor.Entities("house_place","val"),
-)
-)			r.Match( 
-				riemann.Group( 
-					tts.Matcher("Could not find the color you ask for."), 
+					tts.Matcher("No TTS"), 
 				), 
 			) 
 		}) 

@@ -11,7 +11,10 @@ def write_a_test(s,c,f):
 	domain=s.conditions[c].pattern['domains'] 
 	intent=s.conditions[c].pattern['intents']
 	k=s.conditions[c].pattern.keys()
-	tts=f.actions[0].parameters["sentence"]
+	try:
+		tts=f.actions[0].parameters["sentence"]
+	except KeyError:
+		tts="No TTS"
 	k.remove('domains')
 	k.remove('intents')
 	file.write('\tDescribe("User says ", func() { \n' '\t\tIt("Should say ", func() { \n' '\t\t\tr.Sensors.Mic.SendVT(micSensor.WAKEUP) \n'+'\t\t\tr.WaitFor(olly).ToBe(riemann.Listening()) \n'+'\t\t\tr.Sensors.Mic.SendNlpResult( \n')
@@ -58,11 +61,12 @@ def dfs_iterative(graph, start, path):
 		else:
 			iteration=iteration-1
 	new_path=path[:]
-	new_path.append((0,0))
-	if len(start.children.values())==0: #reached final node
-		new_path[-1]=(start.id,0)
+	if len(start.children.values())==0 or start.id==0: #reached final node
+		if start.id!=0:
+			new_path.append(start.id,0)
 		paths.append(new_path)
-		
+		return
+	new_path.append((0,0))
 	for n in start.children.keys(): #otherwise go through each of next nodes one by one
 		new_path[-1]=(start.id,n)
 		neighbor=graph.nodes[start.children[n]]
@@ -155,6 +159,7 @@ for i in range(len(data["nodes"])):
 			for k in cond["pattern"]:
 				c.pattern[k["key"]]=k["value"]
 			node.conditions[c.id]=c
+			node.children[c.id] = 0
 	if "actions" in data["nodes"][i].keys():
 		for act in data["nodes"][i]['actions']:
 			a=Action()
@@ -174,7 +179,7 @@ for i in data["transitions"]:
 	except KeyError:
 		c=0
 	end=i["to"]["node"]
-	graph.nodes[start].add_connection(end, c)
+	graph.nodes[start].children[c]=end
 
 #define useful global variables
 case = "C"

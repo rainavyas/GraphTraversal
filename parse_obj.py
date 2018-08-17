@@ -6,30 +6,61 @@ from help import Stack, Queue
 import collections 
 
 #Write a Riemann test to a file	in GO syntax
-def write_a_test(s,c,f):
-	#open file to write tests in
-	domain=s.conditions[c].pattern['domains'] 
-	intent=s.conditions[c].pattern['intents']
-	k=s.conditions[c].pattern.keys()
-	try:
-		tts=f.actions[0].parameters["sentence"]
-	except KeyError:
-		tts="No TTS"
-	k.remove('domains')
-	k.remove('intents')
+def write_a_test(elist):
+	tts=""
+	matcher=""
+	ents=[]
+	vals=[]
+	comms={}
+	matches={}
+	for e in elist: #check what events are in the path
+		if e.type=="TTS":
+			tts+=e.parameters["sentence"] #put all the tts in one string*
+		elif e.type==5:#Speech Recognised event
+			try:
+				domain=e.pattern["domains"]
+				intent=e.pattern["intents"]
+				k=e.pattern.keys()
+				k.remove('domains')
+				k.remove('intents')
+				for entity in k: #store all entities
+					ents.append(entity.split(':')[-1])
+					vals.append("val")
+					#raw_input("Enter value for entity "+entity+" ")
+			except KeyError:
+				pass
+		elif type(e.type)!=int: #Any other action nodes
+			name=e.type.lower().split('.')[-1]
+			matches[name]=e.command.lower()
+			comms[name]=e.parameters.keys()
+		else:
+			pass
+	#Write the test to file
+	#Initial user input
 	file.write('\tDescribe("User says ", func() { \n' '\t\tIt("Should say ", func() { \n' '\t\t\tr.Sensors.Mic.SendVT(micSensor.WAKEUP) \n'+'\t\t\tr.WaitFor(olly).ToBe(riemann.Listening()) \n'+'\t\t\tr.Sensors.Mic.SendNlpResult( \n')
 	file.write('\t\t\t\tmicSensor.Domains("'+domain+'"),\n')
 	file.write('\t\t\t\tmicSensor.Intents("'+intent+'"),\n')
-	for entity in k:
-		ent=entity.split(':')[-1]
-		val="val"
-		#raw_input("Enter value for entity "+entity+" ")
-		file.write('\t\t\t\tmicSensor.Entities("'+ent+'","'+val+'"),\n)\n')
+	if len(ents)>0:
+		file.write('\t\t\t\tmicSensor.Entities(\n')
+		for ent, val in zip(ents, vals):
+			file.write('\t\t\t\t\t"'+ent+'","'+val+'"\n')
+		file.write('\t\t\t\t)\n')
 	file.write(')')
 	file.write('\t\t\tr.Match( \n'
-					'\t\t\t\triemann.Group( \n'
-						'\t\t\t\t\ttts.Matcher("'+tts+'"), \n'
-					'\t\t\t\t), \n'
+					'\t\t\t\triemann.Group( \n')
+	#Action Macthers
+	if len(matches.keys())>0:
+		for m, a in zip(matches.keys(),matches.values()):
+			if m=="iterator":
+				continue
+			file.write('\t\t\t\t\t'+m+'.Matcher("'+m+'", \n')
+			for comm in comms[m]:
+				file.write('\t\t\t\t\t\t\thass.Entity("'+comm+'","val")\n') #hass.Entity needs to be replaced with appropriate name
+		file.write(')')
+	#TTS	
+	if tts!='':
+		file.write('\t\t\t\t\ttts.Matcher("'+tts+'"), \n')
+	file.write('\t\t\t\t), \n'
 				'\t\t\t) \n'
 			'\t\t}) \n'
 		'\t}) \n')
@@ -188,22 +219,22 @@ paths=[]
 total_its =0
 
 #Store each path as a list, where each element is [nodeID, conditionID to next node]
-
 dfs_iterative(graph, graph.nodes[1],[])
-print(paths)
 
-#print paths[0][1]
-
-
+#Get all the conditions and actions and write tests for each path to one file
 file = open('testfile.go','w')
 for p in paths:
-	#print p
-	start=graph.nodes[p[0][0]]
-	c=p[0][1]
-	#print start.id
-	finish=graph.nodes[p[-2][0]]
-	#print finish.id
-	write_a_test(start,c, finish)
+	events=[]
+	for stop in p:
+		loc=graph.nodes[stop[0]]
+		try:
+			events.append(loc.conditions[stop[1]]) #Get the one chosen Condition in the node
+		except:
+			KeyError
+		for i in loc.actions: #Get all the Actions in node
+			events.append(i)
+
+	write_a_test(events)
 file.close()
 
 

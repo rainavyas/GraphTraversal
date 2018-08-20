@@ -1,12 +1,38 @@
 import json
 from pprint import pprint
-import Tkinter, tkFileDialog
+import Tkinter as tk
+import tkFileDialog
 import os
 from help import Stack, Queue
-import collections 
+import shutil
 
+class GUI:
+	def __init__(self, master,text):
+		self.master = master
+		master.title("Complete the scenario")
+		master.configure(background='lavender blush')
+		self.label1=tk.Label(master, text="User says:").grid(row=0, column=0, sticky=tk.W)
+		self.label2=tk.Label(master, text="Olly should say:").grid(row=1, column=0, sticky=tk.W)
+		self.user= tk.StringVar()
+		self.olly= tk.StringVar()
+		self.e1 = tk.Entry(master,textvariable=self.user)
+		self.e2 = tk.Entry(master,textvariable=self.olly)
+		self.e1.grid(row=0, column=1,sticky=tk.W+tk.E)
+		self.e2.grid(row=1, column=1, sticky=tk.W+tk.E)
+		self.save=tk.Button(master, text='Save', command=master.destroy, width=80,bg = 'LightPink1').grid(row=4, column=0,columnspan=3)
+		self.label3=tk.Label(master, text="Current test").grid(row=2, column=0, columnspan=3)
+		self.S = tk.Scrollbar(master)
+		self.S.grid(row=3, column=3,sticky=tk.N+tk.S)
+		self.T = tk.Text(master,height = 10, width=80)
+		self.S.config(command=self.T.yview)
+		self.T.grid(row=3, columnspan=3)
+		self.T.insert(tk.END, text)
+		self.T.config(yscrollcommand=self.S.set)
+		self.T.configure(state='disabled')
+		
 #Write a Riemann test to a file	in GO syntax
 def write_a_test(elist):
+	fulltext="" #The full text of the current scenario
 	tts=""
 	matcher=""
 	ents=[]
@@ -15,7 +41,9 @@ def write_a_test(elist):
 	matches={}
 	for e in elist: #check what events are in the path
 		if e.type=="TTS":
-			tts+=e.parameters["sentence"] #put all the tts in one string*
+			tts=e.parameters["sentence"] #put all the tts in one string*
+			if tts!='':
+				fulltext+=('\t\t\t\t\ttts.Matcher("'+tts+'"), \n') 
 		elif e.type==5:#Speech Recognised event
 			try:
 				domain=e.pattern["domains"]
@@ -29,41 +57,51 @@ def write_a_test(elist):
 					#raw_input("Enter value for entity "+entity+" ")
 			except KeyError:
 				pass
+			#Initial user input
+			fulltext+=('\t\t\tr.Sensors.Mic.SendNlpResult( \n')
+			fulltext+=('\t\t\t\tmicSensor.Domains("'+domain+'"),\n')
+			fulltext+=('\t\t\t\tmicSensor.Intents("'+intent+'"),\n')
+			if len(ents)>0:
+				fulltext+=('\t\t\t\tmicSensor.Entities(\n')
+				for ent, val in zip(ents, vals):
+					fulltext+=('\t\t\t\t\t"'+ent+'","'+val+'"\n')
+				fulltext+=('\t\t\t\t)\n')
+			fulltext+=('\t\t\t)\n')
+			fulltext+=('\t\t\tr.Match( \n'
+							'\t\t\t\triemann.Group( \n')
 		elif type(e.type)!=int: #Any other action nodes
 			name=e.type.lower().split('.')[-1]
 			matches[name]=e.command.lower()
 			comms[name]=e.parameters.keys()
+				#Action Macthers
+			if len(matches.keys())>0:
+				for m, a in zip(matches.keys(),matches.values()):
+					if m=="iterator":
+						continue
+					fulltext+=('\t\t\t\t\t'+m+'.Matcher("'+m+'", \n')
+					for comm in comms[m]:
+						fulltext+=('\t\t\t\t\t\t\thass.Entity("'+comm+'","val")\n') #hass.Entity needs to be replaced with appropriate name
+				fulltext+=('\t\t\t\t\t)\n')
 		else:
 			pass
-	#Write the test to file
-	#Initial user input
-	file.write('\tDescribe("User says ", func() { \n' '\t\tIt("Should say ", func() { \n' '\t\t\tr.Sensors.Mic.SendVT(micSensor.WAKEUP) \n'+'\t\t\tr.WaitFor(olly).ToBe(riemann.Listening()) \n'+'\t\t\tr.Sensors.Mic.SendNlpResult( \n')
-	file.write('\t\t\t\tmicSensor.Domains("'+domain+'"),\n')
-	file.write('\t\t\t\tmicSensor.Intents("'+intent+'"),\n')
-	if len(ents)>0:
-		file.write('\t\t\t\tmicSensor.Entities(\n')
-		for ent, val in zip(ents, vals):
-			file.write('\t\t\t\t\t"'+ent+'","'+val+'"\n')
-		file.write('\t\t\t\t)\n')
-	file.write(')')
-	file.write('\t\t\tr.Match( \n'
-					'\t\t\t\triemann.Group( \n')
-	#Action Macthers
-	if len(matches.keys())>0:
-		for m, a in zip(matches.keys(),matches.values()):
-			if m=="iterator":
-				continue
-			file.write('\t\t\t\t\t'+m+'.Matcher("'+m+'", \n')
-			for comm in comms[m]:
-				file.write('\t\t\t\t\t\t\thass.Entity("'+comm+'","val")\n') #hass.Entity needs to be replaced with appropriate name
-		file.write(')')
-	#TTS	
-	if tts!='':
-		file.write('\t\t\t\t\ttts.Matcher("'+tts+'"), \n')
-	file.write('\t\t\t\t), \n'
-				'\t\t\t) \n'
-			'\t\t}) \n'
-		'\t}) \n')
+	fulltext+=('\t\t\t\t), \n'
+					'\t\t\t) \n'
+				'\t\t}) \n'
+			'\t}) \n')
+
+	#Open GUI to complete scenario
+	master = tk.Tk()
+	my_gui = GUI(master,fulltext)
+	master.mainloop()
+
+	#Retrieve input
+	user=my_gui.user.get()
+	olly=my_gui.olly.get()
+
+	#Add the first two lines with user readable scenario summary at the start
+	fulltext=('\tDescribe("User says '+user+'", func() { \n' '\t\tIt("Should say '+olly+'", func() { \n' '\t\t\tr.Sensors.Mic.SendVT(micSensor.WAKEUP) \n'+'\t\t\tr.WaitFor(olly).ToBe(riemann.Listening()) \n')+fulltext
+	#write scenario to file
+	file.write(fulltext)
 
 
  # Find paths
@@ -94,7 +132,7 @@ def dfs_iterative(graph, start, path):
 	new_path=path[:]
 	if len(start.children.values())==0 or start.id==0: #reached final node
 		if start.id!=0:
-			new_path.append(start.id,0)
+			new_path.append((start.id,0))
 		paths.append(new_path)
 		return
 	new_path.append((0,0))
@@ -123,8 +161,9 @@ def check_iteration(condition):
 		return False
 
 #specify json to parse
-root = Tkinter.Tk()
-file = tkFileDialog.askopenfile(parent=root,initialdir="/home/andy/asr-demos/record-and-align/time_profile",mode='rb',title='Choose a file')
+root = tk.Tk()
+file = tkFileDialog.askopenfile(parent=root,initialdir="/home/emotech/pannagrarol/jsons",mode='rb',title='Choose a file')
+name=str(file).split('/')[5].split('-')[0]
 root.update()
 root.destroy()
 #with open('lights--2018-08-03T08_59_04.846Z.json') as f:
@@ -218,8 +257,11 @@ total_its =0
 #Store each path as a list, where each element is [nodeID, conditionID to next node]
 dfs_iterative(graph, graph.nodes[1],[])
 
+#Copy the template
+shutil.copy('template.go', 'tests/'+name+'.go')
+
 #Get all the conditions and actions and write tests for each path to one file
-file = open('testfile.go','w')
+file = open('tests/'+name+'.go','a')
 for p in paths:
 	events=[]
 	for stop in p:

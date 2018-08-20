@@ -17,8 +17,8 @@ type Action struct {
 //define a Condition structure
 type Condition struct {
 	Id      int
-	Typ     string
-	Pattern map[string]string
+	Typ     int
+	Pattern map[string]string //each new key,val is a new pattern
 }
 
 // define a node structure
@@ -32,7 +32,7 @@ type Node struct {
 }
 
 //create method for Node class to be able to add children nodes
-func (n *Node) add_child(childID, conditionID int) {
+func (n Node) add_child(childID, conditionID int) {
 	n.Children[conditionID] = childID
 }
 
@@ -80,7 +80,7 @@ type JsonPattern struct {
 
 //define the json action structure
 type JsonAction struct {
-	Yyp        string          `json:"type"`
+	Typ        string          `json:"type"`
 	Command    string          `json:"command"`
 	Parameters []JsonParameter `json:"parameters"`
 }
@@ -160,17 +160,50 @@ func main() {
 	}
 
 	//store all the nodes in a Graph object
-	CurrentNode:= NewNode() 
+	CurrentNode := NewNode()
+	CurrentCond := NewCondtion()
+	CurrentAction := NewAction()
 	graph := NewGraph()
-	for i:=0; i < len(JsonStructs.Nodes){
+	for i := 0; i < len(JsonStructs.Nodes); i++ {
 		//populate Node structure
-		CurrentNode.Id=JsonStructs.Nodes[i].Id
-		CurrentNode.Typ=JsonStructs.Nodes[i].Typ
+		CurrentNode.Id = JsonStructs.Nodes[i].Id
+		CurrentNode.Typ = JsonStructs.Nodes[i].Typ
 		CurrentNode.Label = JsonStructs.Nodes[i].Label
-		
 
+		//loop through the conditions
+		for j := 0; j < len(JsonStructs.Nodes[i].Conditions); j++ {
+			CurrentCond.Id = JsonStructs.Nodes[i].Conditions[j].Id
+			CurrentCond.Typ = JsonStructs.Nodes[i].Conditions[j].Typ
+
+			//loop through the patterns
+			for k := 0; k < len(JsonStructs.Nodes[i].Conditions[j].Pattern); k++ {
+				CurrentCond.Pattern[JsonStructs.Nodes[i].Conditions[j].Pattern[k].Key] = JsonStructs.Nodes[i].Conditions[j].Pattern[k].Value
+			}
+
+			CurrentNode.Conditions[CurrentCond.Id] = CurrentCond
+		}
+
+		//loop through the actions
+		for a := 0; a < len(JsonStructs.Nodes[i].Actions); a++ {
+			CurrentAction.Command = JsonStructs.Nodes[i].Actions[a].Command
+			CurrentAction.Typ = JsonStructs.Nodes[i].Actions[a].Typ
+
+			//loop through the parameters
+			for p := 0; p < len(JsonStructs.Nodes[i].Actions[a].Parameters); p++ {
+				CurrentAction.Parameters[JsonStructs.Nodes[i].Actions[a].Parameters[p].Key] = JsonStructs.Nodes[i].Actions[a].Parameters[p].Value
+			}
+
+			CurrentNode.Actions = append(CurrentNode.Actions, CurrentAction)
+
+		}
+
+		graph.Nodes[CurrentNode.Id] = CurrentNode
 
 	}
 
+	//add connections between the nodes in the graph
+	for t := 0; t < len(JsonStructs.Transitions); t++ {
+		graph.Nodes[JsonStructs.Transitions[t].From.Node].add_child(JsonStructs.Transitions[t].To.Node, JsonStructs.Transitions[t].From.Condition)
+	}
 
 }

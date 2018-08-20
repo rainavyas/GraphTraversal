@@ -7,6 +7,11 @@ import (
 	"os"
 )
 
+//define some useful global variables
+var cas string
+var iteration = 99
+var paths [][][]int
+
 //define an Action structure
 type Action struct {
 	Typ        string
@@ -128,10 +133,61 @@ func NewGraph() Graph {
 	return Graph{Nodes: map[int]Node{}}
 }
 
+//Depth First Search Algorithm to find paths
+func DfsIterative(graph Graph, start Node, path [][]int) {
+	if (CheckIterator(start)) && (len(start.Children) != 0) {
+		//the current node is an iterator
+	}
+
+	newPath := path
+	var tempPath []int
+	if len(start.Children) == 0 || start.Id == 0 {
+		//reached final node or 0th node
+		if start.Id != 0 {
+			tempPath = append(tempPath, start.Id, 0)
+			newPath = append(newPath, tempPath)
+		}
+		paths = append(paths, newPath)
+		return
+	}
+	tempPath = tempPath[:0]
+	var neighbour Node
+	//go through each of the conditions of the current node
+	for k, v := range start.Children {
+		tempPath = append(tempPath, start.Id)
+		tempPath = append(tempPath, k)
+		newPath = append(newPath, tempPath)
+		neighbour = graph.Nodes[v]
+		DfsIterative(graph, neighbour, newPath)
+		return
+
+	}
+
+}
+
+//function to check if node is iterator
+func CheckIterator(node Node) bool {
+	if len(node.Actions) > 0 {
+		if node.Actions[0].Command == "GET_NEXT" {
+			return true
+		} else {
+			return false
+		}
+	} else {
+		return false
+	}
+}
+
+func testCode() {
+	fmt.Print("first line")
+	return
+	fmt.Print("second line")
+}
+
 func main() {
 	//choose file
-	FileName := "jsons/Music--2018-08-10T09_20_31.449Z.json"
-	//FileName := "Music--2018-08-10T09_20_31.449Z.json"
+	//FileName := "jsons/Music--2018-08-10T09_20_31.449Z.json"
+	FileName := "jsons/Who-Am I--2018-08-10T09_22_10.343Z.json"
 
 	//get json file in the form of json numbers
 	jsonFile, err := os.Open(FileName)
@@ -205,5 +261,10 @@ func main() {
 	for t := 0; t < len(JsonStructs.Transitions); t++ {
 		graph.Nodes[JsonStructs.Transitions[t].From.Node].add_child(JsonStructs.Transitions[t].To.Node, JsonStructs.Transitions[t].From.Condition)
 	}
+
+	//call dfs iterative
+	var path [][]int
+	DfsIterative(graph, graph.Nodes[1], path)
+	//fmt.Print(paths)
 
 }

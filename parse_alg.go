@@ -143,6 +143,7 @@ func DfsIterative(graph Graph, start Node, path [][]int) {
 	}
 
 	newPath := path
+
 	if len(start.Children) == 0 || start.Id == 0 {
 		//reached final node or 0th node
 		if start.Id != 0 {
@@ -156,12 +157,13 @@ func DfsIterative(graph Graph, start Node, path [][]int) {
 	}
 
 	//go through each of the conditions of the current node
+	newPath = append(newPath, make([]int, 2))
 	for k, v := range start.Children {
+
 		tempPath := make([]int, 2)
 		tempPath[0] = start.Id
 		tempPath[1] = k
-		//tempPath = append(tempPath, k)
-		newPath = append(newPath, tempPath)
+		newPath[len(newPath)-1] = tempPath
 		neighbour := graph.Nodes[v]
 		DfsIterative(graph, neighbour, newPath)
 

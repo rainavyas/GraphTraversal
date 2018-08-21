@@ -256,26 +256,26 @@ total_its =0
 
 #Store each path as a list, where each element is [nodeID, conditionID to next node]
 dfs_iterative(graph, graph.nodes[1],[])
-print(paths)
+#print(paths)
 
-# #Copy the template
-# shutil.copy('template.go', 'tests/'+name+'.go')
+#Copy the template
+shutil.copy('template.go', 'tests/'+name+'.go')
 
-# #Get all the conditions and actions and write tests for each path to one file
-# file = open('tests/'+name+'.go','a')
-# for p in paths:
-# 	events=[]
-# 	for stop in p:
-# 		loc=graph.nodes[stop[0]]
-# 		try:
-# 			events.append(loc.conditions[stop[1]]) #Get the one chosen Condition in the node
-# 		except:
-# 			KeyError
-# 		for i in loc.actions: #Get all the Actions in node
-# 			events.append(i)
+#Get all the conditions and actions and write tests for each path to one file
+file = open('tests/'+name+'.go','a')
+for p in paths:
+	events=[]
+	for stop in p:
+		loc=graph.nodes[stop[0]]
+		try:
+			events.append(loc.conditions[stop[1]]) #Get the one chosen Condition in the node
+		except:
+			KeyError
+		for i in loc.actions: #Get all the Actions in node
+			events.append(i)
 
-# 	write_a_test(events)
-# file.close()
+	write_a_test(events)
+file.close()
 
 
 

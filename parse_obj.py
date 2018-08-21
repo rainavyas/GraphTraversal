@@ -35,7 +35,7 @@ def write_a_test(elist):
 	fulltext="" #The full text of the current scenario
 	tts=""
 	matcher=""
-	ents=[]
+	ents=[] #entities (speech recognised)
 	vals=[]
 	comms={}
 	matches={}
@@ -163,7 +163,8 @@ def check_iteration(condition):
 #specify json to parse
 root = tk.Tk()
 file = tkFileDialog.askopenfile(parent=root,initialdir="/home/emotech/pannagrarol/jsons",mode='rb',title='Choose a file')
-name=str(file).split('/')[5].split('-')[0]
+print(str(file))
+name=str(file).split('/')[-1].split('-')[0]
 root.update()
 root.destroy()
 #with open('lights--2018-08-03T08_59_04.846Z.json') as f:
@@ -262,6 +263,7 @@ dfs_iterative(graph, graph.nodes[1],[])
 shutil.copy('template.go', 'tests/'+name+'.go')
 
 #Get all the conditions and actions and write tests for each path to one file
+
 file = open('tests/'+name+'.go','a')
 for p in paths:
 	events=[]

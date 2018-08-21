@@ -11,15 +11,21 @@ class GUI:
 		self.master = master
 		master.title("Complete the scenario")
 		master.configure(background='lavender blush')
+
 		self.label1=tk.Label(master, text="User says:").grid(row=0, column=0, sticky=tk.W)
 		self.label2=tk.Label(master, text="Olly should say:").grid(row=1, column=0, sticky=tk.W)
-		self.user= tk.StringVar()
-		self.olly= tk.StringVar()
+
+		#Strings to be written to file
+		self.user= tk.StringVar() #User says
+		self.olly= tk.StringVar() #Olly should say
+
 		self.e1 = tk.Entry(master,textvariable=self.user)
 		self.e2 = tk.Entry(master,textvariable=self.olly)
 		self.e1.grid(row=0, column=1,sticky=tk.W+tk.E)
 		self.e2.grid(row=1, column=1, sticky=tk.W+tk.E)
+
 		self.save=tk.Button(master, text='Save', command=master.destroy, width=80,bg = 'LightPink1').grid(row=4, column=0,columnspan=3)
+
 		self.label3=tk.Label(master, text="Current test").grid(row=2, column=0, columnspan=3)
 		self.S = tk.Scrollbar(master)
 		self.S.grid(row=3, column=3,sticky=tk.N+tk.S)
@@ -33,31 +39,32 @@ class GUI:
 #Write a Riemann test to a file	in GO syntax
 def write_a_test(elist):
 	fulltext="" #The full text of the current scenario
-	tts=""
-	matcher=""
+
+	tts="" #The text said by olly
+
 	ents=[] #entities (speech recognised)
-	vals=[]
-	comms={}
-	matches={}
+	vals=[] #values of entities e.g. Tokyo for enitity weather:loacation
+
+	matcher="" #The name of the .Matcher needed (i.e what service is used)
+	commands={} #Action.command
+	params={} #Additional information for action nodes
+
 	for e in elist: #check what events are in the path
-		if e.type=="TTS":
+		if e.type=="TTS": #TTS node
 			tts=e.parameters["sentence"] #put all the tts in one string*
 			if tts!='':
 				fulltext+=('\t\t\t\t\ttts.Matcher("'+tts+'"), \n') 
 		elif e.type==5:#Speech Recognised event
-			try:
-				domain=e.pattern["domains"]
-				intent=e.pattern["intents"]
-				k=e.pattern.keys()
-				k.remove('domains')
-				k.remove('intents')
-				for entity in k: #store all entities
-					ents.append(entity.split(':')[-1])
+			keys=e.pattern.keys() #Get the NLP information
+			for k in keys: 
+				if k=='domains':
+					domain=e.pattern["domains"]
+				elif k=='intents':
+					intent=e.pattern["intents"]
+				else: #enitity
+					ents.append(k.split(':')[-1])#store all entities, get the latter part of entity e.g. iot:location--->location
 					vals.append("val")
 					#raw_input("Enter value for entity "+entity+" ")
-			except KeyError:
-				pass
-			#Initial user input
 			fulltext+=('\t\t\tr.Sensors.Mic.SendNlpResult( \n')
 			fulltext+=('\t\t\t\tmicSensor.Domains("'+domain+'"),\n')
 			fulltext+=('\t\t\t\tmicSensor.Intents("'+intent+'"),\n')
@@ -69,19 +76,19 @@ def write_a_test(elist):
 			fulltext+=('\t\t\t)\n')
 			fulltext+=('\t\t\tr.Match( \n'
 							'\t\t\t\triemann.Group( \n')
-		elif type(e.type)!=int: #Any other action nodes
-			name=e.type.lower().split('.')[-1]
-			matches[name]=e.command.lower()
-			comms[name]=e.parameters.keys()
-				#Action Macthers
-			if len(matches.keys())>0:
-				for m, a in zip(matches.keys(),matches.values()):
-					if m=="iterator":
+		elif type(e.type)!=int: #Any other action node
+			action_name=e.type.lower().split('.')[-1] #Split to ensure the action name is a single word e.g iot.LIGHTS--->lights
+			commands[action_name]=e.command.lower() #Save the command under the action type
+			params[action_name]=e.parameters.keys() #Save the list of action parameter names under the action type
+			#Write Action Macthers
+			if len(commands.keys())>0:
+				for matcher, command in zip(commands.keys(),commands.values()):
+					if matcher=="iterator": #skip iterators
 						continue
-					fulltext+=('\t\t\t\t\t'+m+'.Matcher("'+m+'", \n')
-					for comm in comms[m]:
-						fulltext+=('\t\t\t\t\t\t\thass.Entity("'+comm+'","val")\n') #hass.Entity needs to be replaced with appropriate name
-				fulltext+=('\t\t\t\t\t)\n')
+					fulltext+=('\t\t\t\t\t'+matcher+'.Matcher("'+command+'", \n')
+					for param in params[matcher]:
+						fulltext+=('\t\t\t\t\t\t\thass.Entity("'+param+'","val")\n') #hass.Entity needs to be replaced with appropriate name
+					fulltext+=('\t\t\t\t\t)\n')
 		else:
 			pass
 	fulltext+=('\t\t\t\t), \n'
@@ -162,12 +169,10 @@ def check_iteration(condition):
 
 #specify json to parse
 root = tk.Tk()
-file = tkFileDialog.askopenfile(parent=root,initialdir="/home/emotech/pannagrarol/jsons",mode='rb',title='Choose a file')
-print(str(file))
+file = tkFileDialog.askopenfile(parent=root,initialdir='/jsons',mode='rb',title='Choose a file')
 name=str(file).split('/')[-1].split('-')[0]
 root.update()
 root.destroy()
-#with open('lights--2018-08-03T08_59_04.846Z.json') as f:
 data = json.load(file)
 file.close()
 

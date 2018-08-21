@@ -37,8 +37,10 @@ type Node struct {
 }
 
 //create method for Node class to be able to add children nodes
-func (n Node) add_child(childID, conditionID int) {
+func (n Node) add_child(childID, conditionID int) Node {
 	n.Children[conditionID] = childID
+	return n
+
 }
 
 //define a Graph structure
@@ -54,6 +56,7 @@ type JsonNodesAndTrans struct {
 	Transitions []JsonTransition `json:"transitions"`
 }
 
+//
 //define the json node structure
 type JsonNode struct {
 	Id         int             `json:"id"`
@@ -140,26 +143,27 @@ func DfsIterative(graph Graph, start Node, path [][]int) {
 	}
 
 	newPath := path
-	var tempPath []int
 	if len(start.Children) == 0 || start.Id == 0 {
 		//reached final node or 0th node
 		if start.Id != 0 {
-			tempPath = append(tempPath, start.Id, 0)
+			tempPath := make([]int, 2)
+			tempPath[0] = start.Id
+			tempPath[1] = 0
 			newPath = append(newPath, tempPath)
 		}
 		paths = append(paths, newPath)
 		return
 	}
-	tempPath = tempPath[:0]
-	var neighbour Node
+
 	//go through each of the conditions of the current node
 	for k, v := range start.Children {
-		tempPath = append(tempPath, start.Id)
-		tempPath = append(tempPath, k)
+		tempPath := make([]int, 2)
+		tempPath[0] = start.Id
+		tempPath[1] = k
+		//tempPath = append(tempPath, k)
 		newPath = append(newPath, tempPath)
-		neighbour = graph.Nodes[v]
+		neighbour := graph.Nodes[v]
 		DfsIterative(graph, neighbour, newPath)
-		return
 
 	}
 
@@ -178,16 +182,11 @@ func CheckIterator(node Node) bool {
 	}
 }
 
-func testCode() {
-	fmt.Print("first line")
-	return
-	fmt.Print("second line")
-}
-
 func main() {
 	//choose file
-	//FileName := "jsons/Music--2018-08-10T09_20_31.449Z.json"
-	FileName := "jsons/Who-Am I--2018-08-10T09_22_10.343Z.json"
+	FileName := "jsons/Music--2018-08-10T09_20_31.449Z.json"
+	//FileName := "jsons/Who-Am I--2018-08-10T09_22_10.343Z.json"
+	//FileName := "jsons/Wifi--2018-08-10T09_22_13.471Z.json"
 
 	//get json file in the form of json numbers
 	jsonFile, err := os.Open(FileName)
@@ -216,18 +215,18 @@ func main() {
 	}
 
 	//store all the nodes in a Graph object
-	CurrentNode := NewNode()
-	CurrentCond := NewCondtion()
-	CurrentAction := NewAction()
+
 	graph := NewGraph()
 	for i := 0; i < len(JsonStructs.Nodes); i++ {
 		//populate Node structure
+		CurrentNode := NewNode()
 		CurrentNode.Id = JsonStructs.Nodes[i].Id
 		CurrentNode.Typ = JsonStructs.Nodes[i].Typ
 		CurrentNode.Label = JsonStructs.Nodes[i].Label
 
 		//loop through the conditions
 		for j := 0; j < len(JsonStructs.Nodes[i].Conditions); j++ {
+			CurrentCond := NewCondtion()
 			CurrentCond.Id = JsonStructs.Nodes[i].Conditions[j].Id
 			CurrentCond.Typ = JsonStructs.Nodes[i].Conditions[j].Typ
 
@@ -241,6 +240,7 @@ func main() {
 
 		//loop through the actions
 		for a := 0; a < len(JsonStructs.Nodes[i].Actions); a++ {
+			CurrentAction := NewAction()
 			CurrentAction.Command = JsonStructs.Nodes[i].Actions[a].Command
 			CurrentAction.Typ = JsonStructs.Nodes[i].Actions[a].Typ
 
@@ -258,13 +258,39 @@ func main() {
 	}
 
 	//add connections between the nodes in the graph
-	for t := 0; t < len(JsonStructs.Transitions); t++ {
-		graph.Nodes[JsonStructs.Transitions[t].From.Node].add_child(JsonStructs.Transitions[t].To.Node, JsonStructs.Transitions[t].From.Condition)
+	for _, transition := range JsonStructs.Transitions {
+
+		nodeFromIndex := transition.From.Node
+
+		tempNode := graph.Nodes[nodeFromIndex]
+
+		tempNode = tempNode.add_child(
+			transition.To.Node,
+			transition.From.Condition,
+		)
+
+		graph.Nodes[transition.From.Node] = tempNode
+
 	}
+
+	// for k := range graph.Nodes {
+	// 	fmt.Println("the final nodes list")
+	// 	fmt.Println(k)
+	// 	fmt.Println(graph.Nodes[k].Children)
+	// }
 
 	//call dfs iterative
 	var path [][]int
 	DfsIterative(graph, graph.Nodes[1], path)
-	//fmt.Print(paths)
+	fmt.Print(paths)
+
+	//fmt.Println(len(graph.Nodes[7].Children))
+
+	/*testMap := make(map[int]int)
+	testMap[0] = 1
+	testMap[1] = 2
+	testMap[2] = 3
+
+	fmt.Println(len(testMap))*/
 
 }

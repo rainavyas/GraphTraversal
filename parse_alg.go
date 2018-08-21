@@ -12,130 +12,6 @@ var cas string
 var iteration = 99
 var paths [][][]int
 
-//define an Action structure
-type Action struct {
-	Typ        string
-	Command    string
-	Parameters map[string]string
-}
-
-//define a Condition structure
-type Condition struct {
-	Id      int
-	Typ     int
-	Pattern map[string]string //each new key,val is a new pattern
-}
-
-// define a node structure
-type Node struct {
-	Id         int
-	Typ        string
-	Label      string
-	Conditions map[int]Condition
-	Actions    []Action
-	Children   map[int]int
-}
-
-//create method for Node class to be able to add children nodes
-func (n Node) add_child(childID, conditionID int) Node {
-	n.Children[conditionID] = childID
-	return n
-
-}
-
-//define a Graph structure
-type Graph struct {
-	Nodes map[int]Node
-}
-
-//define a set of structures required for json unmarsheling
-
-//define json overall tree
-type JsonNodesAndTrans struct {
-	Nodes       []JsonNode       `json:"nodes"`
-	Transitions []JsonTransition `json:"transitions"`
-}
-
-//
-//define the json node structure
-type JsonNode struct {
-	Id         int             `json:"id"`
-	Typ        string          `json:"type"`
-	Label      string          `json:"label`
-	Position   JsonPosition    `json:"position"`
-	Conditions []JsonCondition `json:"conditions"`
-	Actions    []JsonAction    `json:"actions"`
-}
-
-//define the json position structure
-type JsonPosition struct {
-	X int `json:"x"`
-	Y int `json:"y"`
-}
-
-//define the json condition structure
-type JsonCondition struct {
-	Id      int           `json:"id"`
-	Typ     int           `json:"type"`
-	Pattern []JsonPattern `json:"pattern"`
-}
-
-//define the json pattern structure
-type JsonPattern struct {
-	Key   string `json:"key"`
-	Value string `json:"value"`
-}
-
-//define the json action structure
-type JsonAction struct {
-	Typ        string          `json:"type"`
-	Command    string          `json:"command"`
-	Parameters []JsonParameter `json:"parameters"`
-}
-
-//define the json paramater structure
-type JsonParameter struct {
-	Key string `json:"key"`
-	//Value string `json"value"`
-}
-
-//define the json transition structure
-type JsonTransition struct {
-	From JsonFrom `json:"from"`
-	To   JsonTo   `json:"to"`
-}
-
-//define the json from structure
-type JsonFrom struct {
-	Node      int `json:"node"`
-	Condition int `json:"condition"`
-}
-
-//define the json to structure
-type JsonTo struct {
-	Node int `json:"node"`
-}
-
-//function to create Action object
-func NewAction() Action {
-	return Action{Parameters: map[string]string{}}
-}
-
-//function to create Condition object
-func NewCondtion() Condition {
-	return Condition{Pattern: map[string]string{}}
-}
-
-// function to create Node object
-func NewNode() Node {
-	return Node{Conditions: map[int]Condition{}, Children: map[int]int{}}
-}
-
-//function to create Graph object
-func NewGraph() Graph {
-	return Graph{Nodes: map[int]Node{}}
-}
-
 //check to see if node has come up before
 func nodeInPath(nodeId int, path [][]int) bool {
 	for _, node := range path {
@@ -225,6 +101,130 @@ func CheckIterator(node Node) bool {
 	}
 }
 
+//define an Action structure
+type Action struct {
+	Typ        string
+	Command    string
+	Parameters map[string]interface{}
+}
+
+//define a Condition structure
+type Condition struct {
+	Id      int
+	Typ     int
+	Pattern map[string]string //each new key,val is a new pattern
+}
+
+// define a node structure
+type Node struct {
+	Id         int
+	Typ        string
+	Label      string
+	Conditions map[int]Condition
+	Actions    []Action
+	Children   map[int]int
+}
+
+//create method for Node class to be able to add children nodes
+func (n Node) add_child(childID, conditionID int) Node {
+	n.Children[conditionID] = childID
+	return n
+
+}
+
+//define a Graph structure
+type Graph struct {
+	Nodes map[int]Node
+}
+
+//define a set of structures required for json unmarsheling
+
+//define json overall tree
+type JsonNodesAndTrans struct {
+	Nodes       []JsonNode       `json:"nodes"`
+	Transitions []JsonTransition `json:"transitions"`
+}
+
+//
+//define the json node structure
+type JsonNode struct {
+	Id         int             `json:"id"`
+	Typ        string          `json:"type"`
+	Label      string          `json:"label`
+	Position   JsonPosition    `json:"position"`
+	Conditions []JsonCondition `json:"conditions"`
+	Actions    []JsonAction    `json:"actions"`
+}
+
+//define the json position structure
+type JsonPosition struct {
+	X int `json:"x"`
+	Y int `json:"y"`
+}
+
+//define the json condition structure
+type JsonCondition struct {
+	Id      int           `json:"id"`
+	Typ     int           `json:"type"`
+	Pattern []JsonPattern `json:"pattern"`
+}
+
+//define the json pattern structure
+type JsonPattern struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
+}
+
+//define the json action structure
+type JsonAction struct {
+	Typ        string          `json:"type"`
+	Command    string          `json:"command"`
+	Parameters []JsonParameter `json:"parameters"`
+}
+
+//define the json paramater structure
+type JsonParameter struct {
+	Key   string      `json:"key"`
+	Value interface{} `json"value"`
+}
+
+//define the json transition structure
+type JsonTransition struct {
+	From JsonFrom `json:"from"`
+	To   JsonTo   `json:"to"`
+}
+
+//define the json from structure
+type JsonFrom struct {
+	Node      int `json:"node"`
+	Condition int `json:"condition"`
+}
+
+//define the json to structure
+type JsonTo struct {
+	Node int `json:"node"`
+}
+
+//function to create Action object
+func NewAction() Action {
+	return Action{Parameters: map[string]interface{}{}}
+}
+
+//function to create Condition object
+func NewCondtion() Condition {
+	return Condition{Pattern: map[string]string{}}
+}
+
+// function to create Node object
+func NewNode() Node {
+	return Node{Conditions: map[int]Condition{}, Children: map[int]int{}}
+}
+
+//function to create Graph object
+func NewGraph() Graph {
+	return Graph{Nodes: map[int]Node{}}
+}
+
 func main() {
 	//choose file
 	//FileName := "jsons/Music--2018-08-10T09_20_31.449Z.json"
@@ -287,10 +287,10 @@ func main() {
 			CurrentAction.Command = a.Command
 			CurrentAction.Typ = a.Typ
 
-			// //loop through the parameters - don't actually need parameters
-			// for _, p := range a.Parameters {
-			// 	CurrentAction.Parameters[p.Key] = p.Value
-			// }
+			//loop through the parameters
+			for _, p := range a.Parameters {
+				CurrentAction.Parameters[p.Key] = p.Value
+			}
 
 			CurrentNode.Actions = append(CurrentNode.Actions, CurrentAction)
 

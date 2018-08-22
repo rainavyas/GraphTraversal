@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	s "strings"
 )
 
 //define some useful global variables
@@ -229,8 +230,8 @@ func main() {
 	//choose file
 	//FileName := "jsons/Music--2018-08-10T09_20_31.449Z.json"
 	//FileName := "jsons/Who-Am I--2018-08-10T09_22_10.343Z.json"
-	//FileName := "jsons/Wifi--2018-08-10T09_22_13.471Z.json"
-	FileName := "jsons/lights--2018-08-03T08_59_04.846Z.json"
+	FileName := "jsons/Wifi--2018-08-10T09_22_13.471Z.json"
+	//FileName := "jsons/lights--2018-08-03T08_59_04.846Z.json"
 
 	//get json file in the form of json numbers
 	jsonFile, err := os.Open(FileName)
@@ -316,15 +317,80 @@ func main() {
 
 	}
 
-	// for k := range graph.Nodes {
-	// 	fmt.Println("the final nodes list")
-	// 	fmt.Println(k)
-	// 	fmt.Println(graph.Nodes[k].Children)
-	// }
-
 	//call dfs iterative
-	var path [][]int
-	DfsIterative(graph, graph.Nodes[1], path)
-	fmt.Print(paths)
+	// var path [][]int
+	// DfsIterative(graph, graph.Nodes[1], path)
+	// //fmt.Print(paths)
+
+	//extract name of file
+	var name string
+	nameList := s.Split(FileName, "/")
+	name = nameList[len(nameList)-1]
+
+	nameList = s.Split(name, "-")
+	name = nameList[0]
+
+	//extract template text
+	//slurp entire file's content
+	dat, err := ioutil.ReadFile("template.go")
+	check(err)
+
+	//dump the template text into name.go file (in folder tests)
+	err = ioutil.WriteFile("tests/"+name+".go", dat, 0644)
+
+	//write a test for each path
+	for _, p := range paths {
+		//events lists hold all the conditions and actions in the path
+		var conditions []Condition
+		var actions []Action
+		//go through each element in path in turn
+		for _, stop := range p {
+			node := graph.Nodes[stop[0]]
+			//determine type of node: event node or action node
+			if len(node.Conditions) > 0 {
+				//append the correct condition of this path
+				conditions = append(conditions, node.Conditions[stop[1]])
+				actions = append(actions, NewAction())
+			} else {
+				//we have an action node
+				//append all the actions of this node
+				for _, action := range node.Actions {
+					actions = append(actions, action)
+					conditions = append(conditions, NewCondtion())
+				}
+			}
+
+		}
+		//write a test for this path
+		writeTest(conditions, actions)
+
+	}
+
+}
+
+// function to check for error
+func check(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+
+//function to write test
+func writeTest(conditions []Condition, actions []Action) {
+
+	//the full text of the current scenario
+	fullText := ""
+	//the text said by Olly
+	tts := ""
+	//entities (speech recognised only)
+	var ents []string
+	//values of the entities
+	var vals []string
+	//name of the .Matcher needed (what service is used)
+	matcher := ""
+	//Action.command
+	commands := make(map[string]string)
+	//action parameters - additional info for action nodes
+	params := make(map[string]string)
 
 }

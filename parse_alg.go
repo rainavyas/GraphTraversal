@@ -393,4 +393,23 @@ func writeTest(conditions []Condition, actions []Action) {
 	//action parameters - additional info for action nodes
 	params := make(map[string]string)
 
+	for i := 0; i < len(conditions); i++ {
+		if actions[i].Typ != "" {
+			//we are at an action node
+			if actions[i].Typ == "TTS" {
+				//TTS action node
+
+			} else {
+				//any other action node
+			}
+		} else {
+			//we have an event node
+			if conditions[i].Typ == 5 {
+				//Speech Recognised Event
+			} else {
+				//any other kind of event nodes
+			}
+		}
+	}
+
 }

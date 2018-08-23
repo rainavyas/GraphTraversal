@@ -38,6 +38,8 @@ class GUI:
 		
 #Write a Riemann test to a file	in GO syntax
 def write_a_test(elist):
+	important_matchers=["iot.LIGHTS"] #Action.type of action we are interested in
+
 	fulltext="" #The full text of the current scenario
 
 	tts="" #The text said by olly
@@ -76,7 +78,8 @@ def write_a_test(elist):
 			fulltext+=('\t\t\t)\n')
 			fulltext+=('\t\t\tr.Match( \n'
 							'\t\t\t\triemann.Group( \n')
-		elif type(e.type)!=int: #Any other action node
+		#elif type(e.type)!=int: #Any other action node
+		elif e.type in important_matchers: #Write matchers only for the integrations we care about
 			commands={} #Action.command
 			params={} #Additional information for action nodes
 			action_name=e.type.lower().split('.')[-1] #Split to ensure the action name is a single word e.g iot.LIGHTS--->lights

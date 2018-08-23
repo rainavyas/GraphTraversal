@@ -5,6 +5,9 @@ import tkFileDialog
 import os
 from help import Stack, Queue
 import shutil
+from default_entity_vals import values, json_values
+
+global values, json_values
 
 class GUI:
 	def __init__(self, master,text):
@@ -37,7 +40,7 @@ class GUI:
 		self.T.configure(state='disabled')
 		
 #Write a Riemann test to a file	in GO syntax
-def write_a_test(elist):
+def write_a_test(elist,path_id):
 	important_matchers=["iot.LIGHTS"] #Action.type of action we are interested in
 
 	fulltext="" #The full text of the current scenario
@@ -64,8 +67,14 @@ def write_a_test(elist):
 				elif k=='intents':
 					intent=e.pattern["intents"]
 				else: #enitity
-					ents.append(k.split(':')[-1])#store all entities, get the latter part of entity e.g. iot:location--->location
-					vals.append("val")
+					entity=k.split(':')[-1]
+					ents.append(entity)#store all entities, get the latter part of entity e.g. iot:location--->location
+					if entity in values.keys():
+						vals.append(values[entity])
+					elif entity in json_values:
+						vals.append(e.pattern[k])
+					else:
+						val='val'
 					#raw_input("Enter value for entity "+entity+" ")
 			fulltext+=('\t\t\tr.Sensors.Mic.SendNlpResult( \n')
 			fulltext+=('\t\t\t\tmicSensor.Domains("'+domain+'"),\n')
@@ -92,7 +101,13 @@ def write_a_test(elist):
 						continue
 					fulltext+=('\t\t\t\t\t'+matcher+'.Matcher("'+command+'", \n')
 					for param in params[matcher]:
-						fulltext+=('\t\t\t\t\t\t\thass.Entity("'+param+'","val")\n') #hass.Entity needs to be replaced with appropriate name
+						if param in values.keys():
+							val=values[param]
+						elif param in json_values:
+							val=str(e.parameters[param])
+						else:
+							val='val'
+						fulltext+=('\t\t\t\t\t\t\thass.Entity("'+param+'","'+ val+'")\n') #hass.Entity needs to be replaced with appropriate name
 					fulltext+=('\t\t\t\t\t)\n')
 		else:
 			pass
@@ -102,16 +117,18 @@ def write_a_test(elist):
 			'\t}) \n')
 
 	#Open GUI to complete scenario
-	master = tk.Tk()
-	my_gui = GUI(master,fulltext)
-	master.mainloop()
+	# master = tk.Tk()
+	# my_gui = GUI(master,fulltext)
+	# master.mainloop()
 
 	#Retrieve input
-	user=my_gui.user.get()
-	olly=my_gui.olly.get()
+	# user=my_gui.user.get()
+	# olly=my_gui.olly.get()
+	user=str(path_id)
+	olly='Hi'
 
 	#Add the first two lines with user readable scenario summary at the start
-	fulltext=('\tDescribe("User says '+user+'", func() { \n' '\t\tIt("Should say '+olly+'", func() { \n' '\t\t\tr.Sensors.Mic.SendVT(micSensor.WAKEUP) \n'+'\t\t\tr.WaitFor(olly).ToBe(riemann.Listening()) \n')+fulltext
+	fulltext=('\tDescribe("Test number '+user+'", func() { \n' '\t\tIt("Should say '+olly+'", func() { \n' '\t\t\tr.Sensors.Mic.SendVT(micSensor.WAKEUP) \n'+'\t\t\tr.WaitFor(olly).ToBe(riemann.Listening()) \n')+fulltext
 	#write scenario to file
 	file.write(fulltext)
 
@@ -288,8 +305,8 @@ for p in paths:
 			KeyError
 		for i in loc.actions: #Get all the Actions in node
 			events.append(i)
-
-	write_a_test(events)
+	idx=paths.index(p)
+	write_a_test(events, idx)
 file.close()
 
 

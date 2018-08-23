@@ -64,7 +64,7 @@ var _ = Describe("Riemann", func() {
 				micSensor.Domains("time"),
 				micSensor.Intents("time:query"),
 				micSensor.Entities(
-					"location","val"
+					"location","Tokyo"
 				)
 			)
 			r.Match( 

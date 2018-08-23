@@ -41,139 +41,578 @@ var _ = Describe("Riemann", func() {
 		r.WaitFor(olly).ToBe(riemann.StartedAndIdle())
 	})
 
-	Describe("User says a", func() { 
-		It("Should say b", func() { 
+	Describe("Test number0", func() { 
+		It("Should say Hi", func() { 
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
 				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-				micSensor.Entities(
-					"house_place","val"
-				)
+				micSensor.Intents("iot_lighting:turn_on"),
 			)
 			r.Match( 
 				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					iot.Matcher("resolve_by_domain_name_and_capability", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("brightening the lights"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says d", func() { 
-		It("Should say b", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-				micSensor.Entities(
-					"house_place","val"
-				)
-			)
-			r.Match( 
-				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					iot.Matcher("resolve_by_domain_name_and_capability", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("brightening the lights"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says d", func() { 
-		It("Should say b", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-				micSensor.Entities(
-					"house_place","val"
-				)
-			)
-			r.Match( 
-				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
 					)
 					tts.Matcher("There is no light called like that"), 
 				), 
 			) 
 		}) 
 	}) 
-	Describe("User says b", func() { 
-		It("Should say b", func() { 
+	Describe("Test number1", func() { 
+		It("Should say Hi", func() { 
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
 				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_down"),
+				micSensor.Intents("iot_lighting:turn_on"),
 			)
 			r.Match( 
 				riemann.Group( 
 					lights.Matcher("turn_on", 
-							hass.Entity("","val")
-							hass.Entity("","val")
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
 					)
-					timeout.Matcher("set", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					iot.Matcher("resolve_by_domain_name_and_capability", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
+					tts.Matcher("turning the lights on"), 
 				), 
 			) 
 		}) 
 	}) 
-	Describe("User says b", func() { 
-		It("Should say b", func() { 
+	Describe("Test number2", func() { 
+		It("Should say Hi", func() { 
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
 				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_down"),
+				micSensor.Intents("iot_lighting:turn_on"),
 			)
 			r.Match( 
 				riemann.Group( 
 					lights.Matcher("turn_on", 
-							hass.Entity("","val")
-							hass.Entity("","val")
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
 					)
-					timeout.Matcher("set", 
-							hass.Entity("","val")
-							hass.Entity("","val")
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
 					)
-					iot.Matcher("resolve_by_domain_name_and_capability", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("$error"), 
+					tts.Matcher("There is no light called like that"), 
 				), 
 			) 
 		}) 
 	}) 
-	Describe("User says b", func() { 
-		It("Should say b", func() { 
+	Describe("Test number3", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_on"),
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("turning the lights on"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number4", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number5", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					tts.Matcher("turning the lights on"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number6", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number7", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("turning the lights on"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number8", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number9", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("turning the lights on"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number10", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Entities(
+					"house_place","bedroom"
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number11", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Entities(
+					"house_place","bedroom"
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					tts.Matcher("turning the lights on"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number12", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Entities(
+					"house_place","bedroom"
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number13", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Entities(
+					"house_place","bedroom"
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("turning the lights on"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number14", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Entities(
+					"house_place","bedroom"
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number15", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Entities(
+					"house_place","bedroom"
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("turning the lights on"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number16", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_up"),
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number17", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_up"),
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					tts.Matcher("brightening the lights"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number18", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_up"),
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number19", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_up"),
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					tts.Matcher("brightening the lights"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number20", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_up"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number21", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_up"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					tts.Matcher("brightening the lights"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number22", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_up"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number23", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_up"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					tts.Matcher("brightening the lights"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number24", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_up"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number25", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_up"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					tts.Matcher("brightening the lights"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number26", func() { 
+		It("Should say Hi", func() { 
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
@@ -183,25 +622,447 @@ var _ = Describe("Riemann", func() {
 			r.Match( 
 				riemann.Group( 
 					lights.Matcher("turn_on", 
-							hass.Entity("","val")
-							hass.Entity("","val")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
 					)
-					timeout.Matcher("set", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					iot.Matcher("resolve_by_domain_name_and_capability", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-							hass.Entity("","val")
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number27", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_down"),
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
 					)
 					tts.Matcher("dimming the lights"), 
 				), 
 			) 
 		}) 
 	}) 
-	Describe("User says b", func() { 
-		It("Should say b", func() { 
+	Describe("Test number28", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_down"),
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number29", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_down"),
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					tts.Matcher("dimming the lights"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number30", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_down"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number31", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_down"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					tts.Matcher("dimming the lights"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number32", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_down"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number33", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_down"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					tts.Matcher("dimming the lights"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number34", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_down"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number35", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_down"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+							hass.Entity("brightness","255")
+					)
+					tts.Matcher("dimming the lights"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number36", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:set_specific"),
+				micSensor.Entities(
+					"house_place","bedroom"
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number37", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:set_specific"),
+				micSensor.Entities(
+					"house_place","bedroom"
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					tts.Matcher("changing the colour of the lights"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number38", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:set_specific"),
+				micSensor.Entities(
+					"house_place","bedroom"
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number39", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:set_specific"),
+				micSensor.Entities(
+					"house_place","bedroom"
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("changing the colour of the lights"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number40", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:set_specific"),
+				micSensor.Entities(
+					"house_place","bedroom"
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number41", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:set_specific"),
+				micSensor.Entities(
+					"house_place","bedroom"
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("changing the colour of the lights"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number42", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:set_specific"),
+				micSensor.Entities(
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number43", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:set_specific"),
+				micSensor.Entities(
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("changing the colour of the lights"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number44", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:set_specific"),
+				micSensor.Entities(
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number45", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:set_specific"),
+				micSensor.Entities(
+					"color","green"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					lights.Matcher("turn_on", 
+							hass.Entity("color","green")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("changing the colour of the lights"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number46", func() { 
+		It("Should say Hi", func() { 
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
@@ -211,19 +1072,15 @@ var _ = Describe("Riemann", func() {
 			r.Match( 
 				riemann.Group( 
 					lights.Matcher("turn_off", 
-							hass.Entity("","val")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
 					)
-					timeout.Matcher("set", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("turning the lights off"), 
+					tts.Matcher("There is no light called like that"), 
 				), 
 			) 
 		}) 
 	}) 
-	Describe("User says b", func() { 
-		It("Should say b", func() { 
+	Describe("Test number47", func() { 
+		It("Should say Hi", func() { 
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
@@ -233,506 +1090,183 @@ var _ = Describe("Riemann", func() {
 			r.Match( 
 				riemann.Group( 
 					lights.Matcher("turn_off", 
-							hass.Entity("","val")
-					)
-					timeout.Matcher("set", 
-							hass.Entity("","val")
-							hass.Entity("","val")
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
 					)
 					tts.Matcher("turning the lights off"), 
 				), 
 			) 
 		}) 
 	}) 
-	Describe("User says b", func() { 
-		It("Should say b", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
-				micSensor.Entities(
-					"color","val"
-					"house_place","val"
-				)
-			)
-			r.Match( 
-				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("There is no light called like that"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says b", func() { 
-		It("Should say b", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
-				micSensor.Entities(
-					"house_place","val"
-					"color","val"
-				)
-			)
-			r.Match( 
-				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("turning the lights on"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says b", func() { 
-		It("Should say b", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-				micSensor.Entities(
-					"house_place","val"
-				)
-			)
-			r.Match( 
-				riemann.Group( 
-					tts.Matcher("Could not find the color you ask for."), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says b", func() { 
-		It("Should say b", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_down"),
-				micSensor.Entities(
-					"house_place","val"
-				)
-			)
-			r.Match( 
-				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					iot.Matcher("resolve_by_domain_name_and_capability", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("dimming the lights"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says b", func() { 
-		It("Should say b", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_down"),
-				micSensor.Entities(
-					"house_place","val"
-				)
-			)
-			r.Match( 
-				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					iot.Matcher("resolve_by_domain_name_and_capability", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("dimming the lights"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says b", func() { 
-		It("Should say b", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_down"),
-				micSensor.Entities(
-					"house_place","val"
-				)
-			)
-			r.Match( 
-				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("There is no light called like that"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says b", func() { 
-		It("Should say f", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-				micSensor.Entities(
-					"house_place","val"
-					"color","val"
-				)
-			)
-			r.Match( 
-				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("There is no light called like that"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says d", func() { 
-		It("Should say v", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-				micSensor.Entities(
-					"color","val"
-					"house_place","val"
-				)
-			)
-			r.Match( 
-				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					iot.Matcher("resolve_by_domain_name_and_capability", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("changing the colour of the lights"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says f", func() { 
-		It("Should say d", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
-				micSensor.Entities(
-					"color","val"
-					"house_place","val"
-				)
-			)
-			r.Match( 
-				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					iot.Matcher("resolve_by_domain_name_and_capability", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("changing the colour of the lights"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says d", func() { 
-		It("Should say ", func() { 
+	Describe("Test number48", func() { 
+		It("Should say Hi", func() { 
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
 				micSensor.Domains("iot_lighting"),
 				micSensor.Intents("iot_lighting:turn_off"),
-				micSensor.Entities(
-					"house_place","val"
-				)
 			)
 			r.Match( 
 				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
+					lights.Matcher("turn_off", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					lights.Matcher("turn_off", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
 					)
 					tts.Matcher("There is no light called like that"), 
 				), 
 			) 
 		}) 
 	}) 
-	Describe("User says d", func() { 
-		It("Should say v", func() { 
+	Describe("Test number49", func() { 
+		It("Should say Hi", func() { 
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
 				micSensor.Domains("iot_lighting"),
 				micSensor.Intents("iot_lighting:turn_off"),
-				micSensor.Entities(
-					"house_place","val"
-				)
 			)
 			r.Match( 
 				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
+					lights.Matcher("turn_off", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					lights.Matcher("turn_off", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
 					)
 					tts.Matcher("turning the lights off"), 
 				), 
 			) 
 		}) 
 	}) 
-	Describe("User says f", func() { 
-		It("Should say ", func() { 
+	Describe("Test number50", func() { 
+		It("Should say Hi", func() { 
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
 				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
-			)
-			r.Match( 
-				riemann.Group( 
-					lights.Matcher("turn_on", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					timeout.Matcher("set", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("turning the lights on"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
-			)
-			r.Match( 
-				riemann.Group( 
-					lights.Matcher("turn_on", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					timeout.Matcher("set", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("turning the lights on"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-			)
-			r.Match( 
-				riemann.Group( 
-					lights.Matcher("turn_on", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					timeout.Matcher("set", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					iot.Matcher("resolve_by_domain_name_and_capability", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-			)
-			r.Match( 
-				riemann.Group( 
-					lights.Matcher("turn_on", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					timeout.Matcher("set", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					iot.Matcher("resolve_by_domain_name_and_capability", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("$error"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_up"),
-			)
-			r.Match( 
-				riemann.Group( 
-					lights.Matcher("turn_on", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					timeout.Matcher("set", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					iot.Matcher("resolve_by_domain_name_and_capability", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("brightening the lights"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
+				micSensor.Intents("iot_lighting:turn_off"),
 				micSensor.Entities(
-					"color","val"
+					"house_place","bedroom"
 				)
 			)
 			r.Match( 
 				riemann.Group( 
-					lights.Matcher("turn_on", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					timeout.Matcher("set", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					lights.Matcher("turn_on", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					timeout.Matcher("set", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
+					tts.Matcher("There is no light called like that"), 
 				), 
 			) 
 		}) 
 	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
+	Describe("Test number51", func() { 
+		It("Should say Hi", func() { 
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
 				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
+				micSensor.Intents("iot_lighting:turn_off"),
 				micSensor.Entities(
-					"color","val"
+					"house_place","bedroom"
 				)
 			)
 			r.Match( 
 				riemann.Group( 
-					lights.Matcher("turn_on", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					timeout.Matcher("set", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					iot.Matcher("resolve_by_domain_name_and_capability", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("$error"), 
+					tts.Matcher("turning the lights off"), 
 				), 
 			) 
 		}) 
 	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
+	Describe("Test number52", func() { 
+		It("Should say Hi", func() { 
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
 				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:set_specific"),
+				micSensor.Intents("iot_lighting:turn_off"),
 				micSensor.Entities(
-					"color","val"
+					"house_place","bedroom"
 				)
 			)
 			r.Match( 
 				riemann.Group( 
-					lights.Matcher("turn_on", 
-							hass.Entity("","val")
-							hass.Entity("","val")
+					lights.Matcher("turn_off", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
 					)
-					timeout.Matcher("set", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					iot.Matcher("resolve_by_domain_name_and_capability", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("changing the colour of the lights"), 
+					tts.Matcher("There is no light called like that"), 
 				), 
 			) 
 		}) 
 	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
+	Describe("Test number53", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_off"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_off", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("turning the lights off"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number54", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_off"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_off", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					lights.Matcher("turn_off", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("There is no light called like that"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number55", func() { 
+		It("Should say Hi", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+			r.Sensors.Mic.SendNlpResult( 
+				micSensor.Domains("iot_lighting"),
+				micSensor.Intents("iot_lighting:turn_off"),
+				micSensor.Entities(
+					"house_place","bedroom"
+				)
+			)
+			r.Match( 
+				riemann.Group( 
+					lights.Matcher("turn_off", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					lights.Matcher("turn_off", 
+							hass.Entity("entity_id","light.gateway_light_34ce008be244")
+					)
+					tts.Matcher("turning the lights off"), 
+				), 
+			) 
+		}) 
+	}) 
+	Describe("Test number56", func() { 
+		It("Should say Hi", func() { 
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
@@ -746,46 +1280,20 @@ var _ = Describe("Riemann", func() {
 			) 
 		}) 
 	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
+	Describe("Test number57", func() { 
+		It("Should say Hi", func() { 
 			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
 			r.WaitFor(olly).ToBe(riemann.Listening()) 
 			r.Sensors.Mic.SendNlpResult( 
 				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
+				micSensor.Intents("iot_lighting:set_specific"),
 				micSensor.Entities(
-					"house_place","val"
+					"house_place","bedroom"
 				)
 			)
 			r.Match( 
 				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("turning the lights on"), 
-				), 
-			) 
-		}) 
-	}) 
-	Describe("User says ", func() { 
-		It("Should say ", func() { 
-			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
-			r.WaitFor(olly).ToBe(riemann.Listening()) 
-			r.Sensors.Mic.SendNlpResult( 
-				micSensor.Domains("iot_lighting"),
-				micSensor.Intents("iot_lighting:turn_on"),
-				micSensor.Entities(
-					"house_place","val"
-				)
-			)
-			r.Match( 
-				riemann.Group( 
-					iot.Matcher("resolve_by_domain_and_name", 
-							hass.Entity("","val")
-							hass.Entity("","val")
-					)
-					tts.Matcher("There is no light called like that"), 
+					tts.Matcher("Could not find the color you ask for."), 
 				), 
 			) 
 		}) 

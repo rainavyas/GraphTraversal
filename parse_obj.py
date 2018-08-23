@@ -149,6 +149,9 @@ def dfs_iterative(graph, start, path):
 		return
 	new_path.append((0,0))
 	for n in start.children.keys(): #otherwise go through each of next nodes one by one
+		if len(start.conditions.keys())>0:
+			if 'error' in start.conditions[n].pattern.keys(): #Discard paths containing errors
+				continue
 		new_path[-1]=(start.id,n)
 		neighbor=graph.nodes[start.children[n]]
 		dfs_iterative(graph, neighbor,new_path)

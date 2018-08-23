@@ -318,8 +318,8 @@ func main() {
 	}
 
 	//call dfs iterative
-	// var path [][]int
-	// DfsIterative(graph, graph.Nodes[1], path)
+	var path [][]int
+	DfsIterative(graph, graph.Nodes[1], path)
 	// //fmt.Print(paths)
 
 	//extract name of file
@@ -366,6 +366,21 @@ func main() {
 
 	}
 
+	//mini test to see how I can cast interface to string using Sprintf function
+	// var myInterface []interface{}
+	// myInterface = append(myInterface, "string")
+	// var myString string
+	// myString = fmt.Sprintf("%v%", myInterface[0])
+	// fmt.Println(myString)
+	// fmt.Println(myInterface[0])
+
+	// temp := s.Split(myString, "%")
+	// myString = temp[0]
+
+	// if myString == "string" {
+	// 	fmt.Println("works")
+	// }
+
 }
 
 // function to check for error
@@ -380,32 +395,80 @@ func writeTest(conditions []Condition, actions []Action) {
 
 	//the full text of the current scenario
 	fullText := ""
+
 	//the text said by Olly
 	tts := ""
-	//entities (speech recognised only)
-	var ents []string
-	//values of the entities
-	var vals []string
+
+	//entity to value map - only speech recognised entities
+	entsMap := make(map[string]string)
+
 	//name of the .Matcher needed (what service is used)
 	matcher := ""
+
 	//Action.command
 	commands := make(map[string]string)
+
 	//action parameters - additional info for action nodes
 	params := make(map[string]string)
+
+	//domain, intent
+	domain := ""
+	intent := ""
 
 	for i := 0; i < len(conditions); i++ {
 		if actions[i].Typ != "" {
 			//we are at an action node
 			if actions[i].Typ == "TTS" {
 				//TTS action node
+				tempInterface := actions[i].Parameters["sentence"] //tts is string and value is interface
+				tempString := fmt.Sprintf("%v%", tempInterface)
+				tempList := s.Split(tempString, "%")
+				tts = tempList[0]
+				if tts != "" {
+					fullText = s.Join([]string{fullText, "\t\t\t\t\ttts.Matcher(\"", tts, "\"), \n"}, "")
+				}
 
 			} else {
 				//any other action node
+
 			}
 		} else {
 			//we have an event node
 			if conditions[i].Typ == 5 {
 				//Speech Recognised Event
+				//get the NLP information
+				for key, val := range conditions[i].Pattern {
+					if key == "domains" {
+						domain = val
+					} else {
+						if key == "intents" {
+							intent = val
+						} else {
+							//entity
+							//store all entities - and get latter part of key expression
+							tempLst := s.Split(key, ":")
+							entsMap[tempLst[len(tempLst)-1]] = "val"
+						}
+					}
+				}
+				//add domain, intents and entities information to full text
+				fullText = s.Join([]string{fullText, "\t\t\tr.Sensors.Mic.SendNlpResult( \n"}, "")
+				fullText = s.Join([]string{fullText, "\t\t\t\tmicSensor.Domains(\"", domain, "\"),\n"}, "")
+				fullText = s.Join([]string{fullText, "\t\t\t\tmicSensor.Intents(\"", intent, "\"),\n"}, "")
+
+				//add any entities
+				if len(entsMap) > 0 {
+					fullText = s.Join([]string{fullText, "\t\t\t\tmicSensor.Entities(\n"}, "")
+
+					//add each entity separately
+					for entKey, val := range entsMap {
+						fullText = s.Join([]string{fullText, "\t\t\t\t\t\"", entKey, "\",\"", val, "\"\n"}, "")
+					}
+					fullText = s.Join([]string{fullText, "\t\t\t\t)\n"}, "")
+				}
+				fullText = s.Join([]string{fullText, "\t\t\t)\n"}, "")
+				fullText = s.Join([]string{fullText, "\t\t\tr.Match( \n\t\t\t\triemann.Group( \n"}, "")
+
 			} else {
 				//any other kind of event nodes
 			}

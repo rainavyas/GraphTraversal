@@ -230,8 +230,8 @@ func main() {
 	//choose file
 	//FileName := "jsons/Music--2018-08-10T09_20_31.449Z.json"
 	//FileName := "jsons/Who-Am I--2018-08-10T09_22_10.343Z.json"
-	FileName := "jsons/Wifi--2018-08-10T09_22_13.471Z.json"
-	//FileName := "jsons/lights--2018-08-03T08_59_04.846Z.json"
+	//FileName := "jsons/Wifi--2018-08-10T09_22_13.471Z.json"
+	FileName := "jsons/lights--2018-08-03T08_59_04.846Z.json"
 
 	//get json file in the form of json numbers
 	jsonFile, err := os.Open(FileName)
@@ -362,24 +362,9 @@ func main() {
 
 		}
 		//write a test for this path
-		writeTest(conditions, actions)
+		writeTest(conditions, actions, name)
 
 	}
-
-	//mini test to see how I can cast interface to string using Sprintf function
-	// var myInterface []interface{}
-	// myInterface = append(myInterface, "string")
-	// var myString string
-	// myString = fmt.Sprintf("%v%", myInterface[0])
-	// fmt.Println(myString)
-	// fmt.Println(myInterface[0])
-
-	// temp := s.Split(myString, "%")
-	// myString = temp[0]
-
-	// if myString == "string" {
-	// 	fmt.Println("works")
-	// }
 
 }
 
@@ -391,7 +376,7 @@ func check(e error) {
 }
 
 //function to write test
-func writeTest(conditions []Condition, actions []Action) {
+func writeTest(conditions []Condition, actions []Action, name string) {
 
 	//the full text of the current scenario
 	fullText := ""
@@ -460,7 +445,7 @@ func writeTest(conditions []Condition, actions []Action) {
 			//we have an event node
 			if conditions[i].Typ == 5 {
 				//Speech Recognised Event
-				
+
 				//entity to value map - only speech recognised entities
 				entsMap := make(map[string]string)
 
@@ -502,6 +487,26 @@ func writeTest(conditions []Condition, actions []Action) {
 			}
 		}
 	}
-	fullText = s.Join([]string{fullText,
+	fullText = s.Join([]string{fullText, "\t\t\t\t), \n\t\t\t) \n\t\t}) \n\t}) \n"}, "")
 
+	//get user input
+	fmt.Println("User says?")
+	var user string
+	fmt.Scanln(&user)
+
+	fmt.Println("Olly should say?")
+	var olly string
+	fmt.Scanln(&olly)
+
+	//add the user input to the fullText
+	fullText = s.Join([]string{"\tDescribe(\"User says ", user, "\", func() { \n\t\tIt(\"Should say ", olly, "\", func() { \n\t\t\tr.Sensors.Mic.SendVT(micSensor.WAKEUP) \n\t\t\tr.WaitFor(olly).ToBe(riemann.Listening()) \n", fullText}, "")
+
+	//append the file with fullText
+
+	f, err := os.OpenFile("tests/"+name+".go", os.O_APPEND|os.O_WRONLY, 0644)
+	check(err)
+
+	_, err = f.WriteString(fullText)
+	check(err)
+	f.Close()
 }

@@ -41,3 +41,17 @@ var _ = Describe("Riemann", func() {
 		r.WaitFor(olly).ToBe(riemann.StartedAndIdle())
 	})
 
+	Describe("User says a", func() { 
+		It("Should say s", func() { 
+			r.Sensors.Mic.SendVT(micSensor.WAKEUP) 
+			r.WaitFor(olly).ToBe(riemann.Listening()) 
+					wifi.Matcher("get_credentials", 
+					)
+					wifi.Matcher("set_up", 
+							hass.Entity("","val")
+							hass.Entity("","val")
+					)
+				), 
+			) 
+		}) 
+	}) 

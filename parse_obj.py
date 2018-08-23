@@ -42,12 +42,10 @@ def write_a_test(elist):
 
 	tts="" #The text said by olly
 
-	ents=[] #entities (speech recognised)
-	vals=[] #values of entities e.g. Tokyo for enitity weather:loacation
+	
 
 	matcher="" #The name of the .Matcher needed (i.e what service is used)
-	commands={} #Action.command
-	params={} #Additional information for action nodes
+	
 
 	for e in elist: #check what events are in the path
 		if e.type=="TTS": #TTS node
@@ -55,6 +53,8 @@ def write_a_test(elist):
 			if tts!='':
 				fulltext+=('\t\t\t\t\ttts.Matcher("'+tts+'"), \n') 
 		elif e.type==5:#Speech Recognised event
+			ents=[] #entities (speech recognised)
+			vals=[] #values of entities e.g. Tokyo for enitity weather:loacation
 			keys=e.pattern.keys() #Get the NLP information
 			for k in keys: 
 				if k=='domains':
@@ -77,6 +77,8 @@ def write_a_test(elist):
 			fulltext+=('\t\t\tr.Match( \n'
 							'\t\t\t\triemann.Group( \n')
 		elif type(e.type)!=int: #Any other action node
+			commands={} #Action.command
+			params={} #Additional information for action nodes
 			action_name=e.type.lower().split('.')[-1] #Split to ensure the action name is a single word e.g iot.LIGHTS--->lights
 			commands[action_name]=e.command.lower() #Save the command under the action type
 			params[action_name]=e.parameters.keys() #Save the list of action parameter names under the action type

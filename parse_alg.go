@@ -399,22 +399,11 @@ func writeTest(conditions []Condition, actions []Action) {
 	//the text said by Olly
 	tts := ""
 
-	//entity to value map - only speech recognised entities
-	entsMap := make(map[string]string)
-
-	//name of the .Matcher needed (what service is used)
-	matcher := ""
-
-	//Action.command
-	commands := make(map[string]string)
-
-	//action parameters - additional info for action nodes
-	params := make(map[string]string)
-
 	//domain, intent
 	domain := ""
 	intent := ""
 
+	//loop through each event in path
 	for i := 0; i < len(conditions); i++ {
 		if actions[i].Typ != "" {
 			//we are at an action node
@@ -431,11 +420,50 @@ func writeTest(conditions []Condition, actions []Action) {
 			} else {
 				//any other action node
 
+				//Action.command
+				commands := make(map[string]string)
+
+				//action parameters - additional info for action nodes
+				params := make(map[string][]string)
+
+				tempString := s.ToLower(actions[i].Typ)
+				tempList := s.Split(tempString, ".")
+				actionName := tempList[len(tempList)-1]
+				commands[actionName] = s.ToLower(actions[i].Command)
+				//extract keys of action.parameters
+				parKeys := make([]string, len(actions[i].Parameters))
+				i := 0
+				for k := range actions[i].Parameters {
+					parKeys[i] = k
+					i++
+				}
+				params[actionName] = parKeys
+
+				//write action matchers
+				if len(commands) > 0 {
+					for matcher, command := range commands {
+						if matcher == "iterator" {
+							//do nothing - skip iterators
+							continue
+						}
+						fullText = s.Join([]string{fullText, "\t\t\t\t\t", matcher, ".Matcher(\"", command, "\", \n"}, "")
+						for _, param := range params[matcher] {
+							fullText = s.Join([]string{fullText, "\t\t\t\t\t\t\thass.Entity(\"", param, "\",\"val\")\n"}, "")
+						}
+						fullText = s.Join([]string{fullText, "\t\t\t\t\t)\n"}, "")
+
+					}
+				}
+
 			}
 		} else {
 			//we have an event node
 			if conditions[i].Typ == 5 {
 				//Speech Recognised Event
+				
+				//entity to value map - only speech recognised entities
+				entsMap := make(map[string]string)
+
 				//get the NLP information
 				for key, val := range conditions[i].Pattern {
 					if key == "domains" {
@@ -474,5 +502,6 @@ func writeTest(conditions []Condition, actions []Action) {
 			}
 		}
 	}
+	fullText = s.Join([]string{fullText,
 
 }
